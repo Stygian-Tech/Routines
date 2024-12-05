@@ -44,22 +44,8 @@ struct SettingsView: View {
                     Text("Coming Soon...")
                 }
                 Section(header: Text("Special Thanks")) {
-                    Button(action: {
-                        guard let url = URL(string: "https://github.com/jeremieb/social-symbols/tree/main") else {
-                            return
-                        }
-                        UIApplication.shared.open(url)
-                    }) {
-                        HStack {
-                            Text("Social Symbols")
-                            Spacer()
-                            Image(systemName: "chevron.forward")
-                                .foregroundStyle(.tertiary)
-                                .font(.caption)
-                        }
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
+                    LinkListCardView(urlString: "https://github.com/jeremieb/social-symbols/tree/main", name: "Social Symbols")
+                    LinkListCardView(urlString: "https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI", name: "SF Symbols Picker for SwiftUI")
                 }
             }
             Spacer()

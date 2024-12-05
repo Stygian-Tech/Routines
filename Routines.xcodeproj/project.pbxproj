@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		223940FB2D00FC0E00A0F045 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 223940FA2D00FC0E00A0F045 /* SFSymbolsPicker */; };
+		223940FD2D0127B400A0F045 /* LinkListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223940FC2D0127B400A0F045 /* LinkListCardView.swift */; };
 		223FB7B82C6A633500A74D80 /* Tips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB7B72C6A633500A74D80 /* Tips.swift */; };
 		224BD2392C471B4E0080F00E /* IconLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BD2382C471B4E0080F00E /* IconLists.swift */; };
 		224CA0392C321EEE0096F094 /* RoutinesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0382C321EEE0096F094 /* RoutinesApp.swift */; };
@@ -89,6 +91,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		223940FC2D0127B400A0F045 /* LinkListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListCardView.swift; sourceTree = "<group>"; };
 		223FB7B72C6A633500A74D80 /* Tips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tips.swift; sourceTree = "<group>"; };
 		224BD2382C471B4E0080F00E /* IconLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLists.swift; sourceTree = "<group>"; };
 		224CA0352C321EEE0096F094 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				223940FB2D00FC0E00A0F045 /* SFSymbolsPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +279,7 @@
 				2282B9E72C34472A004FECDB /* RoutineCardView.swift */,
 				22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */,
 				2282B9E52C3446A5004FECDB /* SettingsView.swift */,
+				223940FC2D0127B400A0F045 /* LinkListCardView.swift */,
 				226D5A4E2C98D34C00097158 /* EditDaysView.swift */,
 				226D5A502C98E1C000097158 /* DayToggleButton.swift */,
 			);
@@ -434,6 +439,9 @@
 				Base,
 			);
 			mainGroup = 224CA02C2C321EEE0096F094;
+			packageReferences = (
+				223940F92D00FC0E00A0F045 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 224CA0362C321EEE0096F094 /* Products */;
 			projectDirPath = "";
@@ -487,6 +495,7 @@
 			files = (
 				22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */,
 				22FE73422C7F7BD1008A1D24 /* RoutineCompletionIcon.swift in Sources */,
+				223940FD2D0127B400A0F045 /* LinkListCardView.swift in Sources */,
 				22FE733E2C7F60EE008A1D24 /* StepCompletionStatus.swift in Sources */,
 				2282B9E62C3446A5004FECDB /* SettingsView.swift in Sources */,
 				224BD2392C471B4E0080F00E /* IconLists.swift in Sources */,
@@ -936,6 +945,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		223940F92D00FC0E00A0F045 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		223940FA2D00FC0E00A0F045 /* SFSymbolsPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 223940F92D00FC0E00A0F045 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
+			productName = SFSymbolsPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 224CA02D2C321EEE0096F094 /* Project object */;
 }

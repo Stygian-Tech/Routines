@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SFSymbolsPicker
 
 struct EditRoutineView: View {
     @Bindable var routine: Routine
@@ -14,12 +15,15 @@ struct EditRoutineView: View {
     let circleButtonSize = 45.5
     var onDismiss: (Routine) -> Void
     var onSave: (Routine) -> Void
+    @State private var symbolPickerIsPresented = false
+    @State private var tempSymbol: String
     
     init(routine: Routine, onDismiss: @escaping (Routine) -> Void, onSave: @escaping (Routine) -> Void) {
         self.routine = routine
         _tempRoutine = State(initialValue: routine.copy())
         self.onDismiss = onDismiss
         self.onSave = onSave
+        _tempSymbol = State(initialValue: routine.iconSymbol)
     }
     
     var body: some View {
@@ -46,47 +50,60 @@ struct EditRoutineView: View {
                         )
                     Spacer()
                 }
-                Text("Color")
-                    .font(.headline)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(SystemColors.allCases, id: \.self) { color in
-                            Button(action: {
-                                tempRoutine.iconColor = color.rawValue
-                            }) {
-                                Circle()
-                                    .fill(color.color)
+                HStack {
+                    Text("Color")
+                        .font(.headline)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(SystemColors.allCases, id: \.self) { color in
+                                Button(action: {
+                                    tempRoutine.iconColor = color.rawValue
+                                }) {
+                                    Circle()
+                                        .fill(color.color)
+                                }
+                                .frame(width: circleButtonSize)
                             }
-                            .frame(width: circleButtonSize)
                         }
                     }
                 }
-                Text("Symbol")
-                    .font(.headline)
-                ForEach(IconLists.allCases, id: \.self) { list in
-                    HStack {
-                        Text(list.rawValue)
-                            .font(.caption)
-                            .frame(width: 1.5 * circleButtonSize, height: circleButtonSize, alignment: .leading)
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(list.iconList, id: \.self) { icon in
-                                    Button(action: {
-                                        tempRoutine.iconSymbol = icon
-                                    }) {
-                                        Circle()
-                                            .fill(.gray)
-                                            .frame(width: circleButtonSize)
-                                            .overlay(
-                                                Image(systemName: icon)
-                                                    .foregroundColor(.white)
-                                            )
-                                    }
-                                }
-                            }
-                        }
-                   }
+                HStack {
+                    Text("Symbol")
+                        .font(.headline)
+                    Spacer()
+                    Button(action: {
+                        symbolPickerIsPresented = true
+                    }, label: {
+                        Image(systemName: tempRoutine.iconSymbol)
+                            .foregroundStyle(tempRoutine.getIconColor())
+                    })
                 }
+//                Text("Symbol")
+//                    .font(.headline)
+//                ForEach(IconLists.allCases, id: \.self) { list in
+//                    HStack {
+//                        Text(list.rawValue)
+//                            .font(.caption)
+//                            .frame(width: 1.5 * circleButtonSize, height: circleButtonSize, alignment: .leading)
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack {
+//                                ForEach(list.iconList, id: \.self) { icon in
+//                                    Button(action: {
+//                                        tempRoutine.iconSymbol = icon
+//                                    }) {
+//                                        Circle()
+//                                            .fill(.gray)
+//                                            .frame(width: circleButtonSize)
+//                                            .overlay(
+//                                                Image(systemName: icon)
+//                                                    .foregroundColor(.white)
+//                                            )
+//                                    }
+//                                }
+//                            }
+//                        }
+//                   }
+//                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -105,6 +122,14 @@ struct EditRoutineView: View {
                     Text("Done")
                 }
             }
+        }
+        .sheet(isPresented: $symbolPickerIsPresented) {
+            SymbolsPicker(selection: $tempSymbol, title: "Select Symbol", autoDismiss: true) {
+                Text("Done")
+            }
+            .onDisappear(perform: {
+                tempRoutine.iconSymbol = tempSymbol
+            })
         }
     }
 }
