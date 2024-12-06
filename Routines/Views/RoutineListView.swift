@@ -137,13 +137,6 @@ struct RoutineListView: View {
             SettingsView(isPresented: $settingsIsPresented)
                 .navigationTitle("Settings")
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button(action: {
-                            settingsIsPresented = false
-                        }) {
-                            Text("Cancel")
-                        }
-                    }
                     ToolbarItem(placement: .confirmationAction) {
                         Button(action: {
                             settingsIsPresented = false

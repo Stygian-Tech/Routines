@@ -46,6 +46,7 @@ struct SettingsView: View {
                 Section(header: Text("Special Thanks")) {
                     LinkListCardView(urlString: "https://github.com/jeremieb/social-symbols/tree/main", name: "Social Symbols")
                     LinkListCardView(urlString: "https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI", name: "SF Symbols Picker for SwiftUI")
+                    LinkListCardView(urlString: "https://github.com/mono0926/LicensePlist", name: "LicensePlist")
                 }
             }
             Spacer()

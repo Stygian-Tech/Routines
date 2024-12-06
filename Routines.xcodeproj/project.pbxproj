@@ -7,39 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		223940FB2D00FC0E00A0F045 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 223940FA2D00FC0E00A0F045 /* SFSymbolsPicker */; };
-		223940FD2D0127B400A0F045 /* LinkListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223940FC2D0127B400A0F045 /* LinkListCardView.swift */; };
-		223FB7B82C6A633500A74D80 /* Tips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223FB7B72C6A633500A74D80 /* Tips.swift */; };
-		224BD2392C471B4E0080F00E /* IconLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BD2382C471B4E0080F00E /* IconLists.swift */; };
-		224CA0392C321EEE0096F094 /* RoutinesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0382C321EEE0096F094 /* RoutinesApp.swift */; };
-		224CA03B2C321EEE0096F094 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03A2C321EEE0096F094 /* RoutineListView.swift */; };
-		224CA03D2C321EEE0096F094 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03C2C321EEE0096F094 /* Step.swift */; };
-		224CA03F2C321EEF0096F094 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CA03E2C321EEF0096F094 /* Assets.xcassets */; };
-		224CA0422C321EEF0096F094 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CA0412C321EEF0096F094 /* Preview Assets.xcassets */; };
-		224CA04C2C321EEF0096F094 /* RoutineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA04B2C321EEF0096F094 /* RoutineTests.swift */; };
-		224CA0562C321EEF0096F094 /* RoutinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0552C321EEF0096F094 /* RoutinesUITests.swift */; };
-		224CA0582C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */; };
-		224CA0652C321FDD0096F094 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0642C321FDD0096F094 /* Routine.swift */; };
-		226D5A4F2C98D34C00097158 /* EditDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D5A4E2C98D34C00097158 /* EditDaysView.swift */; };
-		226D5A512C98E1C000097158 /* DayToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226D5A502C98E1C000097158 /* DayToggleButton.swift */; };
-		2282B9E62C3446A5004FECDB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282B9E52C3446A5004FECDB /* SettingsView.swift */; };
-		2282B9E82C34472A004FECDB /* RoutineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282B9E72C34472A004FECDB /* RoutineCardView.swift */; };
-		22A5E7D82C35E3890024CD51 /* SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E7D72C35E3890024CD51 /* SystemColors.swift */; };
-		22AD80842C541BF1008BB51C /* SystemColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80832C541BF1008BB51C /* SystemColorsTests.swift */; };
-		22AD80862C54385B008BB51C /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80852C54385B008BB51C /* StepTests.swift */; };
-		22AD80882C5439E3008BB51C /* IconListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80872C5439E3008BB51C /* IconListsTests.swift */; };
-		22CC80CC2C3464DA0070FFF7 /* RoutineIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */; };
-		22CC80D02C346DF40070FFF7 /* RoutineStepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */; };
-		22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D12C346FF10070FFF7 /* AddStepView.swift */; };
-		22CC80D42C3472ED0070FFF7 /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */; };
-		22F5EC9D2C5AC6FB0094B1EB /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5EC9C2C5AC6FB0094B1EB /* Symbol.swift */; };
-		22F5ECA12C5AC78E0094B1EB /* SocialLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5ECA02C5AC78E0094B1EB /* SocialLinkList.swift */; };
+		2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2247C1082D039DFB0021C541 /* SFSymbolsPicker */; };
 		22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50C82C96A13C002C7599 /* WidgetKit.framework */; };
 		22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50CA2C96A13C002C7599 /* SwiftUI.framework */; };
 		22FD50D82C96A13D002C7599 /* Routines WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		22FE733E2C7F60EE008A1D24 /* StepCompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FE733D2C7F60EE008A1D24 /* StepCompletionStatus.swift */; };
-		22FE73402C7F6179008A1D24 /* RoutineCompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FE733F2C7F6179008A1D24 /* RoutineCompletionStatus.swift */; };
-		22FE73422C7F7BD1008A1D24 /* RoutineCompletionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FE73412C7F7BD1008A1D24 /* RoutineCompletionIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,45 +62,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		223940FC2D0127B400A0F045 /* LinkListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListCardView.swift; sourceTree = "<group>"; };
-		223FB7B72C6A633500A74D80 /* Tips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tips.swift; sourceTree = "<group>"; };
-		224BD2382C471B4E0080F00E /* IconLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLists.swift; sourceTree = "<group>"; };
 		224CA0352C321EEE0096F094 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		224CA0382C321EEE0096F094 /* RoutinesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesApp.swift; sourceTree = "<group>"; };
-		224CA03A2C321EEE0096F094 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
-		224CA03C2C321EEE0096F094 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
-		224CA03E2C321EEF0096F094 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		224CA0412C321EEF0096F094 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		224CA0472C321EEF0096F094 /* RoutinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		224CA04B2C321EEF0096F094 /* RoutineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTests.swift; sourceTree = "<group>"; };
 		224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		224CA0552C321EEF0096F094 /* RoutinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesUITests.swift; sourceTree = "<group>"; };
-		224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		224CA0642C321FDD0096F094 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
-		226D5A4E2C98D34C00097158 /* EditDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDaysView.swift; sourceTree = "<group>"; };
-		226D5A502C98E1C000097158 /* DayToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayToggleButton.swift; sourceTree = "<group>"; };
-		227997082C49B24E00D184BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2282B9E52C3446A5004FECDB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		2282B9E72C34472A004FECDB /* RoutineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCardView.swift; sourceTree = "<group>"; };
-		22A5E7D72C35E3890024CD51 /* SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColors.swift; sourceTree = "<group>"; };
-		22AD80832C541BF1008BB51C /* SystemColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColorsTests.swift; sourceTree = "<group>"; };
-		22AD80852C54385B008BB51C /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
-		22AD80872C5439E3008BB51C /* IconListsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconListsTests.swift; sourceTree = "<group>"; };
-		22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineIconView.swift; sourceTree = "<group>"; };
-		22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStepListView.swift; sourceTree = "<group>"; };
-		22CC80D12C346FF10070FFF7 /* AddStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepView.swift; sourceTree = "<group>"; };
-		22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
-		22F5EC9C2C5AC6FB0094B1EB /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
-		22F5ECA02C5AC78E0094B1EB /* SocialLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLinkList.swift; sourceTree = "<group>"; };
 		22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Routines WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FD50C82C96A13C002C7599 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		22FD50CA2C96A13C002C7599 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		22FE733D2C7F60EE008A1D24 /* StepCompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCompletionStatus.swift; sourceTree = "<group>"; };
-		22FE733F2C7F6179008A1D24 /* RoutineCompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCompletionStatus.swift; sourceTree = "<group>"; };
-		22FE73412C7F7BD1008A1D24 /* RoutineCompletionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCompletionIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		2247C18D2D03A5B70021C541 /* Exceptions for "Routines" folder in "Routines" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 224CA0342C321EEE0096F094 /* Routines */;
+		};
 		22FD50DC2C96A13D002C7599 /* Exceptions for "Routines Widgets" folder in "Routines WidgetsExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -147,6 +95,24 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		2247C1522D03A59C0021C541 /* RoutinesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RoutinesTests;
+			sourceTree = "<group>";
+		};
+		2247C1742D03A5B70021C541 /* Routines */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2247C18D2D03A5B70021C541 /* Exceptions for "Routines" folder in "Routines" target */,
+			);
+			path = Routines;
+			sourceTree = "<group>";
+		};
+		2247C1902D03A5BD0021C541 /* RoutinesUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RoutinesUITests;
+			sourceTree = "<group>";
+		};
 		22FD50CC2C96A13C002C7599 /* Routines Widgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -163,7 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				223940FB2D00FC0E00A0F045 /* SFSymbolsPicker in Frameworks */,
+				2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,9 +162,9 @@
 		224CA02C2C321EEE0096F094 = {
 			isa = PBXGroup;
 			children = (
-				224CA0372C321EEE0096F094 /* Routines */,
-				224CA04A2C321EEF0096F094 /* RoutinesTests */,
-				224CA0542C321EEF0096F094 /* RoutinesUITests */,
+				2247C1742D03A5B70021C541 /* Routines */,
+				2247C1522D03A59C0021C541 /* RoutinesTests */,
+				2247C1902D03A5BD0021C541 /* RoutinesUITests */,
 				22FD50CC2C96A13C002C7599 /* Routines Widgets */,
 				22FD50C72C96A13C002C7599 /* Frameworks */,
 				224CA0362C321EEE0096F094 /* Products */,
@@ -214,105 +180,6 @@
 				22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		224CA0372C321EEE0096F094 /* Routines */ = {
-			isa = PBXGroup;
-			children = (
-				227997082C49B24E00D184BE /* Info.plist */,
-				227997052C498B1600D184BE /* Application */,
-				224CA0662C321FE10096F094 /* Models */,
-				226CC2362C333E6200F114B4 /* Views */,
-				224CA03E2C321EEF0096F094 /* Assets.xcassets */,
-				224CA0402C321EEF0096F094 /* Preview Content */,
-			);
-			path = Routines;
-			sourceTree = "<group>";
-		};
-		224CA0402C321EEF0096F094 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				224CA0412C321EEF0096F094 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		224CA04A2C321EEF0096F094 /* RoutinesTests */ = {
-			isa = PBXGroup;
-			children = (
-				22AD808A2C544669008BB51C /* ModelTests */,
-			);
-			path = RoutinesTests;
-			sourceTree = "<group>";
-		};
-		224CA0542C321EEF0096F094 /* RoutinesUITests */ = {
-			isa = PBXGroup;
-			children = (
-				224CA0552C321EEF0096F094 /* RoutinesUITests.swift */,
-				224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */,
-			);
-			path = RoutinesUITests;
-			sourceTree = "<group>";
-		};
-		224CA0662C321FE10096F094 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				22A8BA822C7D2FDB00C5A1B5 /* Persisted Models */,
-				22A5E7D72C35E3890024CD51 /* SystemColors.swift */,
-				224BD2382C471B4E0080F00E /* IconLists.swift */,
-				22F5EC9C2C5AC6FB0094B1EB /* Symbol.swift */,
-				22F5ECA02C5AC78E0094B1EB /* SocialLinkList.swift */,
-				22FE733D2C7F60EE008A1D24 /* StepCompletionStatus.swift */,
-				22FE733F2C7F6179008A1D24 /* RoutineCompletionStatus.swift */,
-				22FE73412C7F7BD1008A1D24 /* RoutineCompletionIcon.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		226CC2362C333E6200F114B4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				224CA03A2C321EEE0096F094 /* RoutineListView.swift */,
-				22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */,
-				22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */,
-				22CC80D12C346FF10070FFF7 /* AddStepView.swift */,
-				2282B9E72C34472A004FECDB /* RoutineCardView.swift */,
-				22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */,
-				2282B9E52C3446A5004FECDB /* SettingsView.swift */,
-				223940FC2D0127B400A0F045 /* LinkListCardView.swift */,
-				226D5A4E2C98D34C00097158 /* EditDaysView.swift */,
-				226D5A502C98E1C000097158 /* DayToggleButton.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		227997052C498B1600D184BE /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				224CA0382C321EEE0096F094 /* RoutinesApp.swift */,
-				223FB7B72C6A633500A74D80 /* Tips.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		22A8BA822C7D2FDB00C5A1B5 /* Persisted Models */ = {
-			isa = PBXGroup;
-			children = (
-				224CA03C2C321EEE0096F094 /* Step.swift */,
-				224CA0642C321FDD0096F094 /* Routine.swift */,
-			);
-			path = "Persisted Models";
-			sourceTree = "<group>";
-		};
-		22AD808A2C544669008BB51C /* ModelTests */ = {
-			isa = PBXGroup;
-			children = (
-				224CA04B2C321EEF0096F094 /* RoutineTests.swift */,
-				22AD80832C541BF1008BB51C /* SystemColorsTests.swift */,
-				22AD80852C54385B008BB51C /* StepTests.swift */,
-				22AD80872C5439E3008BB51C /* IconListsTests.swift */,
-			);
-			path = ModelTests;
 			sourceTree = "<group>";
 		};
 		22FD50C72C96A13C002C7599 /* Frameworks */ = {
@@ -342,6 +209,9 @@
 			dependencies = (
 				22FD50D72C96A13D002C7599 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				2247C1742D03A5B70021C541 /* Routines */,
+			);
 			name = Routines;
 			productName = Routines;
 			productReference = 224CA0352C321EEE0096F094 /* Routines.app */;
@@ -360,6 +230,9 @@
 			dependencies = (
 				224CA0492C321EEF0096F094 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				2247C1522D03A59C0021C541 /* RoutinesTests */,
+			);
 			name = RoutinesTests;
 			productName = RoutinesTests;
 			productReference = 224CA0472C321EEF0096F094 /* RoutinesTests.xctest */;
@@ -377,6 +250,9 @@
 			);
 			dependencies = (
 				224CA0532C321EEF0096F094 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				2247C1902D03A5BD0021C541 /* RoutinesUITests */,
 			);
 			name = RoutinesUITests;
 			productName = RoutinesUITests;
@@ -440,7 +316,8 @@
 			);
 			mainGroup = 224CA02C2C321EEE0096F094;
 			packageReferences = (
-				223940F92D00FC0E00A0F045 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+				2247C1072D039DFB0021C541 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+				2247C1162D03A0FC0021C541 /* XCRemoteSwiftPackageReference "LicensePlist" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 224CA0362C321EEE0096F094 /* Products */;
@@ -460,8 +337,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224CA0422C321EEF0096F094 /* Preview Assets.xcassets in Resources */,
-				224CA03F2C321EEF0096F094 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,27 +368,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */,
-				22FE73422C7F7BD1008A1D24 /* RoutineCompletionIcon.swift in Sources */,
-				223940FD2D0127B400A0F045 /* LinkListCardView.swift in Sources */,
-				22FE733E2C7F60EE008A1D24 /* StepCompletionStatus.swift in Sources */,
-				2282B9E62C3446A5004FECDB /* SettingsView.swift in Sources */,
-				224BD2392C471B4E0080F00E /* IconLists.swift in Sources */,
-				2282B9E82C34472A004FECDB /* RoutineCardView.swift in Sources */,
-				224CA03B2C321EEE0096F094 /* RoutineListView.swift in Sources */,
-				223FB7B82C6A633500A74D80 /* Tips.swift in Sources */,
-				22F5EC9D2C5AC6FB0094B1EB /* Symbol.swift in Sources */,
-				226D5A512C98E1C000097158 /* DayToggleButton.swift in Sources */,
-				224CA03D2C321EEE0096F094 /* Step.swift in Sources */,
-				226D5A4F2C98D34C00097158 /* EditDaysView.swift in Sources */,
-				22FE73402C7F6179008A1D24 /* RoutineCompletionStatus.swift in Sources */,
-				224CA0652C321FDD0096F094 /* Routine.swift in Sources */,
-				22A5E7D82C35E3890024CD51 /* SystemColors.swift in Sources */,
-				22F5ECA12C5AC78E0094B1EB /* SocialLinkList.swift in Sources */,
-				22CC80D42C3472ED0070FFF7 /* EditRoutineView.swift in Sources */,
-				224CA0392C321EEE0096F094 /* RoutinesApp.swift in Sources */,
-				22CC80D02C346DF40070FFF7 /* RoutineStepListView.swift in Sources */,
-				22CC80CC2C3464DA0070FFF7 /* RoutineIconView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,10 +375,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224CA04C2C321EEF0096F094 /* RoutineTests.swift in Sources */,
-				22AD80862C54385B008BB51C /* StepTests.swift in Sources */,
-				22AD80882C5439E3008BB51C /* IconListsTests.swift in Sources */,
-				22AD80842C541BF1008BB51C /* SystemColorsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,8 +382,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224CA0582C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift in Sources */,
-				224CA0562C321EEF0096F094 /* RoutinesUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,7 +539,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				DEVELOPMENT_TEAM = G39TU2R26A;
 				ENABLE_PREVIEWS = YES;
@@ -729,7 +577,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				DEVELOPMENT_TEAM = G39TU2R26A;
 				ENABLE_PREVIEWS = YES;
@@ -838,7 +686,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = G39TU2R26A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Routines Widgets/Info.plist";
@@ -870,7 +718,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = G39TU2R26A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Routines Widgets/Info.plist";
@@ -947,7 +795,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		223940F92D00FC0E00A0F045 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */ = {
+		2247C1072D039DFB0021C541 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI";
 			requirement = {
@@ -955,12 +803,20 @@
 				minimumVersion = 1.0.6;
 			};
 		};
+		2247C1162D03A0FC0021C541 /* XCRemoteSwiftPackageReference "LicensePlist" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mono0926/LicensePlist";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.25.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		223940FA2D00FC0E00A0F045 /* SFSymbolsPicker */ = {
+		2247C1082D039DFB0021C541 /* SFSymbolsPicker */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 223940F92D00FC0E00A0F045 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
+			package = 2247C1072D039DFB0021C541 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
 			productName = SFSymbolsPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
