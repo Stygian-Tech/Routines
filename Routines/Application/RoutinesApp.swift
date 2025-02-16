@@ -21,7 +21,6 @@ struct RoutinesApp: App {
         } catch {
             fatalError("Failed to load model container: \(error.localizedDescription)")
         }
-        
         configureTips()
     }
     
