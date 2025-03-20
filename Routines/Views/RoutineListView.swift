@@ -107,11 +107,13 @@ struct RoutineListView: View {
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Show All Routines", systemImage: showAllRoutines ? "eye" : "eye.slash") {
-                            showAllRoutines.toggle()
+                            withAnimation {
+                                showAllRoutines.toggle()
+                            }
                         }
                     }
                 }
-                .navigationTitle("Routines")
+                .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
                 .sheet(isPresented: $settingsIsPresented) {
                     settingsSheet()
                 }

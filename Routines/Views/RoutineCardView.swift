@@ -36,7 +36,7 @@ struct RoutineCardView: View {
                         Text(routine.name)
                             .font(.headline)
                             .layoutPriority(1) // Prevents the text from wrapping by resizing the ProgressView
-                        if routine.status == .incomplete {
+                        if routine.status == .incomplete && stepCount > 1 {
                             ProgressView(value: (stepCount == 0) ? 0 : Double(routine.finishedStepCount) / Double(stepCount))
                                 .padding(.leading)
                                 .tint(routine.getIconColor())
