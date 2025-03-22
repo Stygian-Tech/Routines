@@ -9,7 +9,16 @@ import Foundation
 import SwiftUI
 
 struct RoutineCardView: View {
-    var routine: Routine
+    @Bindable var routine: Routine
+    @Binding var showDetail: Bool
+    @State private var routineDays: [String]
+    
+    private var routineColor: Color {
+        get {
+            return routine.getIconColor()
+        }
+    }
+    
     var stepCount: Int {
         if routine.steps.count == 0 {
             return 0
@@ -22,6 +31,12 @@ struct RoutineCardView: View {
             }
             return tempCount
         }
+    }
+    
+    init(routine: Routine, showDetail: Binding<Bool>) {
+        self.routine = routine
+        _showDetail = showDetail
+        _routineDays = State(initialValue: routine.days)
     }
     
     var body: some View {
@@ -60,6 +75,11 @@ struct RoutineCardView: View {
             }
             .padding(.leading)
             .padding(.trailing)
+            if showDetail == true {
+                EditDaysView(days: $routine.days, iconColor: routineColor)
+                    .transition(.move(edge: .top))
+                    .animation(.easeInOut(duration: 0.3), value: showDetail)
+            }
         }
     }
 }

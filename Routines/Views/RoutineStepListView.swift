@@ -11,6 +11,13 @@ import SwiftUI
 struct RoutineStepListView: View {
     @Environment(\.modelContext) var modelContext
     @Bindable var routine: Routine
+    
+    var routineColor: Color {
+        get {
+            return routine.getIconColor()
+        }
+    }
+    
     @State private var editRoutineViewIsPresented = false
     @State private var addStepViewIsPresented = false
     @State private var newStepName = ""
@@ -44,7 +51,9 @@ struct RoutineStepListView: View {
                 } // ToolbarItem
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        showHiddenSteps.toggle()
+                        withAnimation {
+                            showHiddenSteps.toggle()
+                        }
                     }) {
                         withAnimation {
                             Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
@@ -166,7 +175,9 @@ struct RoutineStepListView: View {
             }
             if showHiddenSteps {
                 if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
-                    EditDaysView(days: $routine.steps[index].days, iconColor: routine.getIconColor())
+                    EditDaysView(days: $routine.steps[index].days, iconColor: routineColor)
+                        .transition(.move(edge: .bottom).combined(with: .opacity)) // Slide up & fade
+                        .animation(.easeInOut(duration: 0.3), value: showHiddenSteps) // Smooth animation
                 }
             }
         }
@@ -174,7 +185,7 @@ struct RoutineStepListView: View {
     
     var addStepSheet: some View {
         NavigationView {
-            AddStepView(newStep: $newStepName, isPresented: $addStepViewIsPresented, days: $stepDays, iconColor: routine.getIconColor())
+            AddStepView(routine: routine, newStep: $newStepName)
                 .navigationTitle("Add Step")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {

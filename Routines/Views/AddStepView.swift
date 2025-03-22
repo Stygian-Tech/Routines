@@ -9,10 +9,13 @@ import Foundation
 import SwiftUI
 
 struct AddStepView: View {
+    @Bindable var routine: Routine
     @Binding var newStep: String
-    @Binding var isPresented: Bool
-    @Binding var days: [String]
-    var iconColor: Color
+    private var routineColor: Color {
+        get {
+            return routine.getIconColor()
+        }
+    }
     
     var body: some View {
         Form {
@@ -20,7 +23,7 @@ struct AddStepView: View {
                 TextField("Step", text: $newStep)
             }
             Section("Days") {
-                EditDaysView(days: $days, iconColor: iconColor)
+                EditDaysView(days: $routine.days, iconColor: routineColor)
             }
         }
     }

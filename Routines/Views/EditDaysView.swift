@@ -7,10 +7,12 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 public struct EditDaysView: View {
     @Binding var days: [String]
     var iconColor: Color
+    
     let daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     public var body: some View {

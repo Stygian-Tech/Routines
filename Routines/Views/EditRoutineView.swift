@@ -10,13 +10,18 @@ import SwiftUI
 import SFSymbolsPicker
 
 struct EditRoutineView: View {
-    @Bindable var routine: Routine
+    @Bindable private var routine: Routine
     @State private var tempRoutine: Routine
-    let circleButtonSize = 45.5
-    var onDismiss: (Routine) -> Void
-    var onSave: (Routine) -> Void
+    private let circleButtonSize = 45.5
+    private var onDismiss: (Routine) -> Void
+    private var onSave: (Routine) -> Void
     @State private var symbolPickerIsPresented = false
     @State private var tempSymbol: String
+    private var tempColor: Color {
+        get {
+            return tempRoutine.getIconColor()
+        }
+    }
     
     init(routine: Routine, onDismiss: @escaping (Routine) -> Void, onSave: @escaping (Routine) -> Void) {
         self.routine = routine
@@ -34,7 +39,7 @@ struct EditRoutineView: View {
             Section("Time & Days") {
                 DatePicker("Time", selection: $tempRoutine.time, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.compact)
-                EditDaysView(days: $tempRoutine.days, iconColor: .accentColor)
+                EditDaysView(days: $tempRoutine.days, iconColor: tempColor)
                     .padding(.vertical, 3)
             }
             Section("Icon") {
