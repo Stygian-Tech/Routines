@@ -18,6 +18,7 @@ struct DayToggleButton: View {
             Circle()
                 .fill(isSelected ? iconColor : .clear)
                 .frame(width: 32)
+                .fixedSize()
                 .overlay(
                     Text(day.prefix(1))
                         .foregroundStyle(isSelected ? .white : .secondary)

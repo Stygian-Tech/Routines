@@ -12,11 +12,14 @@ import SFSymbolsPicker
 struct EditRoutineView: View {
     @Bindable private var routine: Routine
     @State private var tempRoutine: Routine
+   
     private let circleButtonSize = 45.5
     private var onDismiss: (Routine) -> Void
     private var onSave: (Routine) -> Void
+    
     @State private var symbolPickerIsPresented = false
     @State private var tempSymbol: String
+    
     private var tempColor: Color {
         get {
             return tempRoutine.getIconColor()

@@ -9,24 +9,24 @@ import Foundation
 import SwiftUI
 
 struct RoutineStepListView: View {
-    @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) private var modelContext
     @Bindable var routine: Routine
+    
+    @State private var editRoutineViewIsPresented = false
+    @State private var addStepViewIsPresented = false
+    @State private var showHiddenSteps = false
+    @State private var addButtonIsPresented = false
+    @State private var addIsPressed = false
+   
+    @State private var newStepName = ""
+    @State private var editingStepIndex: Int? = nil
+    @State private var updatedStepName: String = ""
     
     var routineColor: Color {
         get {
             return routine.getIconColor()
         }
     }
-    
-    @State private var editRoutineViewIsPresented = false
-    @State private var addStepViewIsPresented = false
-    @State private var newStepName = ""
-    @State private var editingStepIndex: Int? = nil
-    @State private var updatedStepName: String = ""
-    
-    @State private var showHiddenSteps = false
-    @State private var addButtonIsPresented = false
-    @State private var addIsPressed = false
     
     var daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     @State var stepDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
