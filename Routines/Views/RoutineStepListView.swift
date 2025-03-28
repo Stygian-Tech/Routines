@@ -173,11 +173,16 @@ struct RoutineStepListView: View {
                         }
                 }
             }
+            .animation(.none, value: showHiddenSteps)
             if showHiddenSteps {
                 if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
-                    EditDaysView(days: $routine.steps[index].days, iconColor: routineColor)
-                        .transition(.move(edge: .bottom).combined(with: .opacity)) // Slide up & fade
-                        .animation(.easeInOut(duration: 0.3), value: showHiddenSteps) // Smooth animation
+                    ZStack {
+                        EditDaysView(days: $routine.steps[index].days, iconColor: routineColor)
+                            .transition(.move(edge: .top))
+                            .transition(.opacity)
+
+                    }
+                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps) // Smooth animation
                 }
             }
         }
