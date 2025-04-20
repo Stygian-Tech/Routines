@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+// MARK: - RoutineStepListView
+
 struct RoutineStepListView: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var routine: Routine
@@ -32,7 +34,7 @@ struct RoutineStepListView: View {
     @State var stepDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var body: some View {
-        routineInfoHeader
+        RoutineInfoHeaderView(routine: routine)
         ZStack {
             NavigationStack {
                 stepList
@@ -82,44 +84,42 @@ struct RoutineStepListView: View {
             } // onDisappear
             
             if addButtonIsPresented {
-                floatingButton
+                FloatingAddButton(
+                    color: routineColor,
+                    isPressed: $addIsPressed,
+                    action: {
+                        addStepViewIsPresented = true
+                    }
+                )
             }
         }
     }// body
     
-    // MARK: Components
-    var routineInfoHeader: some View {
-        HStack {
-            Image(systemName: "clock")
-            Text(routine.timeToString())
-            Spacer()
-        } // HStack
-        .padding(.leading)
-    }
+    // MARK: Step List
     
     var stepList: some View {
         List {
             ForEach(sortedSteps, id: \.id) { step in
                 if step.isToday() || showHiddenSteps {
-                    stepRow(for: step)
+                    StepRowView(
+                        routine: routine,
+                        step: step,
+                        editingStepIndex: $editingStepIndex,
+                        updatedStepName: $updatedStepName,
+                        showHiddenSteps: $showHiddenSteps,
+                        save: save
+                    )
                 } // if
             } // ForEach
             .onMove(perform: moveItem)
             .onDelete(perform: deleteStep)
 
             // Quick Add Button
-            HStack {
-                TextField("Quick Add", text: $newStepName)
-                    .onSubmit {
-                        addStep()
-                    } // onSubmit
-                Image(systemName: "plus.circle.fill")
-                    .foregroundStyle(routine.getIconColor())
-                    .onTapGesture {
-                        addStep()
-                    } // onTapGesture
-                    .font(.title3)
-            } // HStack
+            QuickAddStepView(
+                newStepName: $newStepName,
+                routine: routine,
+                onAdd: addStep
+            )
         } // List
     }
     
@@ -127,66 +127,7 @@ struct RoutineStepListView: View {
         routine.steps.sorted(by: { $0.order < $1.order })
     }
     
-    func stepRow(for step: Step) -> some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Button(action: {
-                    if step.status != .complete {
-                        step.status = .complete
-                    } else {
-                        step.status = .incomplete
-                    }
-                    routine.checkRoutineCompletion()
-                }) {
-                    Image(systemName: step.status.icon)
-                        .foregroundStyle(routine.getIconColor())
-                        .contentShape(Rectangle())
-                }
-                .font(.title3)
-                .buttonStyle(PlainButtonStyle())
-                .simultaneousGesture(
-                    LongPressGesture()
-                        .onEnded {_ in
-                            if step.status != .skipped {
-                                step.status = .skipped
-                            } else {
-                                step.status = .incomplete
-                            }
-                            routine.checkRoutineCompletion()
-                        }
-                )
-                if editingStepIndex == step.order {
-                    TextField(step.name, text: $updatedStepName)
-                        .onSubmit {
-                            guard updatedStepName.isEmpty else {
-                                step.name = updatedStepName
-                                return
-                            }
-                            editingStepIndex = nil
-                            save()
-                        }
-                } else {
-                    Text(step.name)
-                        .onTapGesture {
-                            updatedStepName = step.name
-                            editingStepIndex = step.order
-                        }
-                }
-            }
-            .animation(.none, value: showHiddenSteps)
-            if showHiddenSteps {
-                if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
-                    ZStack {
-                        EditDaysView(days: $routine.steps[index].days, iconColor: routineColor)
-                            .transition(.move(edge: .top))
-                            .transition(.opacity)
-
-                    }
-                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps) // Smooth animation
-                }
-            }
-        }
-    }
+    // MARK: Add Step Sheet
     
     var addStepSheet: some View {
         NavigationView {
@@ -214,40 +155,8 @@ struct RoutineStepListView: View {
         } // NavigationView
     } // addStepSheet
     
-    var floatingButton: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Circle()
-                    .fill(addIsPressed ? routine.getIconColor().opacity(0.7) : routine.getIconColor())
-                    .frame(width: 60)
-                    .overlay(
-                        Image(systemName: "plus")
-                            .foregroundStyle(.white)
-                            .font(.title2)
-                    )
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { _ in
-                                withAnimation {
-                                    addIsPressed = true
-                                } // withAnimation
-                            } // onChanged
-                            .onEnded { _ in
-                                withAnimation {
-                                    addIsPressed = false
-                                    addStepViewIsPresented = true
-                                } // withAnimation
-                            } // onEnded
-                    )
-            } // HStack
-            .padding(.trailing, 30)
-            .padding(.bottom, 20)
-        } // VStack
-    } // floatingButton
-    
     // MARK: Helper Methods
+    
     func dismissEditRoutine(_ tempRoutine: Routine) {
         modelContext.delete(tempRoutine)
         editRoutineViewIsPresented = false
@@ -322,3 +231,155 @@ struct RoutineStepListView: View {
         } // do/catch
     } // save
 } // RoutineStepListView
+
+// MARK: - StepRowView
+
+struct StepRowView: View {
+    @Bindable var routine: Routine
+    @Bindable var step: Step
+    @Binding var editingStepIndex: Int?
+    @Binding var updatedStepName: String
+    @Binding var showHiddenSteps: Bool
+    let save: () -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Button(action: {
+                    if step.status != .complete {
+                        step.status = .complete
+                    } else {
+                        step.status = .incomplete
+                    }
+                    routine.checkRoutineCompletion()
+                }) {
+                    Image(systemName: step.status.icon)
+                        .foregroundStyle(routine.getIconColor())
+                        .contentShape(Rectangle())
+                }
+                .font(.title3)
+                .buttonStyle(PlainButtonStyle())
+                .simultaneousGesture(
+                    LongPressGesture()
+                        .onEnded {_ in
+                            if step.status != .skipped {
+                                step.status = .skipped
+                            } else {
+                                step.status = .incomplete
+                            }
+                            routine.checkRoutineCompletion()
+                        }
+                )
+                if editingStepIndex == step.order {
+                    TextField(step.name, text: $updatedStepName)
+                        .onSubmit {
+                            guard !updatedStepName.isEmpty else {
+                                editingStepIndex = nil
+                                return
+                            }
+                            step.name = updatedStepName
+                            editingStepIndex = nil
+                            save()
+                        }
+                } else {
+                    Text(step.name)
+                        .onTapGesture {
+                            updatedStepName = step.name
+                            editingStepIndex = step.order
+                        }
+                }
+            }
+            .animation(.none, value: showHiddenSteps)
+            if showHiddenSteps {
+                if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
+                    ZStack {
+                        EditDaysView(days: $routine.steps[index].days, iconColor: routine.getIconColor())
+                            .transition(.move(edge: .top))
+                            .transition(.opacity)
+
+                    }
+                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps) // Smooth animation
+                }
+            }
+        }
+    }
+}
+
+// MARK: - RoutineInfoHeaderView
+
+struct RoutineInfoHeaderView: View {
+    let routine: Routine
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "clock")
+            Text(routine.timeToString())
+            Spacer()
+        } // HStack
+        .padding(.leading)
+    }
+}
+
+// MARK: - FloatingAddButton
+
+struct FloatingAddButton: View {
+    var color: Color = .accentColor
+    @Binding var isPressed: Bool
+    var action: () -> Void
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Circle()
+                    .fill(isPressed ? color.opacity(0.7) : color)
+                    .frame(width: 60)
+                    .overlay(
+                        Image(systemName: "plus")
+                            .foregroundStyle(.white)
+                            .font(.title2)
+                    )
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { _ in
+                                withAnimation {
+                                    isPressed = true
+                                } // withAnimation
+                            } // onChanged
+                            .onEnded { _ in
+                                withAnimation {
+                                    isPressed = false
+                                    action()
+                                } // withAnimation
+                            } // onEnded
+                    )
+            } // HStack
+            .padding(.trailing, 30)
+            .padding(.bottom, 20)
+        } // VStack
+    }
+}
+
+// MARK: - QuickAddStepView
+
+struct QuickAddStepView: View {
+    @Binding var newStepName: String
+    let routine: Routine
+    var onAdd: () -> Void
+    
+    var body: some View {
+        HStack {
+            TextField("Quick Add", text: $newStepName)
+                .onSubmit {
+                    onAdd()
+                } // onSubmit
+            Image(systemName: "plus.circle.fill")
+                .foregroundStyle(routine.getIconColor())
+                .onTapGesture {
+                    onAdd()
+                } // onTapGesture
+                .font(.title3)
+        } // HStack
+    }
+}

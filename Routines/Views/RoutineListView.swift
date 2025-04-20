@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 import TipKit
 
+// MARK: - RoutineListView
+
 struct RoutineListView: View {
     // Data Models
     @Environment(\.modelContext) var modelContext
@@ -26,16 +28,14 @@ struct RoutineListView: View {
     @State private var addButtonIsPresented = true
     @State private var editRoutineIsPresented = false
     
-    // IDK, the rest of the stuff
+    // Layout Properties
     let backgroundGradient = Gradient(colors: [.purple, .clear])
-    
     let resetRoutinesTip = ResetRoutinesTip()
+    
     var today: String {
         let date = Date()
         let formatter = DateFormatter()
-        
         formatter.dateFormat = "EEEE"
-        
         return formatter.string(from: date)
     }
 
@@ -92,111 +92,33 @@ struct RoutineListView: View {
                 }
                 .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
                 .sheet(isPresented: $settingsIsPresented) {
-                    settingsSheet()
+                    SettingsSheet(isPresented: $settingsIsPresented)
                 }
                 .sheet(isPresented: $addRoutineIsPresented) {
-                    addRoutineSheet()
+                    AddRoutineSheet(
+                        newRoutine: $newRoutine,
+                        isPresented: $addRoutineIsPresented,
+                        modelContext: modelContext
+                    )
                 }
                 .sheet(isPresented: $editRoutineIsPresented, onDismiss: { routineToEdit = nil }) {
                     if let routine = routineToEdit {
-                        editRoutineSheet(routine)
+                        EditRoutineSheet(
+                            routine: routine, 
+                            isPresented: $editRoutineIsPresented
+                        )
                     } else {
                         Text("No Routine Selected")
                     }
                 }
             }
             if addButtonIsPresented {
-                addButton()
+                AddButton(isPressed: $addIsPressed, onAdd: addRoutine)
             }
         }
     }
 
-    func settingsSheet() -> some View {
-        NavigationStack {
-            SettingsView(isPresented: $settingsIsPresented)
-                .navigationTitle("Settings")
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button(action: {
-                            settingsIsPresented = false
-                        }) {
-                            Text("Done")
-                        }
-                    }
-                }
-        }
-    }
-    
-    func addButton() -> some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Circle()
-                    .fill(addIsPressed ? Color.accentColor.opacity(0.7) : Color.accentColor)
-                    .frame(width: 60)
-                    .overlay(
-                        Image(systemName: "plus")
-                            .foregroundStyle(.white)
-                            .font(.title2)
-                    )
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { _ in
-                                withAnimation {
-                                    addIsPressed = true
-                                }
-                            }
-                            .onEnded { _ in
-                                withAnimation {
-                                    addIsPressed = false
-                                    addRoutine()
-                                }
-                            }
-                    )
-            }
-            .padding(.trailing, 30)
-            .padding(.bottom, 20)
-        }
-
-    }
-    
-    func addRoutineSheet() -> some View {
-        NavigationStack {
-            EditRoutineView(routine: newRoutine ?? Routine(), onDismiss: { tempRoutine in
-                modelContext.delete(newRoutine ?? Routine())
-                addRoutineIsPresented = false
-            }, onSave: { tempRoutine in
-                if let routine = newRoutine {
-                    routine.name = tempRoutine.name
-                    routine.time = tempRoutine.time
-                    routine.iconSymbol = tempRoutine.iconSymbol
-                    routine.iconColor = tempRoutine.iconColor
-                    routine.days = tempRoutine.days
-                }
-                addRoutineIsPresented = false
-            })
-            .navigationTitle("New Routine")
-        }
-    }
-    
-    func editRoutineSheet(_ routine: Routine) -> some View {
-        NavigationStack {
-            EditRoutineView(routine: routine) { tempRoutine in
-                modelContext.delete(tempRoutine)
-                editRoutineIsPresented = false
-            } onSave: { tempRoutine in
-                routine.name = tempRoutine.name
-                routine.time = tempRoutine.time
-                routine.iconSymbol = tempRoutine.iconSymbol
-                routine.iconColor = tempRoutine.iconColor
-                routine.days = tempRoutine.days
-                modelContext.delete(tempRoutine)
-                editRoutineIsPresented = false
-            }
-            .navigationTitle("Edit \(routine.name)")
-        }
-    }
+    // MARK: - Helper Methods
     
     private func getTimeComponent(_ date: Date) -> Date {
         let calendar = Calendar.current
@@ -221,6 +143,121 @@ struct RoutineListView: View {
         for index in indexSet {
             let routine = routines.sorted(by: { getTimeComponent($0.time) < getTimeComponent($1.time) })[index]
             modelContext.delete(routine)
+        }
+    }
+}
+
+// MARK: - SettingsSheet
+
+struct SettingsSheet: View {
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        NavigationStack {
+            SettingsView(isPresented: $isPresented)
+                .navigationTitle("Settings")
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(action: {
+                            isPresented = false
+                        }) {
+                            Text("Done")
+                        }
+                    }
+                }
+        }
+    }
+}
+
+// MARK: - AddButton
+
+struct AddButton: View {
+    @Binding var isPressed: Bool
+    var onAdd: () -> Void
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Circle()
+                    .fill(isPressed ? Color.accentColor.opacity(0.7) : Color.accentColor)
+                    .frame(width: 60)
+                    .overlay(
+                        Image(systemName: "plus")
+                            .foregroundStyle(.white)
+                            .font(.title2)
+                    )
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { _ in
+                                withAnimation {
+                                    isPressed = true
+                                }
+                            }
+                            .onEnded { _ in
+                                withAnimation {
+                                    isPressed = false
+                                    onAdd()
+                                }
+                            }
+                    )
+            }
+            .padding(.trailing, 30)
+            .padding(.bottom, 20)
+        }
+    }
+}
+
+// MARK: - AddRoutineSheet
+
+struct AddRoutineSheet: View {
+    @Binding var newRoutine: Routine?
+    @Binding var isPresented: Bool
+    var modelContext: ModelContext
+    
+    var body: some View {
+        NavigationStack {
+            EditRoutineView(routine: newRoutine ?? Routine(), onDismiss: { tempRoutine in
+                modelContext.delete(newRoutine ?? Routine())
+                isPresented = false
+            }, onSave: { tempRoutine in
+                if let routine = newRoutine {
+                    routine.name = tempRoutine.name
+                    routine.time = tempRoutine.time
+                    routine.iconSymbol = tempRoutine.iconSymbol
+                    routine.iconColor = tempRoutine.iconColor
+                    routine.days = tempRoutine.days
+                }
+                isPresented = false
+            })
+            .navigationTitle("New Routine")
+        }
+    }
+}
+
+// MARK: - EditRoutineSheet
+
+struct EditRoutineSheet: View {
+    let routine: Routine
+    @Binding var isPresented: Bool
+    @Environment(\.modelContext) var modelContext
+    
+    var body: some View {
+        NavigationStack {
+            EditRoutineView(routine: routine) { tempRoutine in
+                modelContext.delete(tempRoutine)
+                isPresented = false
+            } onSave: { tempRoutine in
+                routine.name = tempRoutine.name
+                routine.time = tempRoutine.time
+                routine.iconSymbol = tempRoutine.iconSymbol
+                routine.iconColor = tempRoutine.iconColor
+                routine.days = tempRoutine.days
+                modelContext.delete(tempRoutine)
+                isPresented = false
+            }
+            .navigationTitle("Edit \(routine.name)")
         }
     }
 }
