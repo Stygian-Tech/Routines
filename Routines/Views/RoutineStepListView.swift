@@ -99,18 +99,16 @@ struct RoutineStepListView: View {
     
     var stepList: some View {
         List {
-            ForEach(sortedSteps, id: \.id) { step in
+            ForEach(Array(routine.steps.sorted(by: { $0.order < $1.order }).enumerated()), id: \.element.id) { index, step in
                 if step.isToday() || showHiddenSteps {
                     StepRowView(
                         routine: routine,
                         step: step,
                         editingStepIndex: $editingStepIndex,
-                        updatedStepName: $updatedStepName,
-                        showHiddenSteps: $showHiddenSteps,
-                        save: save
+                        showHiddenSteps: $showHiddenSteps
                     )
-                } // if
-            } // ForEach
+                }
+            }
             .onMove(perform: moveItem)
             .onDelete(perform: deleteStep)
 
@@ -120,11 +118,7 @@ struct RoutineStepListView: View {
                 routine: routine,
                 onAdd: addStep
             )
-        } // List
-    }
-    
-    var sortedSteps: [Step] {
-        routine.steps.sorted(by: { $0.order < $1.order })
+        }
     }
     
     // MARK: Add Step Sheet
@@ -232,79 +226,6 @@ struct RoutineStepListView: View {
     } // save
 } // RoutineStepListView
 
-// MARK: - StepRowView
-
-struct StepRowView: View {
-    @Bindable var routine: Routine
-    @Bindable var step: Step
-    @Binding var editingStepIndex: Int?
-    @Binding var updatedStepName: String
-    @Binding var showHiddenSteps: Bool
-    let save: () -> Void
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Button(action: {
-                    if step.status != .complete {
-                        step.status = .complete
-                    } else {
-                        step.status = .incomplete
-                    }
-                    routine.checkRoutineCompletion()
-                }) {
-                    Image(systemName: step.status.icon)
-                        .foregroundStyle(routine.getIconColor())
-                        .contentShape(Rectangle())
-                }
-                .font(.title3)
-                .buttonStyle(PlainButtonStyle())
-                .simultaneousGesture(
-                    LongPressGesture()
-                        .onEnded {_ in
-                            if step.status != .skipped {
-                                step.status = .skipped
-                            } else {
-                                step.status = .incomplete
-                            }
-                            routine.checkRoutineCompletion()
-                        }
-                )
-                if editingStepIndex == step.order {
-                    TextField(step.name, text: $updatedStepName)
-                        .onSubmit {
-                            guard !updatedStepName.isEmpty else {
-                                editingStepIndex = nil
-                                return
-                            }
-                            step.name = updatedStepName
-                            editingStepIndex = nil
-                            save()
-                        }
-                } else {
-                    Text(step.name)
-                        .onTapGesture {
-                            updatedStepName = step.name
-                            editingStepIndex = step.order
-                        }
-                }
-            }
-            .animation(.none, value: showHiddenSteps)
-            if showHiddenSteps {
-                if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
-                    ZStack {
-                        EditDaysView(days: $routine.steps[index].days, iconColor: routine.getIconColor())
-                            .transition(.move(edge: .top))
-                            .transition(.opacity)
-
-                    }
-                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps) // Smooth animation
-                }
-            }
-        }
-    }
-}
-
 // MARK: - RoutineInfoHeaderView
 
 struct RoutineInfoHeaderView: View {
@@ -358,28 +279,5 @@ struct FloatingAddButton: View {
             .padding(.trailing, 30)
             .padding(.bottom, 20)
         } // VStack
-    }
-}
-
-// MARK: - QuickAddStepView
-
-struct QuickAddStepView: View {
-    @Binding var newStepName: String
-    let routine: Routine
-    var onAdd: () -> Void
-    
-    var body: some View {
-        HStack {
-            TextField("Quick Add", text: $newStepName)
-                .onSubmit {
-                    onAdd()
-                } // onSubmit
-            Image(systemName: "plus.circle.fill")
-                .foregroundStyle(routine.getIconColor())
-                .onTapGesture {
-                    onAdd()
-                } // onTapGesture
-                .font(.title3)
-        } // HStack
     }
 }
