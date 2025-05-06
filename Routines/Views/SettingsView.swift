@@ -20,25 +20,12 @@ struct SettingsView: View {
             List {
                 Section(header: Text("Follow Us")) {
                     ForEach(socialLinkList.symbols) { symbol in
-                        Button(action: {
-                            guard let url = URL(string: symbol.url) else {
-                                return
-                            }
-                            UIApplication.shared.open(url)
-                        }) {
-                            HStack {
-                                Image(symbol.file)
-                                    .foregroundStyle(symbol.color)
-                                Text(symbol.name)
-                                Spacer()
-                                Image(systemName: "chevron.forward")
-                                    .foregroundStyle(.tertiary)
-                                    .font(.caption)
-                            }
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
+                        LinkButton(symbol: symbol)
                     }
+                }
+                Section(header: Text("On the Web")) {
+                    LinkButton(symbol: .init(name: "Routines Website", file: "Bluesky", url: "https://getroutines.app", color: .purple))
+                    LinkButton(symbol: .init(name: "Stygian Tech Website", file: "Bluesky", url: "https://stygiantech.dev", color: .black))
                 }
                 Section(header: Text("Donate")) {
                     Text("Coming Soon...")
