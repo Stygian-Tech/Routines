@@ -9,8 +9,6 @@ import SwiftUI
 import SwiftData
 import TipKit
 
-// MARK: - RoutineListView
-
 struct RoutineListView: View {
     // Data Models
     @Environment(\.modelContext) var modelContext

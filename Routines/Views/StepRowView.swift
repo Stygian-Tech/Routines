@@ -76,7 +76,7 @@ struct StepRowView: View {
                             .transition(.opacity)
 
                     }
-                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps) // Smooth animation
+                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps)
                 }
             }
         }

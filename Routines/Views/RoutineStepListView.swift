@@ -37,35 +37,35 @@ struct RoutineStepListView: View {
         RoutineInfoHeaderView(routine: routine)
         ZStack {
             NavigationStack {
-                stepList
-            } // NavigationStack
+                StepListView(
+                    routine: routine,
+                    showHiddenSteps: $showHiddenSteps,
+                    editingStepIndex: $editingStepIndex,
+                    moveItem: moveItem,
+                    deleteStep: deleteStep,
+                    addStep: addStep)
+            }
             .navigationTitle(routine.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     // TODO: Share Sheet
-                } // ToolbarItem
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         editRoutineViewIsPresented = true
                     }) {
                         Image(systemName: "pencil")
-                    } // Button
-                } // ToolbarItem
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        withAnimation {
-                            showHiddenSteps.toggle()
-                        }
-                    }) {
-                        withAnimation {
-                            Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
-                        } // withAnimation
-                    } // Button
-                } // ToolbarItem
-            } // toolbar
+                    Button(action: { showHiddenSteps.toggle() }) {
+                        Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
+                    }
+                }
+            }
             .sheet(isPresented: $addStepViewIsPresented) {
                 addStepSheet
-            } // sheet
+            }
             .sheet(isPresented: $editRoutineViewIsPresented) {
                 NavigationStack {
                     EditRoutineView(routine: routine, onDismiss: { tempRoutine in
@@ -74,14 +74,14 @@ struct RoutineStepListView: View {
                         saveRoutine(tempRoutine)
                     })
                     .navigationTitle("Edit \(routine.name)")
-                } // NavigationStack
-            } // sheet
+                }
+            }
             .onAppear() {
                 addButtonIsPresented = true
-            } // onAppear
+            }
             .onDisappear() {
                 addButtonIsPresented = false
-            } // onDisappear
+            }
             
             if addButtonIsPresented {
                 FloatingAddButton(
@@ -92,32 +92,6 @@ struct RoutineStepListView: View {
                     }
                 )
             }
-        }
-    }// body
-    
-    // MARK: Step List
-    
-    var stepList: some View {
-        List {
-            ForEach(Array(routine.steps.sorted(by: { $0.order < $1.order }).enumerated()), id: \.element.id) { index, step in
-                if step.isToday() || showHiddenSteps {
-                    StepRowView(
-                        routine: routine,
-                        step: step,
-                        editingStepIndex: $editingStepIndex,
-                        showHiddenSteps: $showHiddenSteps
-                    )
-                }
-            }
-            .onMove(perform: moveItem)
-            .onDelete(perform: deleteStep)
-
-            // Quick Add Button
-            QuickAddStepView(
-                newStepName: $newStepName,
-                routine: routine,
-                onAdd: addStep
-            )
         }
     }
     
@@ -135,19 +109,19 @@ struct RoutineStepListView: View {
                             newStepName = ""
                         }) {
                             Text("Cancel")
-                        } // Button
-                    } // ToolbarItem
+                        }
+                    }
                     ToolbarItem(placement: .confirmationAction) {
                         Button(action: {
                             addStep()
                             addStepViewIsPresented = false
                         }) {
                             Text("Done")
-                        } // Button
-                    } // ToolbarItem
-                } // toolbar
-        } // NavigationView
-    } // addStepSheet
+                        }
+                    }
+                }
+        }
+    }
     
     // MARK: Helper Methods
     
@@ -171,33 +145,32 @@ struct RoutineStepListView: View {
         tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
 
         for index in indexSet.map({ $0 }) {
-            print("Deleting \(tempSteps[index].name) from position \(tempSteps[index].order)")
             tempSteps.remove(at: index)
-        } // for
+        }
 
         for (index, step) in tempSteps.enumerated() {
             step.order = index
-        } // for
+        }
 
         routine.steps = tempSteps
         save()
         routine.checkRoutineCompletion()
-    } // deleteStep
+    }
 
     func addStep() {
         guard !newStepName.isEmpty else { return }
 
         withAnimation {
             let newStep = Step(name: newStepName, routine: routine, order: routine.steps.count, days: stepDays)
-            print("Adding Step: \(newStep.name) to position: \(newStep.order)")
             newStepName = ""
             stepDays = daysOfTheWeek
             modelContext.insert(newStep)
             routine.steps.append(newStep)
-        } // withAnimation
+        }
+        
         save()
         routine.checkRoutineCompletion()
-    } // addStep
+    }
 
     func moveItem(from source: IndexSet, to destination: Int) {
         var tempSteps = routine.steps
@@ -211,17 +184,13 @@ struct RoutineStepListView: View {
         routine.steps = tempSteps
         save()
 
-        for step in routine.steps.sorted(by: {$0.order < $1.order }) {
-            print("Step \"\(step.name)\" is at index: \(step.order)")
-        } // for
-        print("----------------------------")
-    } // moveItem
+    }
 
     func save() {
         do {
             try modelContext.save()
         } catch {
             print("Error Saving: \(error.localizedDescription)")
-        } // do/catch
-    } // save
-} // RoutineStepListView
+        }
+    }
+}
