@@ -8,8 +8,6 @@
 import Foundation
 import SwiftUI
 
-// MARK: - RoutineStepListView
-
 struct RoutineStepListView: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var routine: Routine
@@ -34,64 +32,65 @@ struct RoutineStepListView: View {
     @State var stepDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var body: some View {
-        RoutineInfoHeaderView(routine: routine)
-        ZStack {
-            NavigationStack {
-                StepListView(
-                    routine: routine,
-                    showHiddenSteps: $showHiddenSteps,
-                    editingStepIndex: $editingStepIndex,
-                    moveItem: moveItem,
-                    deleteStep: deleteStep,
-                    addStep: addStep)
+        NavigationStack {
+            ZStack {
+                VStack {
+                    StepListView(
+                        routine: routine,
+                        showHiddenSteps: $showHiddenSteps,
+                        editingStepIndex: $editingStepIndex,
+                        moveItem: moveItem,
+                        deleteStep: deleteStep,
+                        addStep: addStep
+                    )
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            // TODO: Share Sheet
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button(action: {
+                                editRoutineViewIsPresented = true
+                            }) {
+                                Image(systemName: "pencil")
+                            }
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button(action: { showHiddenSteps.toggle() }) {
+                                Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $addStepViewIsPresented) {
+                        addStepSheet
+                    }
+                    .sheet(isPresented: $editRoutineViewIsPresented) {
+                        NavigationStack {
+                            EditRoutineView(routine: routine, onDismiss: { tempRoutine in
+                                dismissEditRoutine(tempRoutine)
+                            }, onSave: { tempRoutine in
+                                saveRoutine(tempRoutine)
+                            })
+                            .navigationTitle("Edit \(routine.name)")
+                        }
+                    }
+                }
+                if addButtonIsPresented {
+                    FloatingAddButton(
+                        color: routineColor,
+                        isPressed: $addIsPressed,
+                        action: {
+                            addStepViewIsPresented = true
+                        }
+                    )
+                }
             }
             .navigationTitle(routine.name)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    // TODO: Share Sheet
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        editRoutineViewIsPresented = true
-                    }) {
-                        Image(systemName: "pencil")
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { showHiddenSteps.toggle() }) {
-                        Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
-                    }
-                }
-            }
-            .sheet(isPresented: $addStepViewIsPresented) {
-                addStepSheet
-            }
-            .sheet(isPresented: $editRoutineViewIsPresented) {
-                NavigationStack {
-                    EditRoutineView(routine: routine, onDismiss: { tempRoutine in
-                        dismissEditRoutine(tempRoutine)
-                    }, onSave: { tempRoutine in
-                        saveRoutine(tempRoutine)
-                    })
-                    .navigationTitle("Edit \(routine.name)")
-                }
-            }
-            .onAppear() {
-                addButtonIsPresented = true
-            }
-            .onDisappear() {
-                addButtonIsPresented = false
-            }
-            
-            if addButtonIsPresented {
-                FloatingAddButton(
-                    color: routineColor,
-                    isPressed: $addIsPressed,
-                    action: {
-                        addStepViewIsPresented = true
-                    }
-                )
-            }
+        }
+        .onAppear() {
+            addButtonIsPresented = true
+        }
+        .onDisappear() {
+            addButtonIsPresented = false
         }
     }
     
@@ -179,7 +178,7 @@ struct RoutineStepListView: View {
 
         for (index, step) in tempSteps.enumerated() {
             step.order = index
-        } // for
+        }
 
         routine.steps = tempSteps
         save()

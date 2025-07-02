@@ -37,17 +37,14 @@ struct StepRowView: View {
                 }
                 .font(.title3)
                 .buttonStyle(PlainButtonStyle())
-                .simultaneousGesture(
-                    LongPressGesture()
-                        .onEnded {_ in
-                            if step.status != .skipped {
-                                step.status = .skipped
-                            } else {
-                                step.status = .incomplete
-                            }
-                            routine.checkRoutineCompletion()
-                        }
-                )
+                .onTapGesture(count: 2) {
+                    if step.status != .skipped {
+                        step.status = .skipped
+                    } else {
+                        step.status = .incomplete
+                    }
+                    routine.checkRoutineCompletion()
+                }
                 if editingStepIndex == step.order {
                     TextField(step.name, text: $updatedStepName)
                         .onSubmit {
@@ -74,7 +71,7 @@ struct StepRowView: View {
                         EditDaysView(days: $routine.steps[index].days, iconColor: routine.getIconColor())
                             .transition(.move(edge: .top))
                             .transition(.opacity)
-
+                        
                     }
                     .animation(.easeInOut(duration: 0.2), value: showHiddenSteps)
                 }

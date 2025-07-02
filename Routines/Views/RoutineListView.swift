@@ -39,10 +39,6 @@ struct RoutineListView: View {
 
     var body: some View {
         ZStack {
-            // TODO: This isn't working
-            LinearGradient(gradient: backgroundGradient, startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea(.all)
-            
             NavigationStack {
                 Group {
                     if routines.isEmpty {
