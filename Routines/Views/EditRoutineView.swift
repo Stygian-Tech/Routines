@@ -42,6 +42,7 @@ struct EditRoutineView: View {
             Section("Time & Days") {
                 DatePicker("Time", selection: $tempRoutine.time, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.compact)
+                    .accessibilityLabel(Text("Routine time"))
                 EditDaysView(days: $tempRoutine.days, iconColor: tempColor)
                     .padding(.vertical, 3)
             }
@@ -56,6 +57,7 @@ struct EditRoutineView: View {
                                 .font(.largeTitle)
                                 .foregroundStyle(.white)
                         )
+                        .accessibilityHidden(true)
                     Spacer()
                 }
                 HStack {
@@ -71,6 +73,8 @@ struct EditRoutineView: View {
                                         .fill(color.color)
                                 }
                                 .frame(width: circleButtonSize)
+                                .accessibilityLabel(Text("Color \(String(describing: color.rawValue.dropFirst()))"))
+                                .accessibilityHint(Text("Sets the routine color"))
                             }
                         }
                     }
@@ -85,6 +89,7 @@ struct EditRoutineView: View {
                         Image(systemName: tempRoutine.iconSymbol)
                             .foregroundStyle(tempRoutine.getIconColor())
                     })
+                    .accessibilityLabel(Text("Choose symbol"))
                 }
 //                Text("Symbol")
 //                    .font(.headline)

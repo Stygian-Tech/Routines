@@ -27,6 +27,14 @@ struct DayToggleButton: View {
                 .onTapGesture {
                     action()
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(day))
+                .accessibilityValue(Text(isSelected ? "Selected" : "Not selected"))
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(Text("Toggles selection for \(day)"))
+                .accessibilityAction {
+                    action()
+                }
         }
         .frame(maxWidth: .infinity)
     }

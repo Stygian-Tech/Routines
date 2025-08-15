@@ -47,6 +47,7 @@ struct RoutineListView: View {
                     if routines.isEmpty {
                         Text("No Routines")
                             .foregroundStyle(.secondary)
+                            .accessibilityLabel(Text("No routines"))
                     } else {
                         RoutineList(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, deleteRoutine: deleteRoutine)
                         .onChange(of: routineToEdit) { _, newValue in
@@ -65,6 +66,7 @@ struct RoutineListView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Donate", systemImage: "gear", action: { settingsIsPresented = true })
+                            .accessibilityLabel(Text("Settings"))
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Reset Routines", systemImage: "arrow.circlepath", action: { resetAlertIsPresented = true })
@@ -76,6 +78,7 @@ struct RoutineListView: View {
                                 Button("Reset", role: .destructive, action: resetRoutines)
                                 Button("Cancel", role: .cancel, action: { resetAlertIsPresented = false })
                             }
+                            .accessibilityLabel(Text("Reset routines"))
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Show All Routines", systemImage: showAllRoutines ? "eye" : "eye.slash") {
@@ -83,6 +86,7 @@ struct RoutineListView: View {
                                 showAllRoutines.toggle()
                             }
                         }
+                        .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines"))
                     }
                 }
                 .navigationTitle(showAllRoutines ? "All Routines" : "Routines")

@@ -20,5 +20,6 @@ struct RoutineIconView: View {
                 Image(systemName: routine.iconSymbol)
                     .foregroundStyle(.white)
             )
+            .accessibilityHidden(true)
     }
 }

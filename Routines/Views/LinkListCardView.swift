@@ -24,9 +24,12 @@ struct LinkListCardView: View {
                 Image(systemName: "chevron.forward")
                     .foregroundStyle(.tertiary)
                     .font(.caption)
+                    .accessibilityHidden(true)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(Text(name))
+        .accessibilityHint(Text("Opens in Safari"))
     }
 }

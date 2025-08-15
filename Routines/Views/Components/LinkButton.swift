@@ -25,10 +25,13 @@ struct LinkButton: View {
                 Image(systemName: "chevron.forward")
                     .foregroundStyle(.tertiary)
                     .font(.caption)
+                    .accessibilityHidden(true)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(Text(symbol.name))
+        .accessibilityHint(Text("Opens in Safari"))
     }
 }
 

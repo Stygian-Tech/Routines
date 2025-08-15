@@ -46,11 +46,14 @@ struct RoutineCardView: View {
                                     .padding(.leading)
                                     .tint(routine.getIconColor())
                                     .layoutPriority(0) // Resizes the ProgressView to avoid text wrapping
+                                    .accessibilityLabel(Text("Progress"))
+                                    .accessibilityValue(Text("\(routine.finishedStepCount) of \(totalStepsToday) steps complete"))
                             } else {
                                 Image(systemName: "checkmark.circle")
                                     .symbolRenderingMode(.palette)
                                     .foregroundStyle(routine.status.icon.iconColor2 ?? routine.status.icon.iconColor1, routine.status.icon.iconColor1)
                                     .padding(.bottom, 1) // ProgressView is a little taller than Image so this prevents the card from changing size when you reset the routine to incomplete
+                                    .accessibilityHidden(true)
                             }
                             Spacer()
                         }
@@ -58,15 +61,19 @@ struct RoutineCardView: View {
                 }
                 HStack {
                     Image(systemName: "list.bullet")
+                        .accessibilityHidden(true)
                     Text("\(stepCount) step\(stepCount != 1 ? "s" : "") today")
                     Spacer()
                     Text("\(routine.timeToString())")
                     Image(systemName: "clock")
+                        .accessibilityHidden(true)
                 }
                 .padding(.leading)
                 .padding(.trailing)
             }
             .animation(.none, value: showDetail)
+            .accessibilityElement(children: .combine)
+            .accessibilityHint(Text("Opens routine"))
             if showDetail == true {
                 ZStack {
                     EditDaysView(days: $routine.days, iconColor: routineColor)

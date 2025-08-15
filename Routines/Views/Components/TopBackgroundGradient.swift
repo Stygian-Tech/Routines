@@ -25,6 +25,7 @@ struct TopBackgroundGradient: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .ignoresSafeArea(edges: .top)
         .allowsHitTesting(false)
+        .accessibilityHidden(true)
     }
 }
 

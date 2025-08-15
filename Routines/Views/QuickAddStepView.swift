@@ -25,6 +25,7 @@ struct QuickAddStepView: View {
                     newStepName = ""
                     isFocused = true
                 }
+                .accessibilityLabel(Text("Quick add step"))
             Spacer()
             //TODO: Button is taking up too much of view
             Button(action: {
@@ -38,6 +39,8 @@ struct QuickAddStepView: View {
                     .foregroundStyle(routine.getIconColor())
                     .font(.title3)
             }
+            .accessibilityLabel(Text("Add step"))
+            .accessibilityHint(Text("Adds the text field as a new step"))
         }
     }
 } 

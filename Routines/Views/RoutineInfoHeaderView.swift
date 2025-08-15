@@ -13,6 +13,7 @@ struct RoutineInfoHeaderView: View {
     var body: some View {
         HStack {
             Image(systemName: "clock")
+                .accessibilityHidden(true)
             Text(routine.timeToString())
             Spacer()
         } // HStack

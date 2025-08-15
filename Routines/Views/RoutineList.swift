@@ -23,6 +23,8 @@ struct RoutineList: View {
                 NavigationLink(value: routine.id) {
                     RoutineCardView(routine: routine, showDetail: $showAllRoutines)
                 }
+                .accessibilityLabel(Text(routine.name))
+                .accessibilityHint(Text("Opens routine"))
                 .contextMenu {
                     Button(action: routine.skipRemainingSteps) {
                         Label("Skip Remaining Steps", systemImage: "circle.slash")

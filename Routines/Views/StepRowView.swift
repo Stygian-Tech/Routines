@@ -37,6 +37,9 @@ struct StepRowView: View {
                 }
                 .font(.title3)
                 .buttonStyle(PlainButtonStyle())
+                .accessibilityLabel(Text(step.status == .complete ? "Mark incomplete" : "Mark complete"))
+                .accessibilityValue(Text(step.status == .complete ? "Complete" : (step.status == .skipped ? "Skipped" : "Incomplete")))
+                .accessibilityHint(Text("Toggles completion state"))
                 .contextMenu {
                     Button(action: { step.status = .skipped }) {
                         Label("Skip '\(step.name)'", systemImage: "circle.slash")
@@ -58,12 +61,14 @@ struct StepRowView: View {
                             editingStepIndex = nil
                             save()
                         }
+                        .accessibilityLabel(Text("Edit step name"))
                 } else {
                     Text(step.name)
                         .onTapGesture {
                             updatedStepName = step.name
                             editingStepIndex = step.order
                         }
+                        .accessibilityLabel(Text(step.name))
                 }
             }
             .animation(.none, value: showHiddenSteps)

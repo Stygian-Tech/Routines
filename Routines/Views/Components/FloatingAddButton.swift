@@ -39,6 +39,10 @@ struct FloatingAddButton: View {
                                 } // withAnimation
                             } // onEnded
                     )
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text("Add"))
+                    .accessibilityAddTraits(.isButton)
+                    .accessibilityHint(Text("Adds a new item"))
             } // HStack
             .padding(.trailing, 30)
             .padding(.bottom, 20)

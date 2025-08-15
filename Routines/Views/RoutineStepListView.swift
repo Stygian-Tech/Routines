@@ -54,12 +54,16 @@ struct RoutineStepListView: View {
                                 editRoutineViewIsPresented = true
                             }) {
                                 Image(systemName: "pencil")
+                                    .accessibilityHidden(true)
                             }
+                            .accessibilityLabel(Text("Edit routine"))
                         }
                         ToolbarItem(placement: .topBarTrailing) {
                             Button(action: { showHiddenSteps.toggle() }) {
                                 Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
+                                    .accessibilityHidden(true)
                             }
+                            .accessibilityLabel(Text(showHiddenSteps ? "Show only today" : "Show all days"))
                         }
                     }
                     .sheet(isPresented: $addStepViewIsPresented) {
@@ -89,6 +93,7 @@ struct RoutineStepListView: View {
             .navigationTitle(routine.name)
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbarBackground(Color.clear, for: .navigationBar)
+            .accessibilityRespondsToUserInteraction(true)
         .onAppear() {
             addButtonIsPresented = true
         }

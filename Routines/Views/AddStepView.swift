@@ -21,6 +21,7 @@ struct AddStepView: View {
         Form {
             Section("Name") {
                 TextField("Step", text: $newStep)
+                    .accessibilityLabel(Text("Step name"))
             }
             Section("Days") {
                 EditDaysView(days: $routine.days, iconColor: routineColor)

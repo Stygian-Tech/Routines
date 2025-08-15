@@ -40,6 +40,9 @@ struct FloatingActionButton: View {
                                 }
                             }
                     )
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text(iconName == "plus" ? "Add" : "Action"))
+                    .accessibilityAddTraits(.isButton)
             }
             .padding(.trailing, 30)
             .padding(.bottom, 20)
