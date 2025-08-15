@@ -23,12 +23,41 @@ final class RoutinesUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testFlows_coverPrimaryUI() throws {
         let app = XCUIApplication()
+        app.launchArguments.append("UI_TEST_SEED")
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Toggle show all routines (if present)
+        let showAllButton = app.navigationBars.buttons.matching(identifier: "Show All Routines").firstMatch
+        if showAllButton.exists { showAllButton.tap() }
+
+        // Open Settings
+        let gear = app.navigationBars.buttons.matching(identifier: "Donate").firstMatch
+        if gear.exists { gear.tap() }
+        let done = app.navigationBars.buttons["Done"]
+        if done.waitForExistence(timeout: 2) { done.tap() }
+
+        // Add Routine flow
+        let addButton = app.buttons.matching(identifier: "plus").firstMatch
+        if addButton.exists { addButton.tap() }
+        let cancel = app.navigationBars.buttons["Cancel"]
+        if cancel.waitForExistence(timeout: 2) { cancel.tap() }
+
+        // Navigate to first routine cell
+        let firstCell = app.cells.firstMatch
+        if firstCell.waitForExistence(timeout: 2) { firstCell.tap() }
+
+        // Toggle hidden steps and open add step sheet
+        let navBarButton = app.navigationBars.buttons.element(boundBy: 0)
+        if navBarButton.exists { navBarButton.tap() }
+        let fab = app.buttons.matching(identifier: "plus").firstMatch
+        if fab.exists { fab.tap() }
+        let cancelAddStep = app.navigationBars.buttons["Cancel"]
+        if cancelAddStep.waitForExistence(timeout: 2) { cancelAddStep.tap() }
+
+        // Back to list
+        app.navigationBars.buttons.element(boundBy: 0).tap()
     }
 
     @MainActor

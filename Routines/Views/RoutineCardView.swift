@@ -11,7 +11,6 @@ import SwiftUI
 struct RoutineCardView: View {
     @Bindable var routine: Routine
     @Binding var showDetail: Bool
-    @State private var routineDays: [String]
     
     private var routineColor: Color {
         get {
@@ -20,23 +19,12 @@ struct RoutineCardView: View {
     }
     
     var stepCount: Int {
-        if routine.steps.count == 0 {
-            return 0
-        } else {
-            var tempCount = 0
-            for step in routine.steps {
-                if step.isToday() {
-                    tempCount += 1
-                }
-            }
-            return tempCount
-        }
+        routine.steps.lazy.filter { $0.isToday() }.count
     }
     
     init(routine: Routine, showDetail: Binding<Bool>) {
         self.routine = routine
         _showDetail = showDetail
-        _routineDays = State(initialValue: routine.days)
     }
     
     var body: some View {
@@ -52,8 +40,9 @@ struct RoutineCardView: View {
                             Text(routine.name)
                                 .font(.headline)
                                 .layoutPriority(1) // Prevents the text from wrapping by resizing the ProgressView
-                            if routine.status == .incomplete && stepCount > 1 {
-                                ProgressView(value: (stepCount == 0) ? 0 : Double(routine.finishedStepCount) / Double(stepCount))
+                            let totalStepsToday = stepCount
+                            if routine.status == .incomplete && totalStepsToday > 1 {
+                                ProgressView(value: (totalStepsToday == 0) ? 0 : Double(routine.finishedStepCount) / Double(totalStepsToday))
                                     .padding(.leading)
                                     .tint(routine.getIconColor())
                                     .layoutPriority(0) // Resizes the ProgressView to avoid text wrapping

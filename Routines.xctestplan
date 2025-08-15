@@ -9,6 +9,19 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : true,
+    "codeCoverageTargets" : [
+      {
+        "containerPath" : "container:Routines.xcodeproj",
+        "identifier" : "224CA0462C321EEF0096F094",
+        "name" : "RoutinesTests"
+      },
+      {
+        "containerPath" : "container:Routines.xcodeproj",
+        "identifier" : "224CA0502C321EEF0096F094",
+        "name" : "RoutinesUITests"
+      }
+    ],
     "performanceAntipatternCheckerEnabled" : true,
     "targetForVariableExpansion" : {
       "containerPath" : "container:Routines.xcodeproj",

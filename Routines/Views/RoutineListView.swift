@@ -28,7 +28,7 @@ struct RoutineListView: View {
     @State private var navPath: [UUID] = []
     
     // Layout Properties
-    let backgroundGradient = Gradient(colors: [.purple, .clear])
+    let backgroundGradient = Gradient(colors: [.accentColor.opacity(0.28), Color(.systemBackground)])
     let resetRoutinesTip = ResetRoutinesTip()
     
     var today: String {
@@ -40,13 +40,15 @@ struct RoutineListView: View {
 
     var body: some View {
         ZStack {
+            TopBackgroundGradient(color: .purple, height: 320)
+            
             NavigationStack(path: $navPath) {
                 Group {
                     if routines.isEmpty {
                         Text("No Routines")
                             .foregroundStyle(.secondary)
                     } else {
-                        RoutineList(showAllRoutines: $showAllRoutines, addButtonIsPresented: $addButtonIsPresented, routineToEdit: $routineToEdit, deleteRoutine: deleteRoutine, getTimeComponent: getTimeComponent)
+                        RoutineList(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, deleteRoutine: deleteRoutine)
                         .onChange(of: routineToEdit) { _, newValue in
                             if newValue != nil {
                                 editRoutineIsPresented = true
@@ -84,6 +86,8 @@ struct RoutineListView: View {
                     }
                 }
                 .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbarBackground(Color.clear, for: .navigationBar)
                 .navigationDestination(for: UUID.self) { id in
                     if let routine = routines.first(where: { $0.id == id }) {
                         RoutineStepListView(routine: routine)
@@ -122,20 +126,15 @@ struct RoutineListView: View {
                     }
                 }
             }
+            // No overlay: keep only the gradient behind all UI
             if addButtonIsPresented {
-                AddButton(isPressed: $addIsPressed, onAdd: addRoutine)
+                FloatingAddButton(isPressed: $addIsPressed, action: addRoutine)
                     .transition(.opacity)
             }
         }
     }
 
     // MARK: - Helper Methods
-    
-    private func getTimeComponent(_ date: Date) -> Date {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.hour, .minute], from: date)
-        return calendar.date(from: components) ?? date
-    }
     
     private func resetRoutines() {
         for routine in routines {
@@ -150,125 +149,11 @@ struct RoutineListView: View {
         newRoutine = routine
     }
     
-    private func deleteRoutine(_ indexSet: IndexSet) {
-        for index in indexSet {
-            let routine = routines.sorted(by: { getTimeComponent($0.time) < getTimeComponent($1.time) })[index]
+    private func deleteRoutine(_ routinesToDelete: [Routine]) {
+        for routine in routinesToDelete {
             modelContext.delete(routine)
         }
     }
 }
 
-// MARK: - SettingsSheet
-
-struct SettingsSheet: View {
-    @Binding var isPresented: Bool
-    
-    var body: some View {
-        NavigationStack {
-            SettingsView(isPresented: $isPresented)
-                .navigationTitle("Settings")
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button(action: {
-                            isPresented = false
-                        }) {
-                            Text("Done")
-                        }
-                    }
-                }
-        }
-    }
-}
-
-// MARK: - AddButton
-
-struct AddButton: View {
-    @Binding var isPressed: Bool
-    var onAdd: () -> Void
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Circle()
-                    .fill(isPressed ? Color.accentColor.opacity(0.7) : Color.accentColor)
-                    .frame(width: 60)
-                    .overlay(
-                        Image(systemName: "plus")
-                            .foregroundStyle(.white)
-                            .font(.title2)
-                    )
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { _ in
-                                withAnimation {
-                                    isPressed = true
-                                }
-                            }
-                            .onEnded { _ in
-                                withAnimation {
-                                    isPressed = false
-                                    onAdd()
-                                }
-                            }
-                    )
-            }
-            .padding(.trailing, 30)
-            .padding(.bottom, 20)
-        }
-    }
-}
-
-// MARK: - AddRoutineSheet
-
-struct AddRoutineSheet: View {
-    @Binding var newRoutine: Routine?
-    @Binding var isPresented: Bool
-    var modelContext: ModelContext
-    
-    var body: some View {
-        NavigationStack {
-            EditRoutineView(routine: newRoutine ?? Routine(), onDismiss: { tempRoutine in
-                modelContext.delete(newRoutine ?? Routine())
-                isPresented = false
-            }, onSave: { tempRoutine in
-                if let routine = newRoutine {
-                    routine.name = tempRoutine.name
-                    routine.time = tempRoutine.time
-                    routine.iconSymbol = tempRoutine.iconSymbol
-                    routine.iconColor = tempRoutine.iconColor
-                    routine.days = tempRoutine.days
-                }
-                isPresented = false
-            })
-            .navigationTitle("New Routine")
-        }
-    }
-}
-
-// MARK: - EditRoutineSheet
-
-struct EditRoutineSheet: View {
-    let routine: Routine
-    @Binding var isPresented: Bool
-    @Environment(\.modelContext) var modelContext
-    
-    var body: some View {
-        NavigationStack {
-            EditRoutineView(routine: routine) { tempRoutine in
-                modelContext.delete(tempRoutine)
-                isPresented = false
-            } onSave: { tempRoutine in
-                routine.name = tempRoutine.name
-                routine.time = tempRoutine.time
-                routine.iconSymbol = tempRoutine.iconSymbol
-                routine.iconColor = tempRoutine.iconColor
-                routine.days = tempRoutine.days
-                modelContext.delete(tempRoutine)
-                isPresented = false
-            }
-            .navigationTitle("Edit \(routine.name)")
-        }
-    }
-}
+// Sheet subviews moved to separate files for modularity

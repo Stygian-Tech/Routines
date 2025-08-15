@@ -34,6 +34,8 @@ struct RoutineStepListView: View {
     var body: some View {
         
             ZStack {
+                TopBackgroundGradient(color: routineColor, height: 280)
+                
                 VStack {
                     StepListView(
                         routine: routine,
@@ -85,6 +87,8 @@ struct RoutineStepListView: View {
                 }
             }
             .navigationTitle(routine.name)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarBackground(Color.clear, for: .navigationBar)
         .onAppear() {
             addButtonIsPresented = true
         }

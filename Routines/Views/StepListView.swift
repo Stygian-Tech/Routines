@@ -19,7 +19,7 @@ struct StepListView: View {
 
     var body: some View {
         List {
-            ForEach(Array(routine.steps.sorted(by: { $0.order < $1.order }).enumerated()), id: \.element.id) { index, step in
+            ForEach(Array(routine.steps.sorted(by: { $0.order < $1.order }).enumerated()), id: \.element.id) { _, step in
                 if step.isToday() || showHiddenSteps {
                     StepRowView(
                         routine: routine,
@@ -40,5 +40,7 @@ struct StepListView: View {
                 }
             )
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.clear)
     }
 }

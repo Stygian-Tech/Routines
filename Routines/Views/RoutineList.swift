@@ -10,38 +10,39 @@ import SwiftData
 
 struct RoutineList: View {
     @Environment(\.modelContext) var modelContext
-    @Query var routines: [Routine]
+    @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) var routines: [Routine]
     @Binding var showAllRoutines: Bool
-    @Binding var addButtonIsPresented: Bool
     @Binding var routineToEdit: Routine?
-    
-    let deleteRoutine: (IndexSet) -> Void
-    let getTimeComponent: @MainActor @Sendable (Date) -> Date
-    
+
+    let deleteRoutine: ([Routine]) -> Void
+
     var body: some View {
+        let displayedRoutines = routines.filter { $0.isToday() || showAllRoutines }
         List {
-            ForEach(routines.sorted(by: { getTimeComponent($0.time) < getTimeComponent($1.time) }), id: \.id) { routine in
-                if routine.isToday() || showAllRoutines {
-                    NavigationLink(value: routine.id) {
-                        RoutineCardView(routine: routine, showDetail: $showAllRoutines)
+            ForEach(displayedRoutines, id: \.id) { routine in
+                NavigationLink(value: routine.id) {
+                    RoutineCardView(routine: routine, showDetail: $showAllRoutines)
+                }
+                .contextMenu {
+                    Button(action: routine.skipRemainingSteps) {
+                        Label("Skip Remaining Steps", systemImage: "circle.slash")
                     }
-                    
-                    .contextMenu {
-                        Button(action: routine.skipRemainingSteps) {
-                            Label("Skip Remaining Steps", systemImage: "circle.slash")
-                        }
-                        Button(action: routine.completeRemainingSteps) {
-                            Label("Complete Remaining Steps", systemImage: "checkmark.circle")
-                        }
-                        Button(action: { routineToEdit = routine }) {
-                            Label("Edit \(routine.name)", systemImage: "pencil")
-                        }
-                        Button(role: .destructive, action: { modelContext.delete(routine) }, label: { Label("Delete \(routine.name)", systemImage: "trash") })
+                    Button(action: routine.completeRemainingSteps) {
+                        Label("Complete Remaining Steps", systemImage: "checkmark.circle")
                     }
+                    Button(action: { routineToEdit = routine }) {
+                        Label("Edit \(routine.name)", systemImage: "pencil")
+                    }
+                    Button(role: .destructive, action: { modelContext.delete(routine) }, label: { Label("Delete \(routine.name)", systemImage: "trash") })
                 }
             }
-            .onDelete(perform: deleteRoutine)
+            .onDelete { indexSet in
+                let targets = indexSet.map { displayedRoutines[$0] }
+                deleteRoutine(targets)
+            }
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.clear)
     }
 }
 
