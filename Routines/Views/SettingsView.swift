@@ -24,8 +24,8 @@ struct SettingsView: View {
                     }
                 }
                 Section(header: Text("On the Web")) {
-                    LinkButton(symbol: .init(name: "Routines Website", file: "Bluesky", url: "https://getroutines.app", color: .purple))
-                    LinkButton(symbol: .init(name: "Stygian Tech Website", file: "Bluesky", url: "https://stygiantech.dev", color: .black))
+                    LinkButton(symbol: .init(name: "Routines Website", file: nil, url: "https://getroutines.app", color: .purple, sfSymbolName: "globe"))
+                    LinkButton(symbol: .init(name: "Stygian Tech Website", file: nil, url: "https://stygiantech.dev", color: .black, sfSymbolName: "globe"))
                 }
                 Section(header: Text("Donate")) {
                     Text("Coming Soon...")

@@ -18,8 +18,15 @@ struct LinkButton: View {
             UIApplication.shared.open(url)
         }) {
             HStack {
-                Image(symbol.file)
-                    .foregroundStyle(symbol.color)
+                if let systemName = symbol.sfSymbolName {
+                    Image(systemName: systemName)
+                        .foregroundStyle(symbol.color)
+                } else {
+                    if let assetName = symbol.file, !assetName.isEmpty {
+                        Image(assetName)
+                            .foregroundStyle(symbol.color)
+                    }
+                }
                 Text(symbol.name)
                 Spacer()
                 Image(systemName: "chevron.forward")
