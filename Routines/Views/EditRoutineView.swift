@@ -28,9 +28,9 @@ struct EditRoutineView: View {
     
     init(routine: Routine, onDismiss: @escaping (Routine) -> Void, onSave: @escaping (Routine) -> Void) {
         self.routine = routine
-        _tempRoutine = State(initialValue: routine.copy())
         self.onDismiss = onDismiss
         self.onSave = onSave
+        _tempRoutine = State(initialValue: routine.copy())
         _tempSymbol = State(initialValue: routine.iconSymbol)
     }
     

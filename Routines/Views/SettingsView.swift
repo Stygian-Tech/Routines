@@ -18,6 +18,18 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section(header: Text("Appearance")) {
+                    NavigationLink(destination: AppIconPickerView()) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "app.fill")
+                                .foregroundStyle(Color.accentColor)
+                            Text("App Icon")
+                            Spacer()
+                        }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityHint(Text("Opens app icon picker"))
+                    }
+                }
                 Section(header: Text("Follow Us")) {
                     ForEach(socialLinkList.symbols) { symbol in
                         LinkButton(symbol: symbol)
