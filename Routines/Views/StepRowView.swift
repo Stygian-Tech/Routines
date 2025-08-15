@@ -37,13 +37,15 @@ struct StepRowView: View {
                 }
                 .font(.title3)
                 .buttonStyle(PlainButtonStyle())
-                .onTapGesture(count: 2) {
-                    if step.status != .skipped {
-                        step.status = .skipped
-                    } else {
-                        step.status = .incomplete
+                .contextMenu {
+                    Button(action: { step.status = .skipped }) {
+                        Label("Skip '\(step.name)'", systemImage: "circle.slash")
                     }
-                    routine.checkRoutineCompletion()
+                    Button(action: { step.status = .complete }) {
+                        Label("Complete '\(step.name)'", systemImage: "checkmark.circle")
+                    }
+                    //TODO: destructive action is not deleting step
+                    Button(role: .destructive, action: { modelContext.delete(step) }, label: { Label("Delete \(step.name)", systemImage: "trash") })
                 }
                 if editingStepIndex == step.order {
                     TextField(step.name, text: $updatedStepName)
@@ -86,4 +88,8 @@ struct StepRowView: View {
             print("Error Saving: \(error.localizedDescription)")
         }
     }
-} 
+    
+    private func skipStep() {
+        
+    }
+}

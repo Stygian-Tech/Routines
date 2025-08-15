@@ -22,11 +22,10 @@ struct RoutineList: View {
         List {
             ForEach(routines.sorted(by: { getTimeComponent($0.time) < getTimeComponent($1.time) }), id: \.id) { routine in
                 if routine.isToday() || showAllRoutines {
-                    NavigationLink(destination: RoutineStepListView(routine: routine)
-                        .onAppear { addButtonIsPresented = false }
-                    ) {
+                    NavigationLink(value: routine.id) {
                         RoutineCardView(routine: routine, showDetail: $showAllRoutines)
                     }
+                    
                     .contextMenu {
                         Button(action: routine.skipRemainingSteps) {
                             Label("Skip Remaining Steps", systemImage: "circle.slash")

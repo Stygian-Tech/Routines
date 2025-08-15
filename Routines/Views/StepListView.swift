@@ -15,7 +15,7 @@ struct StepListView: View {
     
     var moveItem: (IndexSet, Int) -> Void
     var deleteStep: (IndexSet) -> Void
-    var addStep: () -> Void
+    var addStep: (String) -> Void
 
     var body: some View {
         List {
@@ -35,7 +35,9 @@ struct StepListView: View {
             QuickAddStepView(
                 newStepName: $newStepName,
                 routine: routine,
-                onAdd: addStep
+                onAdd: { name in
+                    addStep(name)
+                }
             )
         }
     }

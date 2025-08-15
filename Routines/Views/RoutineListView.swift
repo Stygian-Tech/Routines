@@ -25,6 +25,7 @@ struct RoutineListView: View {
     @State private var addIsPressed = false
     @State private var addButtonIsPresented = true
     @State private var editRoutineIsPresented = false
+    @State private var navPath: [UUID] = []
     
     // Layout Properties
     let backgroundGradient = Gradient(colors: [.purple, .clear])
@@ -39,7 +40,7 @@ struct RoutineListView: View {
 
     var body: some View {
         ZStack {
-            NavigationStack {
+            NavigationStack(path: $navPath) {
                 Group {
                     if routines.isEmpty {
                         Text("No Routines")
@@ -55,9 +56,7 @@ struct RoutineListView: View {
                             for routine in routines {
                                 routine.checkRoutineCompletion()
                             }
-                            withAnimation {
-                                addButtonIsPresented = true
-                            }
+                            // Defer showing the add button to when this view is fully visible again.
                         }
                     }
                 }
@@ -85,6 +84,23 @@ struct RoutineListView: View {
                     }
                 }
                 .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
+                .navigationDestination(for: UUID.self) { id in
+                    if let routine = routines.first(where: { $0.id == id }) {
+                        RoutineStepListView(routine: routine)
+                    } else {
+                        Text("Routine Not Found")
+                    }
+                }
+                .onChange(of: navPath) { _, newPath in
+                    // Fade in on pop commit; hide immediately on push
+                    if newPath.isEmpty {
+                        withAnimation(.easeInOut(duration: 0.18)) {
+                            addButtonIsPresented = true
+                        }
+                    } else {
+                        addButtonIsPresented = false
+                    }
+                }
                 .sheet(isPresented: $settingsIsPresented) {
                     SettingsSheet(isPresented: $settingsIsPresented)
                 }
@@ -108,6 +124,7 @@ struct RoutineListView: View {
             }
             if addButtonIsPresented {
                 AddButton(isPressed: $addIsPressed, onAdd: addRoutine)
+                    .transition(.opacity)
             }
         }
     }

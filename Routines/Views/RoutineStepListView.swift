@@ -32,7 +32,7 @@ struct RoutineStepListView: View {
     @State var stepDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var body: some View {
-        NavigationStack {
+        
             ZStack {
                 VStack {
                     StepListView(
@@ -41,7 +41,7 @@ struct RoutineStepListView: View {
                         editingStepIndex: $editingStepIndex,
                         moveItem: moveItem,
                         deleteStep: deleteStep,
-                        addStep: addStep
+                        addStep: addQuickStep
                     )
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
@@ -85,7 +85,6 @@ struct RoutineStepListView: View {
                 }
             }
             .navigationTitle(routine.name)
-        }
         .onAppear() {
             addButtonIsPresented = true
         }
@@ -167,6 +166,18 @@ struct RoutineStepListView: View {
             routine.steps.append(newStep)
         }
         
+        save()
+        routine.checkRoutineCompletion()
+    }
+
+    func addQuickStep(_ name: String) {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else { return }
+        withAnimation {
+            let newStep = Step(name: trimmedName, routine: routine, order: routine.steps.count, days: daysOfTheWeek)
+            modelContext.insert(newStep)
+            routine.steps.append(newStep)
+        }
         save()
         routine.checkRoutineCompletion()
     }
