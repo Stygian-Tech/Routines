@@ -15,12 +15,14 @@ struct AppIconOption: Identifiable, Equatable {
     let displayName: String
     let alternateIconName: String?
     let previewColor: Color
+    let previewImageName: String?
 
-    init(displayName: String, alternateIconName: String?, previewColor: Color) {
+    init(displayName: String, alternateIconName: String?, previewColor: Color, previewImageName: String?) {
         self.id = alternateIconName ?? "primary"
         self.displayName = displayName
         self.alternateIconName = alternateIconName
         self.previewColor = previewColor
+        self.previewImageName = previewImageName
     }
 }
 
@@ -42,7 +44,8 @@ final class AppIconManager: ObservableObject {
     func availableOptions(infoDictionary: [String: Any] = Bundle.main.infoDictionary ?? [:]) -> [AppIconOption] {
         // Primary icon first
         var options: [AppIconOption] = [
-            AppIconOption(displayName: "Default", alternateIconName: nil, previewColor: .accentColor)
+            // Use the bundled preview image for the primary icon if available
+            AppIconOption(displayName: "Default", alternateIconName: nil, previewColor: .accentColor, previewImageName: "Royal Icon")
         ]
 
         // Try to parse alternates dynamically from Info.plist
@@ -75,29 +78,32 @@ final class AppIconManager: ObservableObject {
     private static func mapDisplay(for alternateIconName: String) -> AppIconOption {
         // Derive a user-friendly name and an approximate color for preview
         let lower = alternateIconName.lowercased()
+        // Helper to build image name based on the option name (matches Assets.xcassets names like "Amber Icon")
+        func imageName(for name: String) -> String { "\(name) Icon" }
         if lower.contains("amber") {
-            return AppIconOption(displayName: "Amber", alternateIconName: alternateIconName, previewColor: .orange)
+            return AppIconOption(displayName: "Amber", alternateIconName: alternateIconName, previewColor: .orange, previewImageName: imageName(for: "Amber"))
         }
         if lower.contains("deep") {
-            return AppIconOption(displayName: "Deep", alternateIconName: alternateIconName, previewColor: Color(red: 0.12, green: 0.14, blue: 0.18))
+            return AppIconOption(displayName: "Deep", alternateIconName: alternateIconName, previewColor: Color(red: 0.12, green: 0.14, blue: 0.18), previewImageName: imageName(for: "Deep"))
         }
         if lower.contains("forest") {
-            return AppIconOption(displayName: "Forest", alternateIconName: alternateIconName, previewColor: .green)
+            return AppIconOption(displayName: "Forest", alternateIconName: alternateIconName, previewColor: .green, previewImageName: imageName(for: "Forest"))
         }
         if lower.contains("goldenrod") {
-            return AppIconOption(displayName: "Goldenrod", alternateIconName: alternateIconName, previewColor: Color(red: 0.85, green: 0.66, blue: 0.0))
+            return AppIconOption(displayName: "Goldenrod", alternateIconName: alternateIconName, previewColor: Color(red: 0.85, green: 0.66, blue: 0.0), previewImageName: imageName(for: "Goldenrod"))
         }
         if lower.contains("jum") {
-            return AppIconOption(displayName: "Jum", alternateIconName: alternateIconName, previewColor: Color(red: 0.36, green: 0.23, blue: 0.53))
+            return AppIconOption(displayName: "Jum", alternateIconName: alternateIconName, previewColor: Color(red: 0.36, green: 0.23, blue: 0.53), previewImageName: imageName(for: "Jum"))
         }
         if lower.contains("red") {
-            return AppIconOption(displayName: "Red", alternateIconName: alternateIconName, previewColor: .red)
+            return AppIconOption(displayName: "Red", alternateIconName: alternateIconName, previewColor: .red, previewImageName: imageName(for: "Red"))
         }
         if lower.contains("teal") {
-            return AppIconOption(displayName: "Teal", alternateIconName: alternateIconName, previewColor: .teal)
+            return AppIconOption(displayName: "Teal", alternateIconName: alternateIconName, previewColor: .teal, previewImageName: imageName(for: "Teal"))
         }
         // Default mapping if unknown
-        return AppIconOption(displayName: alternateIconName.replacingOccurrences(of: "AppIcon-", with: ""), alternateIconName: alternateIconName, previewColor: .gray)
+        let fallbackName = alternateIconName.replacingOccurrences(of: "AppIcon-", with: "")
+        return AppIconOption(displayName: fallbackName, alternateIconName: alternateIconName, previewColor: .gray, previewImageName: imageName(for: fallbackName))
     }
 
     func setIcon(to option: AppIconOption, completion: ((Error?) -> Void)? = nil) {

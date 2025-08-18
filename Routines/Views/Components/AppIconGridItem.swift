@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct AppIconGridItem: View {
     let option: AppIconOption
@@ -16,15 +17,24 @@ struct AppIconGridItem: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(option.previewColor)
+                    .frame(width: 80, height: 80)
+                    .overlay(
+                        Group {
+                            if let imageName = option.previewImageName, UIImage(named: imageName) != nil {
+                                Image(imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            } else {
+                                Image(systemName: "app.fill")
+                                    .font(.system(size: 28, weight: .semibold))
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                    )
                     .overlay(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .stroke(isSelected ? Color.accentColor : Color.secondary.opacity(0.2), lineWidth: isSelected ? 2 : 1)
-                    )
-                    .frame(width: 80, height: 80)
-                    .overlay(
-                        Image(systemName: "app.fill")
-                            .font(.system(size: 28, weight: .semibold))
-                            .foregroundStyle(.white)
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
