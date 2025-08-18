@@ -17,15 +17,17 @@ struct LinkButton: View {
             }
             UIApplication.shared.open(url)
         }) {
-            HStack {
+            HStack(spacing: 12) {
                 if let systemName = symbol.sfSymbolName {
                     Image(systemName: systemName)
                         .foregroundStyle(symbol.color)
-                } else {
-                    if let assetName = symbol.file, !assetName.isEmpty {
-                        Image(assetName)
-                            .foregroundStyle(symbol.color)
-                    }
+                        .frame(width: 22, height: 22)
+                } else if let assetName = symbol.file, !assetName.isEmpty {
+                    Image(assetName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 22, height: 22)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                 }
                 Text(symbol.name)
                 Spacer()

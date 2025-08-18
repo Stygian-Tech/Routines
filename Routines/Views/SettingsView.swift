@@ -39,8 +39,8 @@ struct SettingsView: View {
                     }
                 }
                 Section(header: Text("On the Web")) {
-                    LinkButton(symbol: .init(name: "Routines Website", file: nil, url: "https://getroutines.app", color: .purple, sfSymbolName: "globe"))
-                    LinkButton(symbol: .init(name: "Stygian Tech Website", file: nil, url: "https://stygiantech.dev", color: .black, sfSymbolName: "globe"))
+                    LinkButton(symbol: .init(name: "Routines Website", file: "Royal Icon", url: "https://getroutines.app", color: .purple, sfSymbolName: nil))
+                    LinkButton(symbol: .init(name: "Stygian Tech Website", file: "Stygian Tech Favicon", url: "https://stygiantech.dev", color: .black, sfSymbolName: nil))
                 }
                 Section(header: Text("Donate")) {
                     Text("Coming Soon...")
