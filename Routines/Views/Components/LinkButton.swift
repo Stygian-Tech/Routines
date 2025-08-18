@@ -19,15 +19,16 @@ struct LinkButton: View {
         }) {
             HStack(spacing: 12) {
                 if let systemName = symbol.sfSymbolName {
-                    Image(systemName: systemName)
+                    Image(systemName)
+                        .symbolRenderingMode(.monochrome)
                         .foregroundStyle(symbol.color)
                         .frame(width: 22, height: 22)
                 } else if let assetName = symbol.file, !assetName.isEmpty {
                     Image(assetName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 22, height: 22)
-                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                        .frame(width: 28, height: 28)
+                        .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                 }
                 Text(symbol.name)
                 Spacer()
