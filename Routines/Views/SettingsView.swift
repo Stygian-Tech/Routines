@@ -21,8 +21,11 @@ struct SettingsView: View {
                 Section(header: Text("Appearance")) {
                     NavigationLink(destination: AppIconPickerView()) {
                         HStack(spacing: 12) {
-                            Image(systemName: "app.fill")
-                                .foregroundStyle(Color.accentColor)
+                            Image("Royal Icon")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 28, height: 28)
+                                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                             Text("App Icon")
                             Spacer()
                         }
