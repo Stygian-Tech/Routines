@@ -34,6 +34,9 @@ struct RoutineStepListView: View {
     var body: some View {
         
             ZStack {
+                // Make the base background the system background, overlay with a top-only gradient like Step view
+                Color(.systemBackground)
+                    .ignoresSafeArea()
                 TopBackgroundGradient(color: routineColor, height: 280)
                 
                 VStack {

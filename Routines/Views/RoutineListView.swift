@@ -40,6 +40,9 @@ struct RoutineListView: View {
 
     var body: some View {
         ZStack {
+            // Ensure the rest of the screen uses the system background so the gradient only shows at the top
+            Color(.systemBackground)
+                .ignoresSafeArea()
             TopBackgroundGradient(color: .purple, height: 320)
             
             NavigationStack(path: $navPath) {
