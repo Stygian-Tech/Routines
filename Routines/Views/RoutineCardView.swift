@@ -30,35 +30,35 @@ struct RoutineCardView: View {
     var body: some View {
         VStack {
             VStack {
-                HStack{
-                    VStack {
-                        HStack {
-                            RoutineIconView(routine: routine)
-                            Spacer()
-                        }
-                        HStack {
-                            Text(routine.name)
-                                .font(.headline)
-                                .layoutPriority(1) // Prevents the text from wrapping by resizing the ProgressView
-                            let totalStepsToday = stepCount
-                            if routine.status == .incomplete && totalStepsToday > 1 {
-                                ProgressView(value: (totalStepsToday == 0) ? 0 : Double(routine.finishedStepCount) / Double(totalStepsToday))
-                                    .padding(.leading)
-                                    .tint(routine.getIconColor())
-                                    .layoutPriority(0) // Resizes the ProgressView to avoid text wrapping
-                                    .accessibilityLabel(Text("Progress"))
-                                    .accessibilityValue(Text("\(routine.finishedStepCount) of \(totalStepsToday) steps complete"))
-                            } else {
-                                Image(systemName: "checkmark.circle")
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(routine.status.icon.iconColor2 ?? routine.status.icon.iconColor1, routine.status.icon.iconColor1)
-                                    .padding(.bottom, 1) // ProgressView is a little taller than Image so this prevents the card from changing size when you reset the routine to incomplete
-                                    .accessibilityHidden(true)
-                            }
-                            Spacer()
-                        }
-                    }
+                HStack {
+                    RoutineIconView(routine: routine)
+                    Spacer()
                 }
+                .padding(.bottom, 4)
+                HStack {
+                    let totalStepsToday = stepCount
+                    if routine.status == .incomplete && totalStepsToday > 1 {
+                        let progress = (totalStepsToday == 0) ? 0 : Double(routine.finishedStepCount) / Double(totalStepsToday)
+                        RingProgressView(progress: progress, color: routine.getIconColor(), lineWidth: 2)
+                            .frame(width: 18, height: 18)
+                            .padding(.leading, 6)
+                            .padding(.bottom, 1)
+                            .layoutPriority(0) // Resizes the ProgressView to avoid text wrapping
+                            .accessibilityLabel(Text("Progress"))
+                            .accessibilityValue(Text("\(routine.finishedStepCount) of \(totalStepsToday) steps complete"))
+                    } else {
+                        Image(systemName: "checkmark.circle")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(routine.status.icon.iconColor2 ?? routine.status.icon.iconColor1, routine.status.icon.iconColor1)
+                            .padding(.leading, 3)
+                            .accessibilityHidden(true)
+                    }
+                    Text(routine.name)
+                        .font(.headline)
+                        .layoutPriority(1) // Prevents the text from wrapping by resizing the ProgressView
+                    Spacer()
+                }
+                .padding(.bottom, 4)
                 HStack {
                     Image(systemName: "list.bullet")
                         .accessibilityHidden(true)
