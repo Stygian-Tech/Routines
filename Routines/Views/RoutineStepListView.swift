@@ -62,7 +62,11 @@ struct RoutineStepListView: View {
                             .accessibilityLabel(Text("Edit routine"))
                         }
                         ToolbarItem(placement: .topBarTrailing) {
-                            Button(action: { showHiddenSteps.toggle() }) {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.22)) {
+                                    showHiddenSteps.toggle()
+                                }
+                            }) {
                                 Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
                                     .accessibilityHidden(true)
                             }

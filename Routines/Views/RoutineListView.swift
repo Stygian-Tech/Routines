@@ -21,6 +21,7 @@ struct RoutineListView: View {
     @State private var settingsIsPresented = false
     @State private var resetAlertIsPresented = false
     @State private var showAllRoutines = false
+    @State private var showRoutineDetails = false
     @State private var routinesAreHidden = false
     @State private var addIsPressed = false
     @State private var addButtonIsPresented = true
@@ -52,7 +53,7 @@ struct RoutineListView: View {
                             .foregroundStyle(.secondary)
                             .accessibilityLabel(Text("No routines"))
                     } else {
-                        RoutineList(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, deleteRoutine: deleteRoutine)
+                        RoutineList(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, showRoutineDetails: $showRoutineDetails, deleteRoutine: deleteRoutine)
                         .onChange(of: routineToEdit) { _, newValue in
                             if newValue != nil {
                                 editRoutineIsPresented = true
@@ -85,8 +86,13 @@ struct RoutineListView: View {
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Show All Routines", systemImage: showAllRoutines ? "eye" : "eye.slash") {
-                            withAnimation {
-                                showAllRoutines.toggle()
+                            // Update list filter immediately without animating the entire list
+                            showAllRoutines.toggle()
+                            // Animate the day pickers in a separate transaction so they fade/slide
+                            DispatchQueue.main.async {
+                                withAnimation(.easeInOut(duration: 0.24)) {
+                                    showRoutineDetails.toggle()
+                                }
                             }
                         }
                         .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines"))

@@ -13,6 +13,7 @@ struct RoutineList: View {
     @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) var routines: [Routine]
     @Binding var showAllRoutines: Bool
     @Binding var routineToEdit: Routine?
+    @Binding var showRoutineDetails: Bool
 
     let deleteRoutine: ([Routine]) -> Void
 
@@ -21,7 +22,7 @@ struct RoutineList: View {
         List {
             ForEach(displayedRoutines, id: \.id) { routine in
                 NavigationLink(value: routine.id) {
-                    RoutineCardView(routine: routine, showDetail: $showAllRoutines)
+                    RoutineCardView(routine: routine, showDetail: $showRoutineDetails)
                 }
                 .accessibilityLabel(Text(routine.name))
                 .accessibilityHint(Text("Opens routine"))

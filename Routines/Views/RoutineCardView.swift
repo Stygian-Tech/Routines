@@ -11,6 +11,8 @@ import SwiftUI
 struct RoutineCardView: View {
     @Bindable var routine: Routine
     @Binding var showDetail: Bool
+    @State private var animatePicker: Bool = false
+    @State private var shouldRenderPicker: Bool = false
     
     private var routineColor: Color {
         get {
@@ -74,13 +76,42 @@ struct RoutineCardView: View {
             .animation(.none, value: showDetail)
             .accessibilityElement(children: .combine)
             .accessibilityHint(Text("Opens routine"))
-            if showDetail == true {
+            if shouldRenderPicker {
                 ZStack {
                     EditDaysView(days: $routine.days, iconColor: routineColor)
-                        .transition(.move(edge: .top))
-                        .transition(.opacity)
+                        .opacity(animatePicker ? 1 : 0)
+                        .offset(y: animatePicker ? 0 : 8)
                 }
-                .animation(.easeInOut(duration: 0.2), value: showDetail)
+                .zIndex(1)
+            }
+        }
+        .onAppear {
+            if showDetail {
+                shouldRenderPicker = true
+                animatePicker = false
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut(duration: 0.24)) {
+                        animatePicker = true
+                    }
+                }
+            }
+        }
+        .onChange(of: showDetail) { _, newValue in
+            if newValue {
+                animatePicker = false
+                shouldRenderPicker = true
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut(duration: 0.24)) {
+                        animatePicker = true
+                    }
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.24)) {
+                    animatePicker = false
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.24) {
+                    shouldRenderPicker = false
+                }
             }
         }
     }

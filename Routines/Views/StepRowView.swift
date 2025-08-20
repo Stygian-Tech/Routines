@@ -19,6 +19,8 @@ struct StepRowView: View {
     @State private var updatedStepName: String = ""
     @Binding var editingStepIndex: Int?
     @Binding var showHiddenSteps: Bool
+    @State private var animatePicker: Bool = false
+    @State private var shouldRenderPicker: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -72,15 +74,43 @@ struct StepRowView: View {
                 }
             }
             .animation(.none, value: showHiddenSteps)
-            if showHiddenSteps {
+            if showHiddenSteps || shouldRenderPicker {
                 if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
                     ZStack {
                         EditDaysView(days: $routine.steps[index].days, iconColor: routine.getIconColor())
-                            .transition(.move(edge: .top))
-                            .transition(.opacity)
-                        
+                            .opacity(animatePicker ? 1 : 0)
+                            .offset(y: animatePicker ? 0 : 8)
                     }
-                    .animation(.easeInOut(duration: 0.2), value: showHiddenSteps)
+                    .zIndex(1)
+                }
+            }
+        }
+        .onAppear {
+            if showHiddenSteps {
+                shouldRenderPicker = true
+                animatePicker = false
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut(duration: 0.24)) {
+                        animatePicker = true
+                    }
+                }
+            }
+        }
+        .onChange(of: showHiddenSteps) { _, newValue in
+            if newValue {
+                animatePicker = false
+                shouldRenderPicker = true
+                DispatchQueue.main.async {
+                    withAnimation(.easeInOut(duration: 0.24)) {
+                        animatePicker = true
+                    }
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.24)) {
+                    animatePicker = false
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.24) {
+                    shouldRenderPicker = false
                 }
             }
         }
