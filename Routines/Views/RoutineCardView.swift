@@ -12,7 +12,8 @@ struct RoutineCardView: View {
     var routine: Routine
     
     var body: some View {
-        VStack {
+        // Core card content
+        let content = VStack {
             HStack{
                 VStack {
                     HStack {
@@ -37,8 +38,21 @@ struct RoutineCardView: View {
                 Text("\(routine.timeToString())")
                 Image(systemName: "clock")
             }
-            .padding(.leading)
-            .padding(.trailing)
+            .padding(.horizontal)
+        }
+        .padding()
+
+        Group {
+            if #available(iOS 18.0, *) {
+                content
+                    .glassBackgroundEffect(in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            } else {
+                content
+                    .background(
+                        .ultraThinMaterial,
+                        in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    )
+            }
         }
     }
 }
