@@ -30,9 +30,9 @@ struct RoutineTests {
         let tempTime = makeTime(hour: 6, minute: 0)
         
         // Create the Routine object
-        let routine = Routine(name: "Morning Routine", time: tempTime, iconColor: ".yellow", iconSymbol: "sunrise", steps: [
-            Step(name: "Brush Teeth")
-        ])
+        let routine = Routine(name: "Morning Routine", time: tempTime, iconColor: ".yellow", iconSymbol: "sunrise")
+        let step = Step(name: "Brush Teeth", routine: routine, order: 0)
+        routine.steps = [step]
         
         // Test the creation of the Routine object
         #expect(routine.name == "Morning Routine")
@@ -54,9 +54,9 @@ struct RoutineTests {
     ///
     /// The second routine should not have the same ID and it should not contain any of the steps of the original routine
     @Test func copyRoutine() async throws {
-        let routine1 = Routine(name: "Morning Routine", time: makeTime(hour: 6, minute: 0), iconColor: ".yellow", iconSymbol: "sunrise", steps: [
-            Step(name: "Brush Teeth")
-        ])
+        let routine1 = Routine(name: "Morning Routine", time: makeTime(hour: 6, minute: 0), iconColor: ".yellow", iconSymbol: "sunrise")
+        let step = Step(name: "Brush Teeth", routine: routine1, order: 0)
+        routine1.steps = [step]
         
         let routine2 = routine1.copy()
         routine2.name = "Evening Routine"
@@ -84,8 +84,8 @@ struct RoutineTests {
 fileprivate func makeTime(hour: Int, minute: Int) -> Date {
     // Create the date
     var time = DateComponents()
-    time.hour = 6
-    time.minute = 0
+    time.hour = hour
+    time.minute = minute
     
     // Create the calendar
     let calendar = Calendar.current

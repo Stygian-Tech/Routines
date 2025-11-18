@@ -9,127 +9,214 @@ import Foundation
 import SwiftUI
 
 struct RoutineStepListView: View {
-    @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) private var modelContext
     @Bindable var routine: Routine
+    
     @State private var editRoutineViewIsPresented = false
     @State private var addStepViewIsPresented = false
+    @State private var showHiddenSteps = false
+    @State private var addButtonIsPresented = false
+    @State private var addIsPressed = false
+   
     @State private var newStepName = ""
+    @State private var editingStepIndex: Int? = nil
+    @State private var updatedStepName: String = ""
+    
+    var routineColor: Color {
+        get {
+            return routine.getIconColor()
+        }
+    }
+    
+    var daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    @State var stepDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var body: some View {
-        HStack {
-            Image(systemName: "clock")
-            Text(routine.timeToString())
-            Spacer()
-        }
-        .padding(.leading)
-        NavigationStack {
-                List {
-                    ForEach(routine.steps) { step in
-                        HStack {
+        
+            ZStack {
+                // Make the base background the system background, overlay with a top-only gradient like Step view
+                Color(.systemBackground)
+                    .ignoresSafeArea()
+                TopBackgroundGradient(color: routineColor, height: 280)
+                
+                VStack {
+                    StepListView(
+                        routine: routine,
+                        showHiddenSteps: $showHiddenSteps,
+                        editingStepIndex: $editingStepIndex,
+                        moveItem: moveItem,
+                        deleteStep: deleteStep,
+                        addStep: addQuickStep
+                    )
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            // TODO: Share Sheet
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
                             Button(action: {
-                                step.isComplete.toggle()
-                                routine.checkRoutineCompletion()
+                                editRoutineViewIsPresented = true
                             }) {
-                                let systemName = step.isComplete ? "checkmark.circle.fill" : "circle"
-                                Image(systemName: systemName)
-                                    .foregroundStyle(routine.getIconColor())
+                                Image(systemName: "pencil")
+                                    .accessibilityHidden(true)
                             }
-                            Text(step.name)
+                            .accessibilityLabel(Text("Edit routine"))
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.22)) {
+                                    showHiddenSteps.toggle()
+                                }
+                            }) {
+                                Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
+                                    .accessibilityHidden(true)
+                            }
+                            .accessibilityLabel(Text(showHiddenSteps ? "Show only today" : "Show all days"))
                         }
                     }
-                    .onDelete(perform: deleteStep)
-                    Button(action: addStep) {
-                        HStack {
-                            TextField("Quick Add", text: $newStepName)
-                                .onSubmit(addStep)
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(routine.getIconColor())
+                    .sheet(isPresented: $addStepViewIsPresented) {
+                        addStepSheet
+                    }
+                    .sheet(isPresented: $editRoutineViewIsPresented) {
+                        NavigationStack {
+                            EditRoutineView(routine: routine, onDismiss: { tempRoutine in
+                                dismissEditRoutine(tempRoutine)
+                            }, onSave: { tempRoutine in
+                                saveRoutine(tempRoutine)
+                            })
+                            .navigationTitle("Edit \(routine.name)")
                         }
                     }
                 }
-                .navigationTitle(routine.name)
+                if addButtonIsPresented {
+                    FloatingAddButton(
+                        color: routineColor,
+                        isPressed: $addIsPressed,
+                        action: {
+                            addStepViewIsPresented = true
+                        }
+                    )
+                }
+            }
+            .navigationTitle(routine.name)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarBackground(Color.clear, for: .navigationBar)
+            .accessibilityRespondsToUserInteraction(true)
+        .onAppear() {
+            addButtonIsPresented = true
+        }
+        .onDisappear() {
+            addButtonIsPresented = false
+        }
+    }
+    
+    // MARK: Add Step Sheet
+    
+    var addStepSheet: some View {
+        NavigationView {
+            AddStepView(routine: routine, newStep: $newStepName)
+                .navigationTitle("Add Step")
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        // Share Sheet [To Be Implemented]
-                        Button(action: routine.resetSteps) {
-                            Text("Reset Steps")
-                        }
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .cancellationAction) {
                         Button(action: {
-                            editRoutineViewIsPresented = true
+                            addStepViewIsPresented = false
+                            newStepName = ""
                         }) {
-                            Image(systemName: "pencil")
+                            Text("Cancel")
                         }
                     }
-//                    ToolbarItem(placement: .topBarTrailing) {
-//                        Button(action: {
-//                            addStepViewIsPresented = true
-//                        }) {
-//                            Image(systemName: "plus")
-//                        }
-//                    }
-                }
-                .sheet(isPresented: $addStepViewIsPresented) {
-                    NavigationStack {
-                        AddStepView(newStep: $newStepName, isPresented: $addStepViewIsPresented)
-                            .navigationTitle("Add Step")
-                            .navigationBarTitleDisplayMode(.inline)
-                            .toolbar {
-                                ToolbarItem(placement: .cancellationAction) {
-                                    Button(action: {
-                                        addStepViewIsPresented = false
-                                        newStepName = ""
-                                    }) {
-                                        Text("Cancel")
-                                    }
-                                }
-                                ToolbarItem(placement: .confirmationAction) {
-                                    Button(action: {
-                                        addStep()
-                                        addStepViewIsPresented = false
-                                    }) {
-                                        Text("Done")
-                                    }
-                                }
-                            }
-                    }
-                }
-                .sheet(isPresented: $editRoutineViewIsPresented) {
-                    NavigationStack {
-                        EditRoutineView(routine: routine, onDismiss: { tempRoutine in
-                            modelContext.delete(tempRoutine)
-                            editRoutineViewIsPresented = false
-                        }, onSave: { tempRoutine in
-                            routine.name = tempRoutine.name
-                            routine.time = tempRoutine.time
-                            routine.iconSymbol = tempRoutine.iconSymbol
-                            routine.iconColor = tempRoutine.iconColor
-                            modelContext.delete(tempRoutine)
-                            editRoutineViewIsPresented = false
-                        })
-                            .navigationTitle("Edit Routine")
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(action: {
+                            addStep()
+                            addStepViewIsPresented = false
+                        }) {
+                            Text("Done")
+                        }
                     }
                 }
         }
+    }
+    
+    // MARK: Helper Methods
+    
+    func dismissEditRoutine(_ tempRoutine: Routine) {
+        modelContext.delete(tempRoutine)
+        editRoutineViewIsPresented = false
+    }
+    
+    func saveRoutine(_ tempRoutine: Routine) {
+        routine.name = tempRoutine.name
+        routine.time = tempRoutine.time
+        routine.iconSymbol = tempRoutine.iconSymbol
+        routine.iconColor = tempRoutine.iconColor
+        routine.days = tempRoutine.days
+        modelContext.delete(tempRoutine)
+        editRoutineViewIsPresented = false
     }
     
     func deleteStep(_ indexSet: IndexSet) {
-        for index in indexSet {
-            modelContext.delete(routine.steps[index])
-            routine.steps.remove(at: index)
+        var tempSteps = routine.steps
+        tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
+
+        for index in indexSet.map({ $0 }) {
+            tempSteps.remove(at: index)
         }
+
+        for (index, step) in tempSteps.enumerated() {
+            step.order = index
+        }
+
+        routine.steps = tempSteps
+        save()
+        routine.checkRoutineCompletion()
     }
-    
-    private func addStep() {
+
+    func addStep() {
         guard !newStepName.isEmpty else { return }
-        
+
         withAnimation {
-            let newStep = Step(name: newStepName)
+            let newStep = Step(name: newStepName, routine: routine, order: routine.steps.count, days: stepDays)
             newStepName = ""
+            stepDays = daysOfTheWeek
             modelContext.insert(newStep)
             routine.steps.append(newStep)
         }
+        
+        save()
+        routine.checkRoutineCompletion()
+    }
+
+    func addQuickStep(_ name: String) {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else { return }
+        withAnimation {
+            let newStep = Step(name: trimmedName, routine: routine, order: routine.steps.count, days: daysOfTheWeek)
+            modelContext.insert(newStep)
+            routine.steps.append(newStep)
+        }
+        save()
+        routine.checkRoutineCompletion()
+    }
+
+    func moveItem(from source: IndexSet, to destination: Int) {
+        var tempSteps = routine.steps
+        tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
+        tempSteps.move(fromOffsets: source, toOffset: destination)
+
+        for (index, step) in tempSteps.enumerated() {
+            step.order = index
+        }
+
+        routine.steps = tempSteps
+        save()
+
+    }
+
+    func save() {
+        do {
+            try modelContext.save()
+        } catch {
+            print("Error Saving: \(error.localizedDescription)")
+        }
     }
 }
-

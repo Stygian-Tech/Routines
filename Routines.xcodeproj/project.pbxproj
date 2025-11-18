@@ -3,30 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		224BD2392C471B4E0080F00E /* IconLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BD2382C471B4E0080F00E /* IconLists.swift */; };
-		224CA0392C321EEE0096F094 /* RoutinesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0382C321EEE0096F094 /* RoutinesApp.swift */; };
-		224CA03B2C321EEE0096F094 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03A2C321EEE0096F094 /* RoutineListView.swift */; };
-		224CA03D2C321EEE0096F094 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03C2C321EEE0096F094 /* Step.swift */; };
-		224CA03F2C321EEF0096F094 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CA03E2C321EEF0096F094 /* Assets.xcassets */; };
-		224CA0422C321EEF0096F094 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CA0412C321EEF0096F094 /* Preview Assets.xcassets */; };
-		224CA04C2C321EEF0096F094 /* RoutineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA04B2C321EEF0096F094 /* RoutineTests.swift */; };
-		224CA0562C321EEF0096F094 /* RoutinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0552C321EEF0096F094 /* RoutinesUITests.swift */; };
-		224CA0582C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */; };
-		224CA0652C321FDD0096F094 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0642C321FDD0096F094 /* Routine.swift */; };
-		2282B9E62C3446A5004FECDB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282B9E52C3446A5004FECDB /* SettingsView.swift */; };
-		2282B9E82C34472A004FECDB /* RoutineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282B9E72C34472A004FECDB /* RoutineCardView.swift */; };
-		22A5E7D82C35E3890024CD51 /* SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E7D72C35E3890024CD51 /* SystemColors.swift */; };
-		22AD80842C541BF1008BB51C /* SystemColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80832C541BF1008BB51C /* SystemColorsTests.swift */; };
-		22AD80862C54385B008BB51C /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80852C54385B008BB51C /* StepTests.swift */; };
-		22AD80882C5439E3008BB51C /* IconListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80872C5439E3008BB51C /* IconListsTests.swift */; };
-		22CC80CC2C3464DA0070FFF7 /* RoutineIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */; };
-		22CC80D02C346DF40070FFF7 /* RoutineStepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */; };
-		22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D12C346FF10070FFF7 /* AddStepView.swift */; };
-		22CC80D42C3472ED0070FFF7 /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */; };
+		2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2247C1082D039DFB0021C541 /* SFSymbolsPicker */; };
+		22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50C82C96A13C002C7599 /* WidgetKit.framework */; };
+		22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50CA2C96A13C002C7599 /* SwiftUI.framework */; };
+		22FD50D82C96A13D002C7599 /* Routines WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,40 +28,109 @@
 			remoteGlobalIDString = 224CA0342C321EEE0096F094;
 			remoteInfo = Routines;
 		};
+		22FD50D62C96A13D002C7599 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 224CA02D2C321EEE0096F094 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22FD50C52C96A13C002C7599;
+			remoteInfo = "Routines WidgetsExtension";
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		225423342CC40B0B00061FF9 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22FD50D92C96A13D002C7599 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				22FD50D82C96A13D002C7599 /* Routines WidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		224BD2382C471B4E0080F00E /* IconLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLists.swift; sourceTree = "<group>"; };
 		224CA0352C321EEE0096F094 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		224CA0382C321EEE0096F094 /* RoutinesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesApp.swift; sourceTree = "<group>"; };
-		224CA03A2C321EEE0096F094 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
-		224CA03C2C321EEE0096F094 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
-		224CA03E2C321EEF0096F094 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		224CA0412C321EEF0096F094 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		224CA0472C321EEF0096F094 /* RoutinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		224CA04B2C321EEF0096F094 /* RoutineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTests.swift; sourceTree = "<group>"; };
 		224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		224CA0552C321EEF0096F094 /* RoutinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesUITests.swift; sourceTree = "<group>"; };
-		224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		224CA0642C321FDD0096F094 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
-		227997082C49B24E00D184BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2282B9E52C3446A5004FECDB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		2282B9E72C34472A004FECDB /* RoutineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCardView.swift; sourceTree = "<group>"; };
-		22A5E7D72C35E3890024CD51 /* SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColors.swift; sourceTree = "<group>"; };
-		22AD80832C541BF1008BB51C /* SystemColorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemColorsTests.swift; sourceTree = "<group>"; };
-		22AD80852C54385B008BB51C /* StepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTests.swift; sourceTree = "<group>"; };
-		22AD80872C5439E3008BB51C /* IconListsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconListsTests.swift; sourceTree = "<group>"; };
-		22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineIconView.swift; sourceTree = "<group>"; };
-		22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStepListView.swift; sourceTree = "<group>"; };
-		22CC80D12C346FF10070FFF7 /* AddStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepView.swift; sourceTree = "<group>"; };
-		22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
+		22DD45112E4ECE1E00311C86 /* Routines.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Routines.xctestplan; sourceTree = "<group>"; };
+		22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Routines WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22FD50C82C96A13C002C7599 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		22FD50CA2C96A13C002C7599 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		2247C18D2D03A5B70021C541 /* Exceptions for "Routines" folder in "Routines" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 224CA0342C321EEE0096F094 /* Routines */;
+		};
+		22FD50DC2C96A13D002C7599 /* Exceptions for "Routines Widgets" folder in "Routines WidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */;
+		};
+		22FD50DF2C96A257002C7599 /* Exceptions for "Routines Widgets" folder in "Routines" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Routines_WidgetsControl.swift,
+			);
+			target = 224CA0342C321EEE0096F094 /* Routines */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2247C1522D03A59C0021C541 /* RoutinesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RoutinesTests;
+			sourceTree = "<group>";
+		};
+		2247C1742D03A5B70021C541 /* Routines */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2247C18D2D03A5B70021C541 /* Exceptions for "Routines" folder in "Routines" target */,
+			);
+			path = Routines;
+			sourceTree = "<group>";
+		};
+		2247C1902D03A5BD0021C541 /* RoutinesUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RoutinesUITests;
+			sourceTree = "<group>";
+		};
+		22FD50CC2C96A13C002C7599 /* Routines Widgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				22FD50DF2C96A257002C7599 /* Exceptions for "Routines Widgets" folder in "Routines" target */,
+				22FD50DC2C96A13D002C7599 /* Exceptions for "Routines Widgets" folder in "Routines WidgetsExtension" target */,
+			);
+			path = "Routines Widgets";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		224CA0322C321EEE0096F094 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,15 +148,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22FD50C32C96A13C002C7599 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */,
+				22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		224CA02C2C321EEE0096F094 = {
 			isa = PBXGroup;
 			children = (
-				224CA0372C321EEE0096F094 /* Routines */,
-				224CA04A2C321EEF0096F094 /* RoutinesTests */,
-				224CA0542C321EEF0096F094 /* RoutinesUITests */,
+				22DD45112E4ECE1E00311C86 /* Routines.xctestplan */,
+				2247C1742D03A5B70021C541 /* Routines */,
+				2247C1522D03A59C0021C541 /* RoutinesTests */,
+				2247C1902D03A5BD0021C541 /* RoutinesUITests */,
+				22FD50CC2C96A13C002C7599 /* Routines Widgets */,
+				22FD50C72C96A13C002C7599 /* Frameworks */,
 				224CA0362C321EEE0096F094 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,90 +179,18 @@
 				224CA0352C321EEE0096F094 /* Routines.app */,
 				224CA0472C321EEF0096F094 /* RoutinesTests.xctest */,
 				224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */,
+				22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		224CA0372C321EEE0096F094 /* Routines */ = {
+		22FD50C72C96A13C002C7599 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				227997082C49B24E00D184BE /* Info.plist */,
-				227997052C498B1600D184BE /* Application */,
-				224CA0662C321FE10096F094 /* Models */,
-				226CC2362C333E6200F114B4 /* Views */,
-				224CA03E2C321EEF0096F094 /* Assets.xcassets */,
-				224CA0402C321EEF0096F094 /* Preview Content */,
+				22FD50C82C96A13C002C7599 /* WidgetKit.framework */,
+				22FD50CA2C96A13C002C7599 /* SwiftUI.framework */,
 			);
-			path = Routines;
-			sourceTree = "<group>";
-		};
-		224CA0402C321EEF0096F094 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				224CA0412C321EEF0096F094 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		224CA04A2C321EEF0096F094 /* RoutinesTests */ = {
-			isa = PBXGroup;
-			children = (
-				22AD808A2C544669008BB51C /* ModelTests */,
-			);
-			path = RoutinesTests;
-			sourceTree = "<group>";
-		};
-		224CA0542C321EEF0096F094 /* RoutinesUITests */ = {
-			isa = PBXGroup;
-			children = (
-				224CA0552C321EEF0096F094 /* RoutinesUITests.swift */,
-				224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */,
-			);
-			path = RoutinesUITests;
-			sourceTree = "<group>";
-		};
-		224CA0662C321FE10096F094 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				224CA03C2C321EEE0096F094 /* Step.swift */,
-				224CA0642C321FDD0096F094 /* Routine.swift */,
-				22A5E7D72C35E3890024CD51 /* SystemColors.swift */,
-				224BD2382C471B4E0080F00E /* IconLists.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		226CC2362C333E6200F114B4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				224CA03A2C321EEE0096F094 /* RoutineListView.swift */,
-				22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */,
-				22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */,
-				22CC80D12C346FF10070FFF7 /* AddStepView.swift */,
-				2282B9E72C34472A004FECDB /* RoutineCardView.swift */,
-				22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */,
-				2282B9E52C3446A5004FECDB /* SettingsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		227997052C498B1600D184BE /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				224CA0382C321EEE0096F094 /* RoutinesApp.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		22AD808A2C544669008BB51C /* ModelTests */ = {
-			isa = PBXGroup;
-			children = (
-				224CA04B2C321EEF0096F094 /* RoutineTests.swift */,
-				22AD80832C541BF1008BB51C /* SystemColorsTests.swift */,
-				22AD80852C54385B008BB51C /* StepTests.swift */,
-				22AD80872C5439E3008BB51C /* IconListsTests.swift */,
-			);
-			path = ModelTests;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,10 +203,16 @@
 				224CA0312C321EEE0096F094 /* Sources */,
 				224CA0322C321EEE0096F094 /* Frameworks */,
 				224CA0332C321EEE0096F094 /* Resources */,
+				22FD50D92C96A13D002C7599 /* Embed Foundation Extensions */,
+				225423342CC40B0B00061FF9 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				22FD50D72C96A13D002C7599 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				2247C1742D03A5B70021C541 /* Routines */,
 			);
 			name = Routines;
 			productName = Routines;
@@ -233,6 +232,9 @@
 			dependencies = (
 				224CA0492C321EEF0096F094 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				2247C1522D03A59C0021C541 /* RoutinesTests */,
+			);
 			name = RoutinesTests;
 			productName = RoutinesTests;
 			productReference = 224CA0472C321EEF0096F094 /* RoutinesTests.xctest */;
@@ -251,10 +253,35 @@
 			dependencies = (
 				224CA0532C321EEF0096F094 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				2247C1902D03A5BD0021C541 /* RoutinesUITests */,
+			);
 			name = RoutinesUITests;
 			productName = RoutinesUITests;
 			productReference = 224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22FD50DD2C96A13D002C7599 /* Build configuration list for PBXNativeTarget "Routines WidgetsExtension" */;
+			buildPhases = (
+				22FD50C22C96A13C002C7599 /* Sources */,
+				22FD50C32C96A13C002C7599 /* Frameworks */,
+				22FD50C42C96A13C002C7599 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				22FD50CC2C96A13C002C7599 /* Routines Widgets */,
+			);
+			name = "Routines WidgetsExtension";
+			packageProductDependencies = (
+			);
+			productName = "Routines WidgetsExtension";
+			productReference = 22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -264,7 +291,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					224CA0342C321EEE0096F094 = {
 						CreatedOnToolsVersion = 16.0;
@@ -277,10 +304,12 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 224CA0342C321EEE0096F094;
 					};
+					22FD50C52C96A13C002C7599 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 				};
 			};
 			buildConfigurationList = 224CA0302C321EEE0096F094 /* Build configuration list for PBXProject "Routines" */;
-			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -288,6 +317,11 @@
 				Base,
 			);
 			mainGroup = 224CA02C2C321EEE0096F094;
+			packageReferences = (
+				2247C1072D039DFB0021C541 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+				2247C1162D03A0FC0021C541 /* XCRemoteSwiftPackageReference "LicensePlist" */,
+			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 224CA0362C321EEE0096F094 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -295,6 +329,7 @@
 				224CA0342C321EEE0096F094 /* Routines */,
 				224CA0462C321EEF0096F094 /* RoutinesTests */,
 				224CA0502C321EEF0096F094 /* RoutinesUITests */,
+				22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -304,8 +339,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224CA0422C321EEF0096F094 /* Preview Assets.xcassets in Resources */,
-				224CA03F2C321EEF0096F094 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +356,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22FD50C42C96A13C002C7599 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -330,18 +370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */,
-				2282B9E62C3446A5004FECDB /* SettingsView.swift in Sources */,
-				224BD2392C471B4E0080F00E /* IconLists.swift in Sources */,
-				2282B9E82C34472A004FECDB /* RoutineCardView.swift in Sources */,
-				224CA03B2C321EEE0096F094 /* RoutineListView.swift in Sources */,
-				224CA03D2C321EEE0096F094 /* Step.swift in Sources */,
-				224CA0652C321FDD0096F094 /* Routine.swift in Sources */,
-				22A5E7D82C35E3890024CD51 /* SystemColors.swift in Sources */,
-				22CC80D42C3472ED0070FFF7 /* EditRoutineView.swift in Sources */,
-				224CA0392C321EEE0096F094 /* RoutinesApp.swift in Sources */,
-				22CC80D02C346DF40070FFF7 /* RoutineStepListView.swift in Sources */,
-				22CC80CC2C3464DA0070FFF7 /* RoutineIconView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,10 +377,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224CA04C2C321EEF0096F094 /* RoutineTests.swift in Sources */,
-				22AD80862C54385B008BB51C /* StepTests.swift in Sources */,
-				22AD80882C5439E3008BB51C /* IconListsTests.swift in Sources */,
-				22AD80842C541BF1008BB51C /* SystemColorsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,8 +384,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				224CA0582C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift in Sources */,
-				224CA0562C321EEF0096F094 /* RoutinesUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22FD50C22C96A13C002C7599 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +406,11 @@
 			isa = PBXTargetDependency;
 			target = 224CA0342C321EEE0096F094 /* Routines */;
 			targetProxy = 224CA0522C321EEF0096F094 /* PBXContainerItemProxy */;
+		};
+		22FD50D72C96A13D002C7599 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */;
+			targetProxy = 22FD50D62C96A13D002C7599 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -416,6 +450,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = G39TU2R26A;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -439,6 +474,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -479,6 +515,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G39TU2R26A;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -495,6 +532,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -505,15 +543,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
-				DEVELOPMENT_TEAM = G39TU2R26A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Routines/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Routines;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -524,7 +562,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -542,15 +580,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
-				DEVELOPMENT_TEAM = G39TU2R26A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Routines/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Routines;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -561,7 +599,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -580,7 +618,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
@@ -599,7 +636,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
@@ -617,7 +653,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.RoutinesUITests";
@@ -634,7 +669,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.RoutinesUITests";
@@ -643,6 +677,68 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Routines;
+			};
+			name = Release;
+		};
+		22FD50DA2C96A13D002C7599 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Routines Widgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Routines Widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.Routines-Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		22FD50DB2C96A13D002C7599 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Routines Widgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Routines Widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.Routines-Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -685,7 +781,43 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		22FD50DD2C96A13D002C7599 /* Build configuration list for PBXNativeTarget "Routines WidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22FD50DA2C96A13D002C7599 /* Debug */,
+				22FD50DB2C96A13D002C7599 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2247C1072D039DFB0021C541 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.6;
+			};
+		};
+		2247C1162D03A0FC0021C541 /* XCRemoteSwiftPackageReference "LicensePlist" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mono0926/LicensePlist";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.25.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2247C1082D039DFB0021C541 /* SFSymbolsPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2247C1072D039DFB0021C541 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
+			productName = SFSymbolsPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 224CA02D2C321EEE0096F094 /* Project object */;
 }

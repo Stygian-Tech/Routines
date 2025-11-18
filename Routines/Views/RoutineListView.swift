@@ -7,90 +7,166 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct RoutineListView: View {
+    // Data Models
     @Environment(\.modelContext) var modelContext
-    @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) var routines: [Routine]
-    @State var addRoutineIsPresented = false
-    @State var settingsIsPresented = false
+    @Query var routines: [Routine]
     @State var newRoutine: Routine?
+    @State var routineToEdit: Routine?
+    
+    // Presentation Logic
+    @State private var addRoutineIsPresented = false
+    @State private var settingsIsPresented = false
+    @State private var resetAlertIsPresented = false
+    @State private var showAllRoutines = false
+    @State private var showRoutineDetails = false
+    @State private var routinesAreHidden = false
+    @State private var addIsPressed = false
+    @State private var addButtonIsPresented = true
+    @State private var editRoutineIsPresented = false
+    @State private var navPath: [UUID] = []
+    
+    // Layout Properties
+    let backgroundGradient = Gradient(colors: [.accentColor.opacity(0.28), Color(.systemBackground)])
+    let resetRoutinesTip = ResetRoutinesTip()
+    
+    var today: String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        return formatter.string(from: date)
+    }
 
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(routines) { routine in
-                    NavigationLink(destination: RoutineStepListView(routine: routine)) {
-                        RoutineCardView(routine: routine)
+        ZStack {
+            // Ensure the rest of the screen uses the system background so the gradient only shows at the top
+            Color(.systemBackground)
+                .ignoresSafeArea()
+            TopBackgroundGradient(color: .purple, height: 320)
+            
+            NavigationStack(path: $navPath) {
+                Group {
+                    if routines.isEmpty {
+                        Text("No Routines")
+                            .foregroundStyle(.secondary)
+                            .accessibilityLabel(Text("No routines"))
+                    } else {
+                        RoutineList(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, showRoutineDetails: $showRoutineDetails, deleteRoutine: deleteRoutine)
+                        .onChange(of: routineToEdit) { _, newValue in
+                            if newValue != nil {
+                                editRoutineIsPresented = true
+                            }
+                        }
+                        .onAppear() {
+                            for routine in routines {
+                                routine.checkRoutineCompletion()
+                            }
+                            // Defer showing the add button to when this view is fully visible again.
+                        }
                     }
                 }
-                .onDelete(perform: deleteRoutine)
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Donate", systemImage: "gear", action: {
-                        settingsIsPresented = true
-                    })
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Add Routine", systemImage: "plus", action: {
-                        addRoutine()
-                    })
-                }
-            }
-            .navigationTitle("Routines")
-            .sheet(isPresented: $settingsIsPresented) {
-                NavigationStack {
-                    SettingsView(isPresented: $settingsIsPresented)
-                        .navigationTitle("Settings")
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button(action: {
-                                    settingsIsPresented = false
-                                }) {
-                                    Text("Cancel")
-                                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Donate", systemImage: "gear", action: { settingsIsPresented = true })
+                            .accessibilityLabel(Text("Settings"))
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Reset Routines", systemImage: "arrow.circlepath", action: { resetAlertIsPresented = true })
+                            .popoverTip(resetRoutinesTip)
+                            .onTapGesture {
+                                resetRoutinesTip.invalidate(reason: .actionPerformed)
                             }
-                            ToolbarItem(placement: .confirmationAction) {
-                                Button(action: {
-                                    settingsIsPresented = false
-                                }) {
-                                    Text("Done")
+                            .alert("Reset Routines to Incomplete?", isPresented: $resetAlertIsPresented) {
+                                Button("Reset", role: .destructive, action: resetRoutines)
+                                Button("Cancel", role: .cancel, action: { resetAlertIsPresented = false })
+                            }
+                            .accessibilityLabel(Text("Reset routines"))
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Show All Routines", systemImage: showAllRoutines ? "eye" : "eye.slash") {
+                            // Update list filter immediately without animating the entire list
+                            showAllRoutines.toggle()
+                            // Animate the day pickers in a separate transaction so they fade/slide
+                            DispatchQueue.main.async {
+                                withAnimation(.easeInOut(duration: 0.24)) {
+                                    showRoutineDetails.toggle()
                                 }
                             }
                         }
+                        .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines"))
+                    }
+                }
+                .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbarBackground(Color.clear, for: .navigationBar)
+                .navigationDestination(for: UUID.self) { id in
+                    if let routine = routines.first(where: { $0.id == id }) {
+                        RoutineStepListView(routine: routine)
+                    } else {
+                        Text("Routine Not Found")
+                    }
+                }
+                .onChange(of: navPath) { _, newPath in
+                    // Fade in on pop commit; hide immediately on push
+                    if newPath.isEmpty {
+                        withAnimation(.easeInOut(duration: 0.18)) {
+                            addButtonIsPresented = true
+                        }
+                    } else {
+                        addButtonIsPresented = false
+                    }
+                }
+                .sheet(isPresented: $settingsIsPresented) {
+                    SettingsSheet(isPresented: $settingsIsPresented)
+                }
+                .sheet(isPresented: $addRoutineIsPresented) {
+                    AddRoutineSheet(
+                        newRoutine: $newRoutine,
+                        isPresented: $addRoutineIsPresented,
+                        modelContext: modelContext
+                    )
+                }
+                .sheet(isPresented: $editRoutineIsPresented, onDismiss: { routineToEdit = nil }) {
+                    if let routine = routineToEdit {
+                        EditRoutineSheet(
+                            routine: routine, 
+                            isPresented: $editRoutineIsPresented
+                        )
+                    } else {
+                        Text("No Routine Selected")
+                    }
                 }
             }
-            .sheet(isPresented: $addRoutineIsPresented) {
-                NavigationStack {
-                    EditRoutineView(routine: newRoutine ?? Routine(), onDismiss: { tempRoutine in
-                        modelContext.delete(newRoutine ?? Routine())
-                        addRoutineIsPresented = false
-                    }, onSave: { tempRoutine in
-                        if let routine = newRoutine {
-                            routine.name = tempRoutine.name
-                            routine.time = tempRoutine.time
-                            routine.iconSymbol = tempRoutine.iconSymbol
-                            routine.iconColor = tempRoutine.iconColor
-                        }
-                        addRoutineIsPresented = false
-                    })
-                        .navigationTitle("New Routine")
-                }
+            // No overlay: keep only the gradient behind all UI
+            if addButtonIsPresented {
+                FloatingAddButton(isPressed: $addIsPressed, action: addRoutine)
+                    .transition(.opacity)
             }
         }
     }
+
+    // MARK: - Helper Methods
     
-    func addRoutine() {
+    private func resetRoutines() {
+        for routine in routines {
+            routine.resetSteps()
+        }
+    }
+    
+    private func addRoutine() {
         addRoutineIsPresented = true
         let routine = Routine()
         modelContext.insert(routine)
         newRoutine = routine
     }
     
-    func deleteRoutine(_ indexSet: IndexSet) {
-        for index in indexSet {
-            let routine = routines[index]
+    private func deleteRoutine(_ routinesToDelete: [Routine]) {
+        for routine in routinesToDelete {
             modelContext.delete(routine)
         }
     }
 }
+
+// Sheet subviews moved to separate files for modularity

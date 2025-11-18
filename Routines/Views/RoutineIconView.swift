@@ -15,9 +15,11 @@ struct RoutineIconView: View {
         Circle()
             .fill(routine.getIconColor())
             .frame(width: 42)
+            .fixedSize()
             .overlay(
                 Image(systemName: routine.iconSymbol)
-                .foregroundColor(.white)
+                    .foregroundStyle(.white)
             )
+            .accessibilityHidden(true)
     }
 }
