@@ -7,6 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224BD2392C471B4E0080F00E /* IconLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BD2382C471B4E0080F00E /* IconLists.swift */; };
+		224CA0392C321EEE0096F094 /* RoutinesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0382C321EEE0096F094 /* RoutinesApp.swift */; };
+		224CA03B2C321EEE0096F094 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03A2C321EEE0096F094 /* RoutineListView.swift */; };
+		224CA03D2C321EEE0096F094 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03C2C321EEE0096F094 /* Step.swift */; };
+		224CA03F2C321EEF0096F094 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CA03E2C321EEF0096F094 /* Assets.xcassets */; };
+		224CA0422C321EEF0096F094 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CA0412C321EEF0096F094 /* Preview Assets.xcassets */; };
+		224CA04C2C321EEF0096F094 /* RoutineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA04B2C321EEF0096F094 /* RoutineTests.swift */; };
+		224CA0562C321EEF0096F094 /* RoutinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0552C321EEF0096F094 /* RoutinesUITests.swift */; };
+		224CA0582C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0572C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift */; };
+		224CA0652C321FDD0096F094 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0642C321FDD0096F094 /* Routine.swift */; };
+		2282B9E62C3446A5004FECDB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282B9E52C3446A5004FECDB /* SettingsView.swift */; };
+		2282B9E82C34472A004FECDB /* RoutineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282B9E72C34472A004FECDB /* RoutineCardView.swift */; };
+		22A5E7D82C35E3890024CD51 /* SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E7D72C35E3890024CD51 /* SystemColors.swift */; };
+		22AD80842C541BF1008BB51C /* SystemColorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80832C541BF1008BB51C /* SystemColorsTests.swift */; };
+		22AD80862C54385B008BB51C /* StepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80852C54385B008BB51C /* StepTests.swift */; };
+		22AD80882C5439E3008BB51C /* IconListsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AD80872C5439E3008BB51C /* IconListsTests.swift */; };
+		22CC80CC2C3464DA0070FFF7 /* RoutineIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CB2C3464DA0070FFF7 /* RoutineIconView.swift */; };
+		22CC80D02C346DF40070FFF7 /* RoutineStepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */; };
+		22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D12C346FF10070FFF7 /* AddStepView.swift */; };
+		22CC80D42C3472ED0070FFF7 /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */; };
+		22WATCH0012C9999999999999 /* RoutinesWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */; };
+		22WATCH0032C9999999999999 /* WatchRoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0022C9999999999999 /* WatchRoutineListView.swift */; };
+		22WATCH0052C9999999999999 /* WatchRoutineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */; };
+		22WATCH0072C9999999999999 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0642C321FDD0096F094 /* Routine.swift */; };
+		22WATCH0082C9999999999999 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03C2C321EEE0096F094 /* Step.swift */; };
+		22WATCH0092C9999999999999 /* SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E7D72C35E3890024CD51 /* SystemColors.swift */; };
 		2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2247C1082D039DFB0021C541 /* SFSymbolsPicker */; };
 		22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50C82C96A13C002C7599 /* WidgetKit.framework */; };
 		22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50CA2C96A13C002C7599 /* SwiftUI.framework */; };
@@ -193,6 +219,43 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		22WATCH0112C9999999999999 /* RoutinesWatch */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0122C9999999999999 /* Application */,
+				22WATCH0132C9999999999999 /* Views */,
+				22WATCH0142C9999999999999 /* Models */,
+			);
+			path = RoutinesWatch;
+			sourceTree = "<group>";
+		};
+		22WATCH0122C9999999999999 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		22WATCH0132C9999999999999 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0022C9999999999999 /* WatchRoutineListView.swift */,
+				22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		22WATCH0142C9999999999999 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				224CA0642C321FDD0096F094 /* Routine.swift */,
+				224CA03C2C321EEE0096F094 /* Step.swift */,
+				22A5E7D72C35E3890024CD51 /* SystemColors.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -296,6 +359,9 @@
 					224CA0342C321EEE0096F094 = {
 						CreatedOnToolsVersion = 16.0;
 					};
+					22WATCH0182C9999999999999 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					224CA0462C321EEF0096F094 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 224CA0342C321EEE0096F094;
@@ -327,6 +393,7 @@
 			projectRoot = "";
 			targets = (
 				224CA0342C321EEE0096F094 /* Routines */,
+				22WATCH0182C9999999999999 /* RoutinesWatch */,
 				224CA0462C321EEF0096F094 /* RoutinesTests */,
 				224CA0502C321EEF0096F094 /* RoutinesUITests */,
 				22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */,
@@ -391,6 +458,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22WATCH0172C9999999999999 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22WATCH0012C9999999999999 /* RoutinesWatchApp.swift in Sources */,
+				22WATCH0032C9999999999999 /* WatchRoutineListView.swift in Sources */,
+				22WATCH0052C9999999999999 /* WatchRoutineDetailView.swift in Sources */,
+				22WATCH0072C9999999999999 /* Routine.swift in Sources */,
+				22WATCH0082C9999999999999 /* Step.swift in Sources */,
+				22WATCH0092C9999999999999 /* SystemColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
