@@ -15,8 +15,10 @@ enum IconLists: String, CaseIterable, Identifiable, Sequence {
     case lists = "Lists"
     case drawing = "Drawing"
     case office = "Office"
+    case home = "Home"
     case arrows = "Arrows"
     case books = "Books"
+    case travel = "Travel"
     case school = "School"
     case people = "People"
     case sports = "Sports"
@@ -43,10 +45,14 @@ enum IconLists: String, CaseIterable, Identifiable, Sequence {
             return ["pencil", "pencil.slash", "eraser", "eraser.line.dashed", "scribble", "pencil.and.scribble", "highlighter", "pencil.and.outline", "pencil.tip", "lasso", "lasso.badge.sparkles"]
         case .office:
             return ["trash", "trash.slash", "arrow.up.trash", "folder", "questionmark.folder", "paperplane", "tray", "tray.full", "tray.and.arrow.up", "tray.and.arrow.down", "tray.2", "archivebox", "xmark.bin", "arrow.up.bin", "doc", "arrow.up.doc", "arrow.down.doc", "doc.text", "doc.zipper", "doc.on.doc", "doc.on.clipboard", "clipboard"]
+        case .home:
+            return ["house", "lightbulb", "lightbulb.2", "lightbulb.led", "lightbulb.led.wide", "fan", "fan.floor", "fan.ceiling", "party.popper", "frying.pan", "popcorn", "bed.double", "sofa", "chair.lounge", "fireplace", "washer", "dryer", "oven", "stove", "cooktop", "microwave", "refrigerator", "sink", "toilet"]
         case .arrows:
             return ["arrowshape.left", "arrowshape.right", "arrowshape.up", "arrowshape.down", "arrowshape.left.arrowshape.right", "arrowshape.turn.up.left", "arrowshape.turn.up.right", "arrowshape.turn.up.left.2", "arrowshape.zigzag.right", "arrowshape.bounce.right"]
         case .books:
             return ["book", "books.vertical", "book.closed", "character.book.closed", "text.book.closed", "menucard", "greetingcard", "magazine", "newspaper", "doc.text.image", "bookmark", "bookmark.slash"]
+        case .travel:
+            return ["airplane", "airplane.arrival", "airplane.departure", "car", "bus", "tram", "cablecar", "lightrail", "ferry", "sailboat", "bicycle", "scooter", "fuelpump", "ev.charger"]
         case .school:
             return ["graduationcap", "pencil.and.ruler", "ruler", "backpack", "studentdesk", "paperclip"]
         case .people:

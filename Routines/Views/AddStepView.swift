@@ -9,13 +9,22 @@ import Foundation
 import SwiftUI
 
 struct AddStepView: View {
+    @Bindable var routine: Routine
     @Binding var newStep: String
-    @Binding var isPresented: Bool
+    private var routineColor: Color {
+        get {
+            return routine.getIconColor()
+        }
+    }
     
     var body: some View {
         Form {
             Section("Name") {
                 TextField("Step", text: $newStep)
+                    .accessibilityLabel(Text("Step name"))
+            }
+            Section("Days") {
+                EditDaysView(days: $routine.days, iconColor: routineColor)
             }
         }
     }

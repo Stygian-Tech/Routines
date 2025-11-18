@@ -1,0 +1,51 @@
+{
+  "configurations" : [
+    {
+      "id" : "CDC8B74E-C188-4BE3-A861-EC278BC1C39E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : true,
+    "codeCoverageTargets" : [
+      {
+        "containerPath" : "container:Routines.xcodeproj",
+        "identifier" : "224CA0462C321EEF0096F094",
+        "name" : "RoutinesTests"
+      },
+      {
+        "containerPath" : "container:Routines.xcodeproj",
+        "identifier" : "224CA0502C321EEF0096F094",
+        "name" : "RoutinesUITests"
+      }
+    ],
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Routines.xcodeproj",
+      "identifier" : "224CA0342C321EEE0096F094",
+      "name" : "Routines"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Routines.xcodeproj",
+        "identifier" : "224CA0462C321EEF0096F094",
+        "name" : "RoutinesTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Routines.xcodeproj",
+        "identifier" : "224CA0502C321EEF0096F094",
+        "name" : "RoutinesUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
