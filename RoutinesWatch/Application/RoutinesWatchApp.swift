@@ -1,16 +1,15 @@
 //
-//  RoutinesApp.swift
-//  Routines
+//  RoutinesWatchApp.swift
+//  RoutinesWatch
 //
 //  Created by Sam Clemente on 6/30/24.
 //
 
 import SwiftUI
 import SwiftData
-import UserNotifications
 
 @main
-struct RoutinesApp: App {
+struct RoutinesWatchApp: App {
     let container: ModelContainer
     
     init() {
@@ -18,7 +17,7 @@ struct RoutinesApp: App {
             // Configure schema with Routine and Step models
             let schema = Schema([Routine.self, Step.self])
             
-            // Configure ModelConfiguration with CloudKit
+            // Configure ModelConfiguration with CloudKit for sync
             let configuration = ModelConfiguration(
                 schema: schema,
                 isStoredInMemoryOnly: false,
@@ -31,21 +30,9 @@ struct RoutinesApp: App {
         }
     }
     
-    func promptForNotifications() {
-        Task {
-            let currentCenter = UNUserNotificationCenter.current()
-            do {
-                let _ = try await currentCenter.requestAuthorization(options: [.sound, .alert, .badge])
-            } catch {
-                print("Error handling notifications \(error.localizedDescription)")
-            }
-        }
-    }
-    
     var body: some Scene {
         WindowGroup {
-            RoutineListView()
-                .onAppear(perform: promptForNotifications)
+            WatchRoutineListView()
         }
         .modelContainer(container)
     }

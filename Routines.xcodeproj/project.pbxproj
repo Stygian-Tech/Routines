@@ -27,6 +27,12 @@
 		22CC80D02C346DF40070FFF7 /* RoutineStepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */; };
 		22CC80D22C346FF10070FFF7 /* AddStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D12C346FF10070FFF7 /* AddStepView.swift */; };
 		22CC80D42C3472ED0070FFF7 /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */; };
+		22WATCH0012C9999999999999 /* RoutinesWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */; };
+		22WATCH0032C9999999999999 /* WatchRoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0022C9999999999999 /* WatchRoutineListView.swift */; };
+		22WATCH0052C9999999999999 /* WatchRoutineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */; };
+		22WATCH0072C9999999999999 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA0642C321FDD0096F094 /* Routine.swift */; };
+		22WATCH0082C9999999999999 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CA03C2C321EEE0096F094 /* Step.swift */; };
+		22WATCH0092C9999999999999 /* SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A5E7D72C35E3890024CD51 /* SystemColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +77,10 @@
 		22CC80CF2C346DF40070FFF7 /* RoutineStepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStepListView.swift; sourceTree = "<group>"; };
 		22CC80D12C346FF10070FFF7 /* AddStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepView.swift; sourceTree = "<group>"; };
 		22CC80D32C3472ED0070FFF7 /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
+		22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesWatchApp.swift; sourceTree = "<group>"; };
+		22WATCH0022C9999999999999 /* WatchRoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutineListView.swift; sourceTree = "<group>"; };
+		22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutineDetailView.swift; sourceTree = "<group>"; };
+		22WATCH0102C9999999999999 /* RoutinesWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoutinesWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +105,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22WATCH0152C9999999999999 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -102,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				224CA0372C321EEE0096F094 /* Routines */,
+				22WATCH0112C9999999999999 /* RoutinesWatch */,
 				224CA04A2C321EEF0096F094 /* RoutinesTests */,
 				224CA0542C321EEF0096F094 /* RoutinesUITests */,
 				224CA0362C321EEE0096F094 /* Products */,
@@ -114,6 +132,7 @@
 				224CA0352C321EEE0096F094 /* Routines.app */,
 				224CA0472C321EEF0096F094 /* RoutinesTests.xctest */,
 				224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */,
+				22WATCH0102C9999999999999 /* RoutinesWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -200,6 +219,43 @@
 			path = ModelTests;
 			sourceTree = "<group>";
 		};
+		22WATCH0112C9999999999999 /* RoutinesWatch */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0122C9999999999999 /* Application */,
+				22WATCH0132C9999999999999 /* Views */,
+				22WATCH0142C9999999999999 /* Models */,
+			);
+			path = RoutinesWatch;
+			sourceTree = "<group>";
+		};
+		22WATCH0122C9999999999999 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		22WATCH0132C9999999999999 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0022C9999999999999 /* WatchRoutineListView.swift */,
+				22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		22WATCH0142C9999999999999 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				224CA0642C321FDD0096F094 /* Routine.swift */,
+				224CA03C2C321EEE0096F094 /* Step.swift */,
+				22A5E7D72C35E3890024CD51 /* SystemColors.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -256,6 +312,23 @@
 			productReference = 224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		22WATCH0182C9999999999999 /* RoutinesWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22WATCH0192C9999999999999 /* Build configuration list for PBXNativeTarget "RoutinesWatch" */;
+			buildPhases = (
+				22WATCH0172C9999999999999 /* Sources */,
+				22WATCH0152C9999999999999 /* Frameworks */,
+				22WATCH0162C9999999999999 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RoutinesWatch;
+			productName = RoutinesWatch;
+			productReference = 22WATCH0102C9999999999999 /* RoutinesWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -267,6 +340,9 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					224CA0342C321EEE0096F094 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					22WATCH0182C9999999999999 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 					224CA0462C321EEF0096F094 = {
@@ -293,6 +369,7 @@
 			projectRoot = "";
 			targets = (
 				224CA0342C321EEE0096F094 /* Routines */,
+				22WATCH0182C9999999999999 /* RoutinesWatch */,
 				224CA0462C321EEF0096F094 /* RoutinesTests */,
 				224CA0502C321EEF0096F094 /* RoutinesUITests */,
 			);
@@ -317,6 +394,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		224CA04F2C321EEF0096F094 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22WATCH0162C9999999999999 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -362,6 +446,19 @@
 			files = (
 				224CA0582C321EEF0096F094 /* RoutinesUITestsLaunchTests.swift in Sources */,
 				224CA0562C321EEF0096F094 /* RoutinesUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22WATCH0172C9999999999999 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22WATCH0012C9999999999999 /* RoutinesWatchApp.swift in Sources */,
+				22WATCH0032C9999999999999 /* WatchRoutineListView.swift in Sources */,
+				22WATCH0052C9999999999999 /* WatchRoutineDetailView.swift in Sources */,
+				22WATCH0072C9999999999999 /* Routine.swift in Sources */,
+				22WATCH0082C9999999999999 /* Step.swift in Sources */,
+				22WATCH0092C9999999999999 /* SystemColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +743,64 @@
 			};
 			name = Release;
 		};
+		22WATCH0202C9999999999999 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G39TU2R26A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Routines;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_WKApplication = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sam-clemente.routines-app";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		22WATCH0212C9999999999999 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G39TU2R26A;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Routines;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_WKApplication = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sam-clemente.routines-app";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -681,6 +836,15 @@
 			buildConfigurations = (
 				224CA0622C321EEF0096F094 /* Debug */,
 				224CA0632C321EEF0096F094 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22WATCH0192C9999999999999 /* Build configuration list for PBXNativeTarget "RoutinesWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22WATCH0202C9999999999999 /* Debug */,
+				22WATCH0212C9999999999999 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
