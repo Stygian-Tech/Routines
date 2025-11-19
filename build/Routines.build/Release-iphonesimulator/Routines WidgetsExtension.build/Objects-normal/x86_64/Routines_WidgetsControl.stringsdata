@@ -1,0 +1,40 @@
+{
+  "source": "/Users/sam/Developer/Git/Routines/Routines Widgets/Routines_WidgetsControl.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Open Routines",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Opens Routines App",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Routines",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 21
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Routines",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 31
+        }
+      }
+    ]
+  },
+  "version": 1
+}

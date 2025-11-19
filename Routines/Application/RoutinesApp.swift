@@ -15,13 +15,44 @@ struct RoutinesApp: App {
     var resetTipsOnLaunch = true
     let container: ModelContainer
     private var isUITestSeedEnabled: Bool { ProcessInfo.processInfo.arguments.contains("UI_TEST_SEED") }
+    private static let migrationKey = "com.sam-clemente.routines-app.localToCloudKitMigrationCompleted"
     
     init() {
         do {
-            container = try ModelContainer(for: Routine.self, Step.self)
+            // Configure schema with Routine and Step models
+            let schema = Schema([Routine.self, Step.self])
+            
+            // Configure ModelConfiguration with CloudKit for sync
+            // Using .automatic will use the iCloud container configured in Xcode
+            let configuration = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: false,
+                cloudKitDatabase: .automatic
+            )
+            
+            container = try ModelContainer(for: schema, configurations: [configuration])
+            
+            // Log CloudKit configuration for debugging
+            print("iOS: ModelContainer initialized with CloudKit")
+            print("iOS: Bundle ID: \(Bundle.main.bundleIdentifier ?? "unknown")")
+            
+            // Check initial data count
+            Task { [container] in
+                let context = ModelContext(container)
+                do {
+                    let routines: [Routine] = try context.fetch(FetchDescriptor<Routine>())
+                    print("iOS: Routine count: \(routines.count)")
+                    if routines.isEmpty {
+                        print("iOS: WARNING - No routines found. Make sure data was migrated to CloudKit.")
+                    }
+                } catch {
+                    print("iOS: Error fetching routines: \(error)")
+                }
+            }
         } catch {
             fatalError("Failed to load model container: \(error.localizedDescription)")
         }
+        
         if isUITestSeedEnabled {
             seedDataForUITests()
         }
@@ -31,7 +62,13 @@ struct RoutinesApp: App {
     var body: some Scene {
         WindowGroup {
             RoutineListView()
-                .onAppear(perform: promptForNotifications)
+                .onAppear {
+                    promptForNotifications()
+                    // Migrate local data to CloudKit if needed
+                    Task { [container] in
+                        await Self.migrateLocalDataToCloudKit(container: container)
+                    }
+                }
         }
         .modelContainer(container)
     }
@@ -83,6 +120,112 @@ struct RoutinesApp: App {
             } catch {
                 print("Error initializing TipKit: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    /// Migrates local SwiftData store to CloudKit-enabled store
+    /// This function checks if migration has already been completed, and if not,
+    /// attempts to load data from a local-only store and copy it to CloudKit
+    private static func migrateLocalDataToCloudKit(container: ModelContainer) async {
+        // Check if migration has already been completed
+        if UserDefaults.standard.bool(forKey: migrationKey) {
+            print("Migration already completed, skipping")
+            return
+        }
+        
+        // Check if CloudKit store already has data
+        let cloudKitContext = ModelContext(container)
+        do {
+            let existingRoutines: [Routine] = try cloudKitContext.fetch(FetchDescriptor<Routine>())
+            if !existingRoutines.isEmpty {
+                print("CloudKit store already contains data, marking migration as complete")
+                UserDefaults.standard.set(true, forKey: Self.migrationKey)
+                return
+            }
+        } catch {
+            print("Error checking CloudKit store: \(error.localizedDescription)")
+        }
+        
+        // Try to load from local-only store
+        do {
+            let schema = Schema([Routine.self, Step.self])
+            
+            // Get the default local store URL (where data was stored before CloudKit)
+            let appSupportURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            let localStoreURL = appSupportURL.appendingPathComponent("default.store")
+            
+            // Check if local store file exists
+            guard FileManager.default.fileExists(atPath: localStoreURL.path) else {
+                print("Local store file not found at \(localStoreURL.path)")
+                UserDefaults.standard.set(true, forKey: Self.migrationKey)
+                return
+            }
+            
+            // Create a local-only configuration pointing to the old store
+            let localConfiguration = ModelConfiguration(
+                schema: schema,
+                url: localStoreURL,
+                cloudKitDatabase: .none
+            )
+            
+            let localContainer = try ModelContainer(for: schema, configurations: [localConfiguration])
+            let localContext = ModelContext(localContainer)
+            
+            // Fetch all routines from local store
+            let localRoutines: [Routine] = try localContext.fetch(FetchDescriptor<Routine>())
+            
+            if localRoutines.isEmpty {
+                print("No local data found to migrate")
+                UserDefaults.standard.set(true, forKey: Self.migrationKey)
+                return
+            }
+            
+            print("Found \(localRoutines.count) routines in local store, migrating to CloudKit...")
+            
+            // Copy routines and steps to CloudKit store
+            for localRoutine in localRoutines {
+                // Create a new routine in CloudKit store with same properties
+                let newRoutine = Routine(
+                    name: localRoutine.name,
+                    time: localRoutine.time,
+                    iconColor: localRoutine.iconColor,
+                    iconSymbol: localRoutine.iconSymbol
+                )
+                newRoutine.status = localRoutine.status
+                newRoutine.finishedStepCount = localRoutine.finishedStepCount
+                newRoutine.days = localRoutine.days
+                
+                // Copy steps
+                let localSteps = (localRoutine.steps ?? []).sorted(by: { $0.order < $1.order })
+                for localStep in localSteps {
+                    let newStep = Step(
+                        name: localStep.name,
+                        routine: newRoutine,
+                        order: localStep.order,
+                        days: localStep.days
+                    )
+                    newStep.status = localStep.status
+                    if newRoutine.steps == nil {
+                        newRoutine.steps = []
+                    }
+                    newRoutine.steps?.append(newStep)
+                    cloudKitContext.insert(newStep)
+                }
+                
+                cloudKitContext.insert(newRoutine)
+            }
+            
+            // Save to CloudKit
+            try cloudKitContext.save()
+            print("Successfully migrated \(localRoutines.count) routines to CloudKit")
+            
+            // Mark migration as complete
+            UserDefaults.standard.set(true, forKey: Self.migrationKey)
+            
+        } catch {
+            print("Error during migration: \(error.localizedDescription)")
+            // If local store doesn't exist or migration fails, mark as complete to avoid retrying
+            UserDefaults.standard.set(true, forKey: Self.migrationKey)
         }
     }
 }

@@ -1,0 +1,206 @@
+{
+  "" : {
+    "const-values" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary.swiftconstvalues",
+    "dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary.d",
+    "diagnostics" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary.dia",
+    "emit-module-dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary-emit-module.dia",
+    "pch" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines-primary.swiftdeps"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines Widgets/Routines_WidgetsControl.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines_WidgetsControl.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines_WidgetsControl.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routines_WidgetsControl.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Application/RoutinesApp.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutinesApp.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutinesApp.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutinesApp.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Application/Tips.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Tips.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Tips.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Tips.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/AppIconOption.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconOption.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconOption.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconOption.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/IconLists.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/IconLists.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/IconLists.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/IconLists.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/Persisted Models/Routine.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routine.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routine.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Routine.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/Persisted Models/Step.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Step.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Step.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Step.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/RoutineCompletionIcon.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCompletionIcon.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCompletionIcon.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCompletionIcon.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/RoutineCompletionStatus.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCompletionStatus.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCompletionStatus.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCompletionStatus.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/SocialLinkList.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SocialLinkList.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SocialLinkList.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SocialLinkList.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/StepCompletionStatus.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepCompletionStatus.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepCompletionStatus.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepCompletionStatus.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/Symbol.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Symbol.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Symbol.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/Symbol.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/SystemColors.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SystemColors.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SystemColors.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SystemColors.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/AddStepView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AddStepView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AddStepView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AddStepView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/AppIconPickerView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconPickerView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconPickerView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconPickerView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/AppIconGridItem.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconGridItem.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconGridItem.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AppIconGridItem.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/DayToggleButton.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/DayToggleButton.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/DayToggleButton.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/DayToggleButton.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/FloatingActionButton.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/FloatingActionButton.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/FloatingActionButton.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/FloatingActionButton.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/FloatingAddButton.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/FloatingAddButton.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/FloatingAddButton.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/FloatingAddButton.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/LinkButton.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/LinkButton.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/LinkButton.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/LinkButton.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/RingProgressView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RingProgressView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RingProgressView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RingProgressView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Components/TopBackgroundGradient.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/TopBackgroundGradient.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/TopBackgroundGradient.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/TopBackgroundGradient.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/EditDaysView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditDaysView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditDaysView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditDaysView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/EditRoutineView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditRoutineView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditRoutineView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditRoutineView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/LinkListCardView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/LinkListCardView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/LinkListCardView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/LinkListCardView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/QuickAddStepView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/QuickAddStepView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/QuickAddStepView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/QuickAddStepView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/RoutineCardView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCardView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCardView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineCardView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/RoutineIconView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineIconView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineIconView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineIconView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/RoutineInfoHeaderView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineInfoHeaderView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineInfoHeaderView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineInfoHeaderView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/RoutineList.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineList.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineList.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineList.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/RoutineListView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineListView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineListView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineListView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/RoutineStepListView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineStepListView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineStepListView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/RoutineStepListView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/SettingsView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SettingsView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SettingsView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SettingsView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Sheets/AddRoutineSheet.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AddRoutineSheet.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AddRoutineSheet.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/AddRoutineSheet.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Sheets/EditRoutineSheet.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditRoutineSheet.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditRoutineSheet.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/EditRoutineSheet.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/Sheets/SettingsSheet.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SettingsSheet.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SettingsSheet.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/SettingsSheet.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/StepListView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepListView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepListView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepListView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Views/StepRowView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepRowView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepRowView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/StepRowView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines.build/Objects-normal/x86_64/GeneratedAssetSymbols.o"
+  }
+}

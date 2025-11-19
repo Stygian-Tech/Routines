@@ -11,9 +11,9 @@ import SwiftData
 @Model
 class Step: Identifiable {
     var id = UUID()
-    var name: String
-    var order: Int
-    var routine: Routine
+    var name: String = "Step"
+    var order: Int = 0
+    var routine: Routine?
     var status = StepCompletionStatus.incomplete
     var days: [String] {
         get {
@@ -26,13 +26,13 @@ class Step: Identifiable {
     }
     @Attribute private var daysData: Data?
     
-    init(name: String = "Step", routine: Routine, order: Int) {
+    init(name: String = "Step", routine: Routine?, order: Int = 0) {
         self.name = name
         self.routine = routine
         self.order = order
     }
     
-    init(name: String = "Step", routine: Routine, order: Int, days: [String]) {
+    init(name: String = "Step", routine: Routine?, order: Int = 0, days: [String]) {
         self.name = name
         self.routine = routine
         self.order = order

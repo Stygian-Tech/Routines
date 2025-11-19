@@ -21,7 +21,7 @@ struct RoutineCardView: View {
     }
     
     var stepCount: Int {
-        routine.steps.lazy.filter { $0.isToday() }.count
+        (routine.steps ?? []).lazy.filter { $0.isToday() }.count
     }
     
     init(routine: Routine, showDetail: Binding<Bool>) {

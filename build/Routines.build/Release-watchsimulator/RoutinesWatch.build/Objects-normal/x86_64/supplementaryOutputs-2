@@ -1,0 +1,12 @@
+{
+  "/Users/sam/Developer/Git/Routines/RoutinesWatch/Application/RoutinesWatchApp.swift" : {
+    "abi-baseline-json" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch.abi.json",
+    "const-values" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch-primary.swiftconstvalues",
+    "dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch-primary.d",
+    "diagnostics" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch-primary.dia",
+    "objc-header" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch-Swift.h",
+    "swiftdoc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch.swiftdoc",
+    "swiftmodule" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch.swiftmodule",
+    "swiftsourceinfo" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-watchsimulator/RoutinesWatch.build/Objects-normal/x86_64/RoutinesWatch.swiftsourceinfo"
+  }
+}

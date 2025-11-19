@@ -1,0 +1,66 @@
+{
+  "" : {
+    "const-values" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary.swiftconstvalues",
+    "dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary.d",
+    "diagnostics" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary.dia",
+    "emit-module-dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary-emit-module.dia",
+    "pch" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatch-primary.swiftdeps"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/Persisted Models/Routine.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/Routine.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/Routine.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/Routine.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/Persisted Models/Step.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/Step.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/Step.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/Step.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/RoutineCompletionIcon.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutineCompletionIcon.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutineCompletionIcon.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutineCompletionIcon.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/RoutineCompletionStatus.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutineCompletionStatus.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutineCompletionStatus.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutineCompletionStatus.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/StepCompletionStatus.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/StepCompletionStatus.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/StepCompletionStatus.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/StepCompletionStatus.o"
+  },
+  "/Users/sam/Developer/Git/Routines/Routines/Models/SystemColors.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/SystemColors.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/SystemColors.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/SystemColors.o"
+  },
+  "/Users/sam/Developer/Git/Routines/RoutinesWatch/Application/RoutinesWatchApp.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatchApp.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatchApp.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/RoutinesWatchApp.o"
+  },
+  "/Users/sam/Developer/Git/Routines/RoutinesWatch/Views/WatchAddRoutineView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchAddRoutineView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchAddRoutineView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchAddRoutineView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/RoutinesWatch/Views/WatchAddStepView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchAddStepView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchAddStepView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchAddStepView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/RoutinesWatch/Views/WatchRoutineDetailView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchRoutineDetailView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchRoutineDetailView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchRoutineDetailView.o"
+  },
+  "/Users/sam/Developer/Git/Routines/RoutinesWatch/Views/WatchRoutineListView.swift" : {
+    "index-unit-output-path" : "/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchRoutineListView.o",
+    "llvm-bc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchRoutineListView.bc",
+    "object" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/RoutinesWatch.build/Objects-normal/arm64/WatchRoutineListView.o"
+  }
+}

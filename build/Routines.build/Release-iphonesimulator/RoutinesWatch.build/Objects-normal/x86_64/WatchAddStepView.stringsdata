@@ -1,0 +1,48 @@
+{
+  "source": "/Users/sam/Developer/Git/Routines/RoutinesWatch/Views/WatchAddStepView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Add Step",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 43
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step Name",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add step",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 39
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add Step",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 47
+        }
+      }
+    ]
+  },
+  "version": 1
+}

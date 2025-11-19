@@ -1,0 +1,12 @@
+{
+  "/Users/sam/Developer/Git/Routines/Routines Widgets/Routines_WidgetsBundle.swift" : {
+    "abi-baseline-json" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines_WidgetsExtension.abi.json",
+    "const-values" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines WidgetsExtension-primary.swiftconstvalues",
+    "dependencies" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines WidgetsExtension-primary.d",
+    "diagnostics" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines WidgetsExtension-primary.dia",
+    "objc-header" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines_WidgetsExtension-Swift.h",
+    "swiftdoc" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines_WidgetsExtension.swiftdoc",
+    "swiftmodule" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines_WidgetsExtension.swiftmodule",
+    "swiftsourceinfo" : "/Users/sam/Developer/Git/Routines/build/Routines.build/Release-iphonesimulator/Routines WidgetsExtension.build/Objects-normal/x86_64/Routines_WidgetsExtension.swiftsourceinfo"
+  }
+}

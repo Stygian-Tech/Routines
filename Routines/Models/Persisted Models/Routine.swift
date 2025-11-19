@@ -15,10 +15,10 @@ import UserNotifications
 class Routine: Identifiable {
     
     var id = UUID()
-    var name: String
-    var time: Date
-    var iconColor: String // Stored as a string because Color is not encodable for persistence with SwiftData
-    var iconSymbol: String
+    var name: String = "New Routine"
+    var time: Date = Date()
+    var iconColor: String = SystemColors.blue.rawValue // Stored as a string because Color is not encodable for persistence with SwiftData
+    var iconSymbol: String = "list.bullet"
     var status = RoutineCompletionStatus.incomplete
     var finishedStepCount = 0
     
@@ -32,7 +32,7 @@ class Routine: Identifiable {
         }
     }
     
-    @Relationship(deleteRule: .cascade) var steps = [Step]()
+    @Relationship(deleteRule: .cascade) var steps: [Step]?
     @Attribute private var daysData: Data? = nil
     
     init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet") {
@@ -150,7 +150,7 @@ class Routine: Identifiable {
     /// routine.resetSteps()
     /// ```
     func resetSteps() {
-        for step in steps {
+        for step in steps ?? [] {
             step.status = .incomplete
         }
         
@@ -172,7 +172,7 @@ class Routine: Identifiable {
         var incompleteFlag = false
         var skippedFlag = false
         
-        for step in steps {
+        for step in steps ?? [] {
             guard step.isToday() else { continue }
             if step.status == .incomplete {
                 incompleteFlag = true
@@ -192,7 +192,7 @@ class Routine: Identifiable {
             self.status = .complete
         }
         
-        if steps.count == 0 {
+        if (steps?.count ?? 0) == 0 {
             self.status = .incomplete
         }
         self.finishedStepCount = finishedCount
@@ -212,7 +212,7 @@ class Routine: Identifiable {
     }
     
     func skipRemainingSteps() {
-        for step in steps {
+        for step in steps ?? [] {
             if step.status == .incomplete && step.isToday() {
                 step.status = .skipped
             }
@@ -222,7 +222,7 @@ class Routine: Identifiable {
     }
     
     func completeRemainingSteps() {
-        for step in steps {
+        for step in steps ?? [] {
             if step.status == .incomplete && step.isToday() {
                 step.status = .complete
             }

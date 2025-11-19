@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>AppIcon-Amber</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Amber</string>
+			</dict>
+			<key>AppIcon-Deep</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Deep</string>
+			</dict>
+			<key>AppIcon-Forest</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Forest</string>
+			</dict>
+			<key>AppIcon-Goldenrod</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Goldenrod</string>
+			</dict>
+			<key>AppIcon-Jum</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Jum</string>
+			</dict>
+			<key>AppIcon-Red</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Red</string>
+			</dict>
+			<key>AppIcon-Teal</key>
+			<dict>
+				<key>CFBundleIconName</key>
+				<string>AppIcon-Teal</string>
+			</dict>
+		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon60x60</string>
+			</array>
+			<key>CFBundleIconName</key>
+			<string>AppIcon</string>
+		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon60x60</string>
+				<string>AppIcon76x76</string>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>

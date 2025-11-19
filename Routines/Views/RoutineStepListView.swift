@@ -155,7 +155,7 @@ struct RoutineStepListView: View {
     }
     
     func deleteStep(_ indexSet: IndexSet) {
-        var tempSteps = routine.steps
+        var tempSteps = routine.steps ?? []
         tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
 
         for index in indexSet.map({ $0 }) {
@@ -175,11 +175,14 @@ struct RoutineStepListView: View {
         guard !newStepName.isEmpty else { return }
 
         withAnimation {
-            let newStep = Step(name: newStepName, routine: routine, order: routine.steps.count, days: stepDays)
+            let newStep = Step(name: newStepName, routine: routine, order: (routine.steps?.count ?? 0), days: stepDays)
             newStepName = ""
             stepDays = daysOfTheWeek
             modelContext.insert(newStep)
-            routine.steps.append(newStep)
+            if routine.steps == nil {
+                routine.steps = []
+            }
+            routine.steps?.append(newStep)
         }
         
         save()
@@ -190,16 +193,19 @@ struct RoutineStepListView: View {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
         withAnimation {
-            let newStep = Step(name: trimmedName, routine: routine, order: routine.steps.count, days: daysOfTheWeek)
+            let newStep = Step(name: trimmedName, routine: routine, order: (routine.steps?.count ?? 0), days: daysOfTheWeek)
             modelContext.insert(newStep)
-            routine.steps.append(newStep)
+            if routine.steps == nil {
+                routine.steps = []
+            }
+            routine.steps?.append(newStep)
         }
         save()
         routine.checkRoutineCompletion()
     }
 
     func moveItem(from source: IndexSet, to destination: Int) {
-        var tempSteps = routine.steps
+        var tempSteps = routine.steps ?? []
         tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
         tempSteps.move(fromOffsets: source, toOffset: destination)
 

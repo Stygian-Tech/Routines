@@ -1,0 +1,10 @@
+Target dependency graph (5 targets)
+Target 'Routines' in project 'Routines'
+➜ Explicit dependency on target 'Routines WidgetsExtension' in project 'Routines'
+➜ Explicit dependency on target 'RoutinesWatch' in project 'Routines'
+➜ Explicit dependency on target 'SFSymbolsPicker' in project 'SFSymbolsPicker'
+Target 'SFSymbolsPicker' in project 'SFSymbolsPicker'
+➜ Explicit dependency on target 'SFSymbolsPicker' in project 'SFSymbolsPicker'
+Target 'SFSymbolsPicker' in project 'SFSymbolsPicker' (no dependencies)
+Target 'RoutinesWatch' in project 'Routines' (no dependencies)
+Target 'Routines WidgetsExtension' in project 'Routines' (no dependencies)

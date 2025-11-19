@@ -12,16 +12,27 @@ struct WatchRoutineListView: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: \Routine.time) var routines: [Routine]
     @State private var selectedRoutineID: UUID?
+    @State private var showingAddRoutine = false
     
     var body: some View {
         NavigationStack {
             if routines.isEmpty {
-                VStack {
+                VStack(spacing: 12) {
                     Image(systemName: "list.bullet")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
                     Text("No Routines")
                         .foregroundStyle(.secondary)
+                        .font(.headline)
+                    
+                    Button(action: {
+                        showingAddRoutine = true
+                    }) {
+                        Label("Create Routine", systemImage: "plus.circle.fill")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal)
                 }
                 .navigationTitle("Routines")
             } else {
@@ -33,6 +44,16 @@ struct WatchRoutineListView: View {
                     }
                 }
                 .navigationTitle("Routines")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            showingAddRoutine = true
+                        }) {
+                            Image(systemName: "plus")
+                        }
+                        .accessibilityLabel("Add Routine")
+                    }
+                }
                 .navigationDestination(for: UUID.self) { id in
                     if let routine = routines.first(where: { $0.id == id }) {
                         WatchRoutineDetailView(routine: routine)
@@ -41,6 +62,9 @@ struct WatchRoutineListView: View {
                     }
                 }
             }
+        }
+        .sheet(isPresented: $showingAddRoutine) {
+            WatchAddRoutineView(isPresented: $showingAddRoutine)
         }
         .onAppear {
             // Check routine completion on appear
@@ -72,7 +96,7 @@ struct WatchRoutineRowView: View {
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                     
-                    if routine.isComplete {
+                    if routine.status == .complete || routine.status == .completeWithSkippedSteps {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.caption2)
                             .foregroundStyle(.green)

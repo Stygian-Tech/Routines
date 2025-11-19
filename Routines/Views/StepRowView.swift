@@ -75,9 +75,12 @@ struct StepRowView: View {
             }
             .animation(.none, value: showHiddenSteps)
             if showHiddenSteps || shouldRenderPicker {
-                if let index = routine.steps.firstIndex(where: {$0.id == step.id }) {
+                if let steps = routine.steps, let index = steps.firstIndex(where: {$0.id == step.id }) {
                     ZStack {
-                        EditDaysView(days: $routine.steps[index].days, iconColor: routine.getIconColor())
+                        EditDaysView(days: Binding(
+                            get: { steps[index].days },
+                            set: { steps[index].days = $0 }
+                        ), iconColor: routine.getIconColor())
                             .opacity(animatePicker ? 1 : 0)
                             .offset(y: animatePicker ? 0 : 8)
                     }

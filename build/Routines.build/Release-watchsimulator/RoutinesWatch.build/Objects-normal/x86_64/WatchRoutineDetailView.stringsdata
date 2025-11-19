@@ -1,0 +1,40 @@
+{
+  "source": "/Users/sam/Developer/Git/Routines/RoutinesWatch/Views/WatchRoutineDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No Steps Today",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add First Step",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 111
+        }
+      }
+    ]
+  },
+  "version": 1
+}

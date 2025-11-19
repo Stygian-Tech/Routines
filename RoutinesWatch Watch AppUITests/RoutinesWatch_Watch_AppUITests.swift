@@ -10,30 +10,49 @@ import XCTest
 final class RoutinesWatch_Watch_AppUITests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    override func tearDownWithError() throws {}
 
+    // 1. The RoutinesWatch Watch App launches successfully.
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testAppLaunchesSuccessfully() throws {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertEqual(app.state, .runningForeground, "App should be running in the foreground after launch")
+    }
+
+    // 2. The ContentView displays "Hello, world!".
+    @MainActor
+    func testContentViewDisplaysHelloWorld() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let helloLabel = app.staticTexts["Hello, world!"]
+        XCTAssertTrue(helloLabel.waitForExistence(timeout: 5), "'Hello, world!' text should be visible on launch")
+    }
+
+    // 3. All UI elements are accessible and interactive (basic checks).
+    // This checks that primary elements are present and hittable where applicable.
+    @MainActor
+    func testUIElementsAccessibleAndInteractive() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Validate the greeting text is accessible and hittable.
+        let helloLabel = app.staticTexts["Hello, world!"]
+        XCTAssertTrue(helloLabel.waitForExistence(timeout: 5), "'Hello, world!' should exist")
+        XCTAssertTrue(helloLabel.isHittable, "'Hello, world!' should be hittable")
+
+        // Validate the globe image exists and is accessible.
+        let globeImage = app.images.element(boundBy: 0)
+        XCTAssertTrue(globeImage.exists, "Globe image should exist")
+        // Images may not always be hittable if decorative, but ensure it's there and identifiable.
+        // If this fails in CI due to platform specifics, consider assigning an accessibilityIdentifier in the app code.
     }
 
     @MainActor
     func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {
             XCUIApplication().launch()
         }

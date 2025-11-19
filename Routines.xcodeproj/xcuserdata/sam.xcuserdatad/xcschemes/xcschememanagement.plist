@@ -12,7 +12,7 @@
 		<key>Routines WidgetsExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Routines.xcscheme_^#shared#^_</key>
 		<dict>
@@ -23,6 +23,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
+		</dict>
+		<key>RoutinesWatch.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>routines Watch App.xcscheme_^#shared#^_</key>
 		<dict>

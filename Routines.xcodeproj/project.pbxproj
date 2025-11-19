@@ -8,10 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2247C1082D039DFB0021C541 /* SFSymbolsPicker */; };
-		227953802ECC1E4A00B927C8 /* RoutinesWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 227953602ECC1E4900B927C8 /* RoutinesWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50C82C96A13C002C7599 /* WidgetKit.framework */; };
 		22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50CA2C96A13C002C7599 /* SwiftUI.framework */; };
 		22FD50D82C96A13D002C7599 /* Routines WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		22WATCH0012C9999999999999 /* RoutinesWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */; };
+		22WATCH0032C9999999999999 /* WatchRoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0022C9999999999999 /* WatchRoutineListView.swift */; };
+		22WATCH0052C9999999999999 /* WatchRoutineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */; };
+		22WATCH0062C9999999999999 /* WatchAddRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0062C9999999999998 /* WatchAddRoutineView.swift */; };
+		22WATCH0072C9999999999999 /* Routines/Models/Persisted Models/Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0322C9999999999999 /* Routines/Models/Persisted Models/Routine.swift */; };
+		22WATCH0082C9999999999999 /* Routines/Models/Persisted Models/Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0332C9999999999999 /* Routines/Models/Persisted Models/Step.swift */; };
+		22WATCH0092C9999999999999 /* Routines/Models/SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0342C9999999999999 /* Routines/Models/SystemColors.swift */; };
+		22WATCH0102C9999999999999 /* WatchAddStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0102C9999999999998 /* WatchAddStepView.swift */; };
+		22WATCH0192C9999999999999 /* RoutinesWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 22WATCH0152C9999999999999 /* RoutinesWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		22WATCH0262C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0272C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift */; };
+		22WATCH0282C9999999999999 /* Routines/Models/StepCompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0292C9999999999999 /* Routines/Models/StepCompletionStatus.swift */; };
+		22WATCH0302C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0312C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,33 +40,19 @@
 			remoteGlobalIDString = 224CA0342C321EEE0096F094;
 			remoteInfo = Routines;
 		};
-		2279536D2ECC1E4A00B927C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 224CA02D2C321EEE0096F094 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2279535F2ECC1E4900B927C8;
-			remoteInfo = "RoutinesWatch Watch App";
-		};
-		227953772ECC1E4A00B927C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 224CA02D2C321EEE0096F094 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2279535F2ECC1E4900B927C8;
-			remoteInfo = "RoutinesWatch Watch App";
-		};
-		2279537E2ECC1E4A00B927C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 224CA02D2C321EEE0096F094 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2279535F2ECC1E4900B927C8;
-			remoteInfo = "RoutinesWatch Watch App";
-		};
 		22FD50D62C96A13D002C7599 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 224CA02D2C321EEE0096F094 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 22FD50C52C96A13C002C7599;
 			remoteInfo = "Routines WidgetsExtension";
+		};
+		22WATCH0162C9999999999999 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 224CA02D2C321EEE0096F094 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22WATCH0182C9999999999999;
+			remoteInfo = RoutinesWatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -66,7 +63,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				227953802ECC1E4A00B927C8 /* RoutinesWatch Watch App.app in Embed Watch Content */,
+				22WATCH0192C9999999999999 /* RoutinesWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,13 +85,24 @@
 		224CA0352C321EEE0096F094 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CA0472C321EEF0096F094 /* RoutinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		227953602ECC1E4900B927C8 /* RoutinesWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RoutinesWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2279536C2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RoutinesWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		227953762ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RoutinesWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22DD45112E4ECE1E00311C86 /* Routines.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Routines.xctestplan; sourceTree = "<group>"; };
 		22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Routines WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FD50C82C96A13C002C7599 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		22FD50CA2C96A13C002C7599 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesWatchApp.swift; sourceTree = "<group>"; };
+		22WATCH0022C9999999999999 /* WatchRoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutineListView.swift; sourceTree = "<group>"; };
+		22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRoutineDetailView.swift; sourceTree = "<group>"; };
+		22WATCH0062C9999999999998 /* WatchAddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAddRoutineView.swift; sourceTree = "<group>"; };
+		22WATCH0102C9999999999998 /* WatchAddStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAddStepView.swift; sourceTree = "<group>"; };
+		22WATCH0152C9999999999999 /* RoutinesWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoutinesWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22WATCH0272C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/RoutineCompletionStatus.swift; sourceTree = SOURCE_ROOT; };
+		22WATCH0292C9999999999999 /* Routines/Models/StepCompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/StepCompletionStatus.swift; sourceTree = SOURCE_ROOT; };
+		22WATCH0312C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/RoutineCompletionIcon.swift; sourceTree = SOURCE_ROOT; };
+		22WATCH0322C9999999999999 /* Routines/Models/Persisted Models/Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routines/Models/Persisted Models/Routine.swift"; sourceTree = SOURCE_ROOT; };
+		22WATCH0332C9999999999999 /* Routines/Models/Persisted Models/Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routines/Models/Persisted Models/Step.swift"; sourceTree = SOURCE_ROOT; };
+		22WATCH0342C9999999999999 /* Routines/Models/SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/SystemColors.swift; sourceTree = SOURCE_ROOT; };
+		22ENT0012C9999999999999 /* Routines.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Routines.entitlements; sourceTree = "<group>"; };
+		22ENT0022C9999999999999 /* RoutinesWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RoutinesWatch.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -135,24 +143,17 @@
 			path = Routines;
 			sourceTree = "<group>";
 		};
+		22ENT0032C9999999999999 /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				22ENT0012C9999999999999 /* Routines.entitlements */,
+			);
+			name = Entitlements;
+			sourceTree = "<group>";
+		};
 		2247C1902D03A5BD0021C541 /* RoutinesUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = RoutinesUITests;
-			sourceTree = "<group>";
-		};
-		227953612ECC1E4900B927C8 /* RoutinesWatch Watch App */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "RoutinesWatch Watch App";
-			sourceTree = "<group>";
-		};
-		2279536F2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "RoutinesWatch Watch AppTests";
-			sourceTree = "<group>";
-		};
-		227953792ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "RoutinesWatch Watch AppUITests";
 			sourceTree = "<group>";
 		};
 		22FD50CC2C96A13C002C7599 /* Routines Widgets */ = {
@@ -189,33 +190,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2279535D2ECC1E4900B927C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		227953692ECC1E4A00B927C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		227953732ECC1E4A00B927C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		22FD50C32C96A13C002C7599 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */,
 				22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22WATCH0202C9999999999999 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,9 +217,8 @@
 				2247C1522D03A59C0021C541 /* RoutinesTests */,
 				2247C1902D03A5BD0021C541 /* RoutinesUITests */,
 				22FD50CC2C96A13C002C7599 /* Routines Widgets */,
-				227953612ECC1E4900B927C8 /* RoutinesWatch Watch App */,
-				2279536F2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests */,
-				227953792ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests */,
+				22WATCH0112C9999999999999 /* RoutinesWatch */,
+				22ENT0032C9999999999999 /* Entitlements */,
 				22FD50C72C96A13C002C7599 /* Frameworks */,
 				224CA0362C321EEE0096F094 /* Products */,
 			);
@@ -245,9 +231,7 @@
 				224CA0472C321EEF0096F094 /* RoutinesTests.xctest */,
 				224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */,
 				22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */,
-				227953602ECC1E4900B927C8 /* RoutinesWatch Watch App.app */,
-				2279536C2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests.xctest */,
-				227953762ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests.xctest */,
+				22WATCH0152C9999999999999 /* RoutinesWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,6 +243,49 @@
 				22FD50CA2C96A13C002C7599 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22WATCH0112C9999999999999 /* RoutinesWatch */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0122C9999999999999 /* Application */,
+				22WATCH0132C9999999999999 /* Views */,
+				22WATCH0142C9999999999999 /* Models */,
+				22ENT0022C9999999999999 /* RoutinesWatch.entitlements */,
+			);
+			path = RoutinesWatch;
+			sourceTree = "<group>";
+		};
+		22WATCH0122C9999999999999 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0002C9999999999999 /* RoutinesWatchApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		22WATCH0132C9999999999999 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0022C9999999999999 /* WatchRoutineListView.swift */,
+				22WATCH0042C9999999999999 /* WatchRoutineDetailView.swift */,
+				22WATCH0062C9999999999998 /* WatchAddRoutineView.swift */,
+				22WATCH0102C9999999999998 /* WatchAddStepView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		22WATCH0142C9999999999999 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				22WATCH0322C9999999999999 /* Routines/Models/Persisted Models/Routine.swift */,
+				22WATCH0332C9999999999999 /* Routines/Models/Persisted Models/Step.swift */,
+				22WATCH0342C9999999999999 /* Routines/Models/SystemColors.swift */,
+				22WATCH0272C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift */,
+				22WATCH0292C9999999999999 /* Routines/Models/StepCompletionStatus.swift */,
+				22WATCH0312C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,7 +305,7 @@
 			);
 			dependencies = (
 				22FD50D72C96A13D002C7599 /* PBXTargetDependency */,
-				2279537F2ECC1E4A00B927C8 /* PBXTargetDependency */,
+				22WATCH0232C9999999999999 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				2247C1742D03A5B70021C541 /* Routines */,
@@ -330,74 +357,6 @@
 			productReference = 224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		2279535F2ECC1E4900B927C8 /* RoutinesWatch Watch App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 227953872ECC1E4A00B927C8 /* Build configuration list for PBXNativeTarget "RoutinesWatch Watch App" */;
-			buildPhases = (
-				2279535C2ECC1E4900B927C8 /* Sources */,
-				2279535D2ECC1E4900B927C8 /* Frameworks */,
-				2279535E2ECC1E4900B927C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				227953612ECC1E4900B927C8 /* RoutinesWatch Watch App */,
-			);
-			name = "RoutinesWatch Watch App";
-			packageProductDependencies = (
-			);
-			productName = "RoutinesWatch Watch App";
-			productReference = 227953602ECC1E4900B927C8 /* RoutinesWatch Watch App.app */;
-			productType = "com.apple.product-type.application";
-		};
-		2279536B2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 227953882ECC1E4A00B927C8 /* Build configuration list for PBXNativeTarget "RoutinesWatch Watch AppTests" */;
-			buildPhases = (
-				227953682ECC1E4A00B927C8 /* Sources */,
-				227953692ECC1E4A00B927C8 /* Frameworks */,
-				2279536A2ECC1E4A00B927C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2279536E2ECC1E4A00B927C8 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				2279536F2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests */,
-			);
-			name = "RoutinesWatch Watch AppTests";
-			packageProductDependencies = (
-			);
-			productName = "RoutinesWatch Watch AppTests";
-			productReference = 2279536C2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		227953752ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 227953892ECC1E4A00B927C8 /* Build configuration list for PBXNativeTarget "RoutinesWatch Watch AppUITests" */;
-			buildPhases = (
-				227953722ECC1E4A00B927C8 /* Sources */,
-				227953732ECC1E4A00B927C8 /* Frameworks */,
-				227953742ECC1E4A00B927C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				227953782ECC1E4A00B927C8 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				227953792ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests */,
-			);
-			name = "RoutinesWatch Watch AppUITests";
-			packageProductDependencies = (
-			);
-			productName = "RoutinesWatch Watch AppUITests";
-			productReference = 227953762ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22FD50DD2C96A13D002C7599 /* Build configuration list for PBXNativeTarget "Routines WidgetsExtension" */;
@@ -420,6 +379,23 @@
 			productReference = 22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		22WATCH0182C9999999999999 /* RoutinesWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22WATCH0222C9999999999999 /* Build configuration list for PBXNativeTarget "RoutinesWatch" */;
+			buildPhases = (
+				22WATCH0172C9999999999999 /* Sources */,
+				22WATCH0202C9999999999999 /* Frameworks */,
+				22WATCH0212C9999999999999 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RoutinesWatch;
+			productName = RoutinesWatch;
+			productReference = 22WATCH0152C9999999999999 /* RoutinesWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -427,7 +403,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2620;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					224CA0342C321EEE0096F094 = {
@@ -441,19 +417,11 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 224CA0342C321EEE0096F094;
 					};
-					2279535F2ECC1E4900B927C8 = {
-						CreatedOnToolsVersion = 26.2;
-					};
-					2279536B2ECC1E4A00B927C8 = {
-						CreatedOnToolsVersion = 26.2;
-						TestTargetID = 2279535F2ECC1E4900B927C8;
-					};
-					227953752ECC1E4A00B927C8 = {
-						CreatedOnToolsVersion = 26.2;
-						TestTargetID = 2279535F2ECC1E4900B927C8;
-					};
 					22FD50C52C96A13C002C7599 = {
 						CreatedOnToolsVersion = 16.1;
+					};
+					22WATCH0182C9999999999999 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
@@ -475,12 +443,10 @@
 			projectRoot = "";
 			targets = (
 				224CA0342C321EEE0096F094 /* Routines */,
+				22WATCH0182C9999999999999 /* RoutinesWatch */,
 				224CA0462C321EEF0096F094 /* RoutinesTests */,
 				224CA0502C321EEF0096F094 /* RoutinesUITests */,
 				22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */,
-				2279535F2ECC1E4900B927C8 /* RoutinesWatch Watch App */,
-				2279536B2ECC1E4A00B927C8 /* RoutinesWatch Watch AppTests */,
-				227953752ECC1E4A00B927C8 /* RoutinesWatch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -507,28 +473,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2279535E2ECC1E4900B927C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2279536A2ECC1E4A00B927C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		227953742ECC1E4A00B927C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		22FD50C42C96A13C002C7599 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22WATCH0212C9999999999999 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -559,31 +511,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2279535C2ECC1E4900B927C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		227953682ECC1E4A00B927C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		227953722ECC1E4A00B927C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		22FD50C22C96A13C002C7599 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22WATCH0172C9999999999999 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22WATCH0012C9999999999999 /* RoutinesWatchApp.swift in Sources */,
+				22WATCH0032C9999999999999 /* WatchRoutineListView.swift in Sources */,
+				22WATCH0052C9999999999999 /* WatchRoutineDetailView.swift in Sources */,
+				22WATCH0062C9999999999999 /* WatchAddRoutineView.swift in Sources */,
+				22WATCH0102C9999999999999 /* WatchAddStepView.swift in Sources */,
+				22WATCH0072C9999999999999 /* Routines/Models/Persisted Models/Routine.swift in Sources */,
+				22WATCH0082C9999999999999 /* Routines/Models/Persisted Models/Step.swift in Sources */,
+				22WATCH0092C9999999999999 /* Routines/Models/SystemColors.swift in Sources */,
+				22WATCH0262C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift in Sources */,
+				22WATCH0282C9999999999999 /* Routines/Models/StepCompletionStatus.swift in Sources */,
+				22WATCH0302C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,25 +549,15 @@
 			target = 224CA0342C321EEE0096F094 /* Routines */;
 			targetProxy = 224CA0522C321EEF0096F094 /* PBXContainerItemProxy */;
 		};
-		2279536E2ECC1E4A00B927C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2279535F2ECC1E4900B927C8 /* RoutinesWatch Watch App */;
-			targetProxy = 2279536D2ECC1E4A00B927C8 /* PBXContainerItemProxy */;
-		};
-		227953782ECC1E4A00B927C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2279535F2ECC1E4900B927C8 /* RoutinesWatch Watch App */;
-			targetProxy = 227953772ECC1E4A00B927C8 /* PBXContainerItemProxy */;
-		};
-		2279537F2ECC1E4A00B927C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2279535F2ECC1E4900B927C8 /* RoutinesWatch Watch App */;
-			targetProxy = 2279537E2ECC1E4A00B927C8 /* PBXContainerItemProxy */;
-		};
 		22FD50D72C96A13D002C7599 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 22FD50C52C96A13C002C7599 /* Routines WidgetsExtension */;
 			targetProxy = 22FD50D62C96A13D002C7599 /* PBXContainerItemProxy */;
+		};
+		22WATCH0232C9999999999999 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22WATCH0182C9999999999999 /* RoutinesWatch */;
+			targetProxy = 22WATCH0162C9999999999999 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -757,6 +696,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Routines/Routines.entitlements;
 				INFOPLIST_FILE = Routines/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Routines;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -794,6 +734,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Routines/Routines.entitlements;
 				INFOPLIST_FILE = Routines/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Routines;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -888,160 +829,6 @@
 			};
 			name = Release;
 		};
-		227953812ECC1E4A00B927C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Routines;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sam-clemente.routines-app";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.6;
-			};
-			name = Debug;
-		};
-		227953822ECC1E4A00B927C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Routines;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sam-clemente.routines-app";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.6;
-			};
-			name = Release;
-		};
-		227953832ECC1E4A00B927C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.RoutinesWatch-Watch-AppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoutinesWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RoutinesWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 10.6;
-			};
-			name = Debug;
-		};
-		227953842ECC1E4A00B927C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.RoutinesWatch-Watch-AppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoutinesWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RoutinesWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 10.6;
-			};
-			name = Release;
-		};
-		227953852ECC1E4A00B927C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.RoutinesWatch-Watch-AppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = "RoutinesWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 10.6;
-			};
-			name = Debug;
-		};
-		227953862ECC1E4A00B927C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G39TU2R26A;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.RoutinesWatch-Watch-AppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = "RoutinesWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 10.6;
-			};
-			name = Release;
-		};
 		22FD50DA2C96A13D002C7599 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1104,6 +891,66 @@
 			};
 			name = Release;
 		};
+		22WATCH0242C9999999999999 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+			CODE_SIGN_ENTITLEMENTS = RoutinesWatch/RoutinesWatch.entitlements;
+			INFOPLIST_KEY_CFBundleDisplayName = RoutinesWatch;
+			INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+			INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sam-clemente.routines-app";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		22WATCH0252C9999999999999 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+			CODE_SIGN_ENTITLEMENTS = RoutinesWatch/RoutinesWatch.entitlements;
+			INFOPLIST_KEY_CFBundleDisplayName = RoutinesWatch;
+			INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+			INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sam-clemente.routines-app";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sam-clemente.routines-app.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1143,38 +990,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		227953872ECC1E4A00B927C8 /* Build configuration list for PBXNativeTarget "RoutinesWatch Watch App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				227953812ECC1E4A00B927C8 /* Debug */,
-				227953822ECC1E4A00B927C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		227953882ECC1E4A00B927C8 /* Build configuration list for PBXNativeTarget "RoutinesWatch Watch AppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				227953832ECC1E4A00B927C8 /* Debug */,
-				227953842ECC1E4A00B927C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		227953892ECC1E4A00B927C8 /* Build configuration list for PBXNativeTarget "RoutinesWatch Watch AppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				227953852ECC1E4A00B927C8 /* Debug */,
-				227953862ECC1E4A00B927C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		22FD50DD2C96A13D002C7599 /* Build configuration list for PBXNativeTarget "Routines WidgetsExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				22FD50DA2C96A13D002C7599 /* Debug */,
 				22FD50DB2C96A13D002C7599 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22WATCH0222C9999999999999 /* Build configuration list for PBXNativeTarget "RoutinesWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22WATCH0242C9999999999999 /* Debug */,
+				22WATCH0252C9999999999999 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

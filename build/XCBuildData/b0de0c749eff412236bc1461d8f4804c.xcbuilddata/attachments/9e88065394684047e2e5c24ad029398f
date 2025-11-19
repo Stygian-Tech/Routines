@@ -1,0 +1,41 @@
+{
+  "" : {
+    "const-values" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary.swiftconstvalues",
+    "dependencies" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary.d",
+    "diagnostics" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary.dia",
+    "emit-module-dependencies" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary-emit-module.dia",
+    "pch" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SFSymbolsPicker-primary.swiftdeps"
+  },
+  "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/Sources/SFSymbolsPicker/SearchBar.swift" : {
+    "index-unit-output-path" : "/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SearchBar.o",
+    "llvm-bc" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SearchBar.bc",
+    "object" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SearchBar.o"
+  },
+  "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/Sources/SFSymbolsPicker/SymbolIcon.swift" : {
+    "index-unit-output-path" : "/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolIcon.o",
+    "llvm-bc" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolIcon.bc",
+    "object" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolIcon.o"
+  },
+  "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/Sources/SFSymbolsPicker/SymbolLoader.swift" : {
+    "index-unit-output-path" : "/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolLoader.o",
+    "llvm-bc" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolLoader.bc",
+    "object" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolLoader.o"
+  },
+  "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/Sources/SFSymbolsPicker/SymbolsPicker.swift" : {
+    "index-unit-output-path" : "/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolsPicker.o",
+    "llvm-bc" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolsPicker.bc",
+    "object" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolsPicker.o"
+  },
+  "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/Sources/SFSymbolsPicker/SymbolsPickerVM.swift" : {
+    "index-unit-output-path" : "/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolsPickerVM.o",
+    "llvm-bc" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolsPickerVM.bc",
+    "object" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/SymbolsPickerVM.o"
+  },
+  "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/Sources/SFSymbolsPicker/UsageExample.swift" : {
+    "index-unit-output-path" : "/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/UsageExample.o",
+    "llvm-bc" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/UsageExample.bc",
+    "object" : "/Users/sam/Library/Developer/Xcode/DerivedData/Routines-bbgsikrwnqsmvecxvxuhjnududhk/SourcePackages/checkouts/SFSymbolsPickerForSwiftUI/build/SFSymbolsPicker.build/Release-iphonesimulator/SFSymbolsPicker.build/Objects-normal/arm64/UsageExample.o"
+  }
+}
