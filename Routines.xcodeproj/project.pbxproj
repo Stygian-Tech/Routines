@@ -81,7 +81,6 @@
 		224CA0352C321EEE0096F094 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CA0472C321EEF0096F094 /* RoutinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		226575692ED2A67500E202E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2265756C2ED2AA8F00E202E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22DD45112E4ECE1E00311C86 /* Routines.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Routines.xctestplan; sourceTree = "<group>"; };
 		22ENT0012C9999999999999 /* Routines.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Routines.entitlements; sourceTree = "<group>"; };
@@ -99,13 +98,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2247C18D2D03A5B70021C541 /* Exceptions for "Routines" folder in "Routines" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 224CA0342C321EEE0096F094 /* Routines */;
-		};
 		22FD50DC2C96A13D002C7599 /* Exceptions for "Routines Widgets" folder in "Routines WidgetsExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -130,9 +122,6 @@
 		};
 		2247C1742D03A5B70021C541 /* Routines */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2247C18D2D03A5B70021C541 /* Exceptions for "Routines" folder in "Routines" target */,
-			);
 			path = Routines;
 			sourceTree = "<group>";
 		};
@@ -251,7 +240,6 @@
 		22WATCH0112C9999999999999 /* RoutinesWatch Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				226575692ED2A67500E202E5 /* Info.plist */,
 				226575662ED2A55900E202E5 /* Application */,
 				2265755F2ED2A55400E202E5 /* Views */,
 				22WATCH0142C9999999999999 /* Models */,

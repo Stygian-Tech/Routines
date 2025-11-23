@@ -25,7 +25,7 @@ class CloudKitSubscriptionManager {
     func setupSubscription() async {
         do {
             // Check if subscription already exists
-            let existingSubscription = try await database.subscription(for: subscriptionID)
+            let _ = try await database.subscription(for: subscriptionID)
             print("CloudKitSubscriptionManager: Subscription already exists")
             return
         } catch {
