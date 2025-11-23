@@ -8,17 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2247C1092D039DFB0021C541 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2247C1082D039DFB0021C541 /* SFSymbolsPicker */; };
-		226575702ED2AA8F00E202E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2265756C2ED2AA8F00E202E5 /* Assets.xcassets */; };
 		22FD50C92C96A13C002C7599 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50C82C96A13C002C7599 /* WidgetKit.framework */; };
 		22FD50CB2C96A13C002C7599 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD50CA2C96A13C002C7599 /* SwiftUI.framework */; };
 		22FD50D82C96A13D002C7599 /* Routines WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		22WATCH0072C9999999999999 /* Routines/Models/Persisted Models/Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0322C9999999999999 /* Routines/Models/Persisted Models/Routine.swift */; };
-		22WATCH0082C9999999999999 /* Routines/Models/Persisted Models/Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0332C9999999999999 /* Routines/Models/Persisted Models/Step.swift */; };
-		22WATCH0092C9999999999999 /* Routines/Models/SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0342C9999999999999 /* Routines/Models/SystemColors.swift */; };
 		22WATCH0192C9999999999999 /* RoutinesWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 22WATCH0152C9999999999999 /* RoutinesWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		22WATCH0262C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0272C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift */; };
-		22WATCH0282C9999999999999 /* Routines/Models/StepCompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0292C9999999999999 /* Routines/Models/StepCompletionStatus.swift */; };
-		22WATCH0302C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22WATCH0312C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,23 +74,26 @@
 		224CA0352C321EEE0096F094 /* Routines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CA0472C321EEF0096F094 /* RoutinesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CA0512C321EEF0096F094 /* RoutinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2265756C2ED2AA8F00E202E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22DD45112E4ECE1E00311C86 /* Routines.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Routines.xctestplan; sourceTree = "<group>"; };
-		22ENT0012C9999999999999 /* Routines.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Routines.entitlements; sourceTree = "<group>"; };
-		22ENT0022C9999999999999 /* RoutinesWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RoutinesWatch.entitlements; sourceTree = "<group>"; };
 		22FD50C62C96A13C002C7599 /* Routines WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Routines WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22FD50C82C96A13C002C7599 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		22FD50CA2C96A13C002C7599 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		22WATCH0152C9999999999999 /* RoutinesWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoutinesWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		22WATCH0272C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/RoutineCompletionStatus.swift; sourceTree = SOURCE_ROOT; };
-		22WATCH0292C9999999999999 /* Routines/Models/StepCompletionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/StepCompletionStatus.swift; sourceTree = SOURCE_ROOT; };
-		22WATCH0312C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/RoutineCompletionIcon.swift; sourceTree = SOURCE_ROOT; };
-		22WATCH0322C9999999999999 /* Routines/Models/Persisted Models/Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routines/Models/Persisted Models/Routine.swift"; sourceTree = SOURCE_ROOT; };
-		22WATCH0332C9999999999999 /* Routines/Models/Persisted Models/Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Routines/Models/Persisted Models/Step.swift"; sourceTree = SOURCE_ROOT; };
-		22WATCH0342C9999999999999 /* Routines/Models/SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines/Models/SystemColors.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		226576232ED2C90D00E202E5 /* Exceptions for "Routines" folder in "RoutinesWatch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Models/Persisted Models/Routine.swift",
+				"Models/Persisted Models/Step.swift",
+				Models/RoutineCompletionIcon.swift,
+				Models/RoutineCompletionStatus.swift,
+				Models/StepCompletionStatus.swift,
+				Models/SystemColors.swift,
+			);
+			target = 22WATCH0182C9999999999999 /* RoutinesWatch */;
+		};
 		22FD50DC2C96A13D002C7599 /* Exceptions for "Routines Widgets" folder in "Routines WidgetsExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -122,6 +118,9 @@
 		};
 		2247C1742D03A5B70021C541 /* Routines */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				226576232ED2C90D00E202E5 /* Exceptions for "Routines" folder in "RoutinesWatch" target */,
+			);
 			path = Routines;
 			sourceTree = "<group>";
 		};
@@ -130,14 +129,9 @@
 			path = RoutinesUITests;
 			sourceTree = "<group>";
 		};
-		2265755F2ED2A55400E202E5 /* Views */ = {
+		226576102ED2C7E000E202E5 /* RoutinesWatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Views;
-			sourceTree = "<group>";
-		};
-		226575662ED2A55900E202E5 /* Application */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Application;
+			path = RoutinesWatch;
 			sourceTree = "<group>";
 		};
 		22FD50CC2C96A13C002C7599 /* Routines Widgets */ = {
@@ -201,8 +195,7 @@
 				2247C1522D03A59C0021C541 /* RoutinesTests */,
 				2247C1902D03A5BD0021C541 /* RoutinesUITests */,
 				22FD50CC2C96A13C002C7599 /* Routines Widgets */,
-				22WATCH0112C9999999999999 /* RoutinesWatch Watch App */,
-				22ENT0032C9999999999999 /* Entitlements */,
+				226576102ED2C7E000E202E5 /* RoutinesWatch */,
 				22FD50C72C96A13C002C7599 /* Frameworks */,
 				224CA0362C321EEE0096F094 /* Products */,
 			);
@@ -220,14 +213,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		22ENT0032C9999999999999 /* Entitlements */ = {
-			isa = PBXGroup;
-			children = (
-				22ENT0012C9999999999999 /* Routines.entitlements */,
-			);
-			name = Entitlements;
-			sourceTree = "<group>";
-		};
 		22FD50C72C96A13C002C7599 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,31 +220,6 @@
 				22FD50CA2C96A13C002C7599 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		22WATCH0112C9999999999999 /* RoutinesWatch Watch App */ = {
-			isa = PBXGroup;
-			children = (
-				226575662ED2A55900E202E5 /* Application */,
-				2265755F2ED2A55400E202E5 /* Views */,
-				22WATCH0142C9999999999999 /* Models */,
-				22ENT0022C9999999999999 /* RoutinesWatch.entitlements */,
-				2265756C2ED2AA8F00E202E5 /* Assets.xcassets */,
-			);
-			path = "RoutinesWatch Watch App";
-			sourceTree = "<group>";
-		};
-		22WATCH0142C9999999999999 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				22WATCH0322C9999999999999 /* Routines/Models/Persisted Models/Routine.swift */,
-				22WATCH0332C9999999999999 /* Routines/Models/Persisted Models/Step.swift */,
-				22WATCH0342C9999999999999 /* Routines/Models/SystemColors.swift */,
-				22WATCH0272C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift */,
-				22WATCH0292C9999999999999 /* Routines/Models/StepCompletionStatus.swift */,
-				22WATCH0312C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,8 +326,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2265755F2ED2A55400E202E5 /* Views */,
-				226575662ED2A55900E202E5 /* Application */,
+				226576102ED2C7E000E202E5 /* RoutinesWatch */,
 			);
 			name = RoutinesWatch;
 			productName = RoutinesWatch;
@@ -462,7 +421,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226575702ED2AA8F00E202E5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,12 +459,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22WATCH0072C9999999999999 /* Routines/Models/Persisted Models/Routine.swift in Sources */,
-				22WATCH0082C9999999999999 /* Routines/Models/Persisted Models/Step.swift in Sources */,
-				22WATCH0092C9999999999999 /* Routines/Models/SystemColors.swift in Sources */,
-				22WATCH0262C9999999999999 /* Routines/Models/RoutineCompletionStatus.swift in Sources */,
-				22WATCH0282C9999999999999 /* Routines/Models/StepCompletionStatus.swift in Sources */,
-				22WATCH0302C9999999999999 /* Routines/Models/RoutineCompletionIcon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,7 +623,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Routines/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Routines;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -709,7 +661,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Routines/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Routines;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -874,7 +826,7 @@
 				CODE_SIGN_ENTITLEMENTS = RoutinesWatch/RoutinesWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 32;
-				DEVELOPMENT_ASSET_PATHS = "\"RoutinesWatch Watch App\"";
+				DEVELOPMENT_ASSET_PATHS = "\"RoutinesWatch\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RoutinesWatch/Info.plist;
@@ -907,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = RoutinesWatch/RoutinesWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 32;
-				DEVELOPMENT_ASSET_PATHS = "\"RoutinesWatch Watch App\"";
+				DEVELOPMENT_ASSET_PATHS = "\"RoutinesWatch\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RoutinesWatch/Info.plist;
