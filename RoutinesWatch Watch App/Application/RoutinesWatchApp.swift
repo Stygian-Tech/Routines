@@ -11,6 +11,7 @@ import SwiftData
 @main
 struct RoutinesWatchApp: App {
     let container: ModelContainer
+    private let cloudKitSyncObserver: CloudKitSyncObserver
     
     init() {
         do {
@@ -27,6 +28,9 @@ struct RoutinesWatchApp: App {
             )
             
             container = try ModelContainer(for: schema, configurations: [configuration])
+            
+            // Set up CloudKit sync observer for real-time updates
+            cloudKitSyncObserver = CloudKitSyncObserver(container: container)
             
             // Log CloudKit configuration for debugging
             print("WatchOS: ModelContainer initialized with CloudKit")
