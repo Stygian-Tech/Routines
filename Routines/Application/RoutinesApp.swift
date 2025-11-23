@@ -9,11 +9,15 @@ import SwiftUI
 import SwiftData
 import UserNotifications
 import TipKit
+import CloudKit
 
 @main
 struct RoutinesApp: App {
     var resetTipsOnLaunch = true
     let container: ModelContainer
+    private let cloudKitSyncObserver: CloudKitSyncObserver
+    private let cloudKitSubscriptionManager: CloudKitSubscriptionManager
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     private var isUITestSeedEnabled: Bool { ProcessInfo.processInfo.arguments.contains("UI_TEST_SEED") }
     private static let migrationKey = "com.sam-clemente.routines-app.localToCloudKitMigrationCompleted"
     
@@ -32,9 +36,21 @@ struct RoutinesApp: App {
             
             container = try ModelContainer(for: schema, configurations: [configuration])
             
+            // Set up CloudKit sync observer for real-time updates
+            cloudKitSyncObserver = CloudKitSyncObserver(container: container)
+            
+            // Set up CloudKit subscription manager for push notifications
+            cloudKitSubscriptionManager = CloudKitSubscriptionManager()
+            
             // Log CloudKit configuration for debugging
             print("iOS: ModelContainer initialized with CloudKit")
             print("iOS: Bundle ID: \(Bundle.main.bundleIdentifier ?? "unknown")")
+            
+            // Set up CloudKit subscription for push notifications
+            let subscriptionManager = cloudKitSubscriptionManager
+            Task { @MainActor in
+                await subscriptionManager.setupSubscription()
+            }
             
             // Check initial data count
             Task { [container] in
@@ -63,6 +79,8 @@ struct RoutinesApp: App {
         WindowGroup {
             RoutineListView()
                 .onAppear {
+                    // Set up the sync observer reference in app delegate after initialization
+                    appDelegate.cloudKitSyncObserver = cloudKitSyncObserver
                     promptForNotifications()
                     // Migrate local data to CloudKit if needed
                     Task { [container] in
@@ -226,6 +244,43 @@ struct RoutinesApp: App {
             print("Error during migration: \(error.localizedDescription)")
             // If local store doesn't exist or migration fails, mark as complete to avoid retrying
             UserDefaults.standard.set(true, forKey: Self.migrationKey)
+        }
+    }
+}
+
+// MARK: - AppDelegate for handling CloudKit push notifications
+class AppDelegate: NSObject, UIApplicationDelegate {
+    var cloudKitSyncObserver: CloudKitSyncObserver?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Register for remote notifications
+        application.registerForRemoteNotifications()
+        return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("AppDelegate: Successfully registered for remote notifications")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("AppDelegate: Failed to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // Check if this is a CloudKit notification
+        let notification = CKNotification(fromRemoteNotificationDictionary: userInfo)
+        
+        if let cloudKitNotification = notification {
+            print("AppDelegate: Received CloudKit notification: \(String(describing: cloudKitNotification.notificationID))")
+            
+            // Trigger fetch changes in CloudKitSyncObserver
+            Task { @MainActor in
+                await cloudKitSyncObserver?.fetchChanges()
+                completionHandler(.newData)
+            }
+        } else {
+            // Not a CloudKit notification
+            completionHandler(.noData)
         }
     }
 }

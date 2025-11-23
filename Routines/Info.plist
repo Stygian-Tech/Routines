@@ -7,7 +7,9 @@
 	<key>NSUserNotificationUsageDescription</key>
 	<string>We need your permission to send notifcations when a routine starts</string>
 	<key>UIBackgroundModes</key>
-	<array/>
+	<array>
+		<string>remote-notification</string>
+	</array>
     <key>CFBundleIcons</key>
     <dict>
         <key>CFBundlePrimaryIcon</key>

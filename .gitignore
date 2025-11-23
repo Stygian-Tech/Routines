@@ -1,3 +1,8 @@
 *.xcworkspace
 *.xcuserstate
 GoogleService-Info.plist
+
+# Build artifacts
+build/
+Build/
+.build/
