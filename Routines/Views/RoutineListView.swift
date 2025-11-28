@@ -16,6 +16,10 @@ struct RoutineListView: View {
     @State var newRoutine: Routine?
     @State var routineToEdit: Routine?
     
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
+    
     // Presentation Logic
     @State private var addRoutineIsPresented = false
     @State private var settingsIsPresented = false
@@ -29,10 +33,10 @@ struct RoutineListView: View {
     @State private var navPath: [UUID] = []
     
     // Layout Properties
-    let backgroundGradient = Gradient(colors: [.accentColor.opacity(0.28), Color(.systemBackground)])
-    let resetRoutinesTip = ResetRoutinesTip()
+    private let backgroundGradient = Gradient(colors: [.accentColor.opacity(0.28), Color(.systemBackground)])
+    private let resetRoutinesTip = ResetRoutinesTip()
     
-    var today: String {
+    private var today: String {
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"
@@ -60,8 +64,8 @@ struct RoutineListView: View {
                             }
                         }
                         .onAppear() {
-                            for routine in routines {
-                                routine.checkRoutineCompletion()
+                            Task {
+                                await routineManager.checkRoutinesCompletion(routines)
                             }
                             // Defer showing the add button to when this view is fully visible again.
                         }
@@ -150,8 +154,12 @@ struct RoutineListView: View {
     // MARK: - Helper Methods
     
     private func resetRoutines() {
-        for routine in routines {
-            routine.resetSteps()
+        Task {
+            do {
+                try await routineManager.resetRoutines(routines)
+            } catch {
+                print("Error resetting routines: \(error.localizedDescription)")
+            }
         }
     }
     
@@ -163,8 +171,12 @@ struct RoutineListView: View {
     }
     
     private func deleteRoutine(_ routinesToDelete: [Routine]) {
-        for routine in routinesToDelete {
-            modelContext.delete(routine)
+        Task {
+            do {
+                try await routineManager.deleteRoutines(routinesToDelete)
+            } catch {
+                print("Error deleting routines: \(error.localizedDescription)")
+            }
         }
     }
 }

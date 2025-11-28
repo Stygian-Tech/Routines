@@ -102,13 +102,14 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				"RoutinesWatch-Watch-App-Info.plist",
 			);
 			target = 22140DDF2ED3AC4300879185 /* RoutinesWatch Watch App */;
 		};
 		22207DC72ED3AD5600391617 /* Exceptions for "Routines" folder in "RoutinesWatch Watch App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Application/RoutineManager.swift,
+				Application/StepManager.swift,
 				"Models/Persisted Models/Routine.swift",
 				"Models/Persisted Models/Step.swift",
 				Models/RoutineCompletionIcon.swift,
@@ -116,6 +117,8 @@
 				Models/StepCompletionStatus.swift,
 				Models/Symbol.swift,
 				Models/SystemColors.swift,
+				Views/Components/CompletionIconView.swift,
+				Views/Components/RingProgressView.swift,
 			);
 			target = 22140DDF2ED3AC4300879185 /* RoutinesWatch Watch App */;
 		};
@@ -655,7 +658,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "RoutinesWatch Watch App/RoutinesWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "RoutinesWatch-Watch-App-Info.plist";
@@ -691,7 +694,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "RoutinesWatch Watch App/RoutinesWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "RoutinesWatch-Watch-App-Info.plist";
@@ -941,7 +944,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Routines/Routines.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -980,7 +983,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Routines/Routines.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"Routines/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1085,7 +1088,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Routines Widgets/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Routines Widgets";
@@ -1116,7 +1119,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Routines Widgets/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Routines Widgets";

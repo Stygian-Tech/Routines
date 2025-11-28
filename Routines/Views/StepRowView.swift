@@ -22,16 +22,30 @@ struct StepRowView: View {
     @State private var animatePicker: Bool = false
     @State private var shouldRenderPicker: Bool = false
     
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
+    
+    private var stepManager: StepManager {
+        StepManager(modelContext: modelContext)
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Button(action: {
-                    if step.status != .complete {
-                        step.status = .complete
-                    } else {
-                        step.status = .incomplete
+                    Task {
+                        do {
+                            if step.status != .complete {
+                                try await stepManager.updateStepStatus(step, status: .complete)
+                            } else {
+                                try await stepManager.updateStepStatus(step, status: .incomplete)
+                            }
+                            await routineManager.checkRoutineCompletion(routine)
+                        } catch {
+                            print("Error updating step status: \(error.localizedDescription)")
+                        }
                     }
-                    routine.checkRoutineCompletion()
                 }) {
                     Image(systemName: step.status.icon)
                         .foregroundStyle(routine.getIconColor())
@@ -43,14 +57,40 @@ struct StepRowView: View {
                 .accessibilityValue(Text(step.status == .complete ? "Complete" : (step.status == .skipped ? "Skipped" : "Incomplete")))
                 .accessibilityHint(Text("Toggles completion state"))
                 .contextMenu {
-                    Button(action: { step.status = .skipped }) {
+                    Button(action: {
+                        Task {
+                            do {
+                                try await stepManager.updateStepStatus(step, status: .skipped)
+                                await routineManager.checkRoutineCompletion(routine)
+                            } catch {
+                                print("Error skipping step: \(error.localizedDescription)")
+                            }
+                        }
+                    }) {
                         Label("Skip '\(step.name)'", systemImage: "circle.slash")
                     }
-                    Button(action: { step.status = .complete }) {
+                    Button(action: {
+                        Task {
+                            do {
+                                try await stepManager.updateStepStatus(step, status: .complete)
+                                await routineManager.checkRoutineCompletion(routine)
+                            } catch {
+                                print("Error completing step: \(error.localizedDescription)")
+                            }
+                        }
+                    }) {
                         Label("Complete '\(step.name)'", systemImage: "checkmark.circle")
                     }
-                    //TODO: destructive action is not deleting step
-                    Button(role: .destructive, action: { modelContext.delete(step) }, label: { Label("Delete \(step.name)", systemImage: "trash") })
+                    Button(role: .destructive, action: {
+                        Task {
+                            do {
+                                try await stepManager.deleteSteps([step], from: routine)
+                                await routineManager.checkRoutineCompletion(routine)
+                            } catch {
+                                print("Error deleting step: \(error.localizedDescription)")
+                            }
+                        }
+                    }, label: { Label("Delete \(step.name)", systemImage: "trash") })
                 }
                 if editingStepIndex == step.order {
                     TextField(step.name, text: $updatedStepName)
@@ -59,9 +99,14 @@ struct StepRowView: View {
                                 editingStepIndex = nil
                                 return
                             }
-                            step.name = updatedStepName
-                            editingStepIndex = nil
-                            save()
+                            Task {
+                                do {
+                                    try await stepManager.updateStepName(step, name: updatedStepName)
+                                    editingStepIndex = nil
+                                } catch {
+                                    print("Error updating step name: \(error.localizedDescription)")
+                                }
+                            }
                         }
                         .accessibilityLabel(Text("Edit step name"))
                 } else {
@@ -79,7 +124,16 @@ struct StepRowView: View {
                     ZStack {
                         EditDaysView(days: Binding(
                             get: { steps[index].days },
-                            set: { steps[index].days = $0 }
+                            set: { newDays in
+                                steps[index].days = newDays
+                                Task {
+                                    do {
+                                        try await stepManager.updateStepDays(steps[index], days: newDays)
+                                    } catch {
+                                        print("Error updating step days: \(error.localizedDescription)")
+                                    }
+                                }
+                            }
                         ), iconColor: routine.getIconColor())
                             .opacity(animatePicker ? 1 : 0)
                             .offset(y: animatePicker ? 0 : 8)
@@ -119,15 +173,4 @@ struct StepRowView: View {
         }
     }
     
-    private func save() {
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error Saving: \(error.localizedDescription)")
-        }
-    }
-    
-    private func skipStep() {
-        
-    }
 }

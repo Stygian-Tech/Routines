@@ -15,6 +15,14 @@ struct WatchRoutineDetailView: View {
     @State private var selectedStep: Step?
     @State private var showingAddStep = false
     
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
+    
+    private var stepManager: StepManager {
+        StepManager(modelContext: modelContext)
+    }
+    
     var todaySteps: [Step] {
         (routine.steps ?? []).filter { $0.isToday() }.sorted { $0.order < $1.order }
     }
@@ -95,8 +103,14 @@ struct WatchRoutineDetailView: View {
                         .tint(routine.getIconColor())
                         
                         Button(action: {
-                            routine.resetSteps()
-                            save()
+                            Task {
+                                do {
+                                    try await routineManager.resetRoutine(routine)
+                                    try await routineManager.save()
+                                } catch {
+                                    print("Error resetting routine: \(error.localizedDescription)")
+                                }
+                            }
                         }) {
                             Label("Reset", systemImage: "arrow.circlepath")
                                 .frame(maxWidth: .infinity)
@@ -123,64 +137,20 @@ struct WatchRoutineDetailView: View {
             WatchAddStepView(routine: routine, isPresented: $showingAddStep)
         }
         .onAppear {
-            routine.checkRoutineCompletion()
+            Task {
+                await routineManager.checkRoutineCompletion(routine)
+            }
         }
     }
     
     private func cycleStepStatus(_ step: Step) {
-        switch step.status {
-        case .incomplete:
-            step.status = .complete
-        case .complete:
-            step.status = .skipped
-        case .skipped:
-            step.status = .incomplete
-        }
-        routine.checkRoutineCompletion()
-        save()
-    }
-    
-    private func save() {
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error saving: \(error.localizedDescription)")
-        }
-    }
-}
-
-struct WatchStepRowView: View {
-    let step: Step
-    let routine: Routine
-    let onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 8) {
-                Image(systemName: step.status.icon)
-                    .foregroundStyle(stepColor)
-                    .font(.title3)
-                
-                Text(step.name)
-                    .foregroundStyle(.primary)
-                    .strikethrough(step.status == .complete)
-                    .font(.body)
-                
-                Spacer()
+        Task {
+            do {
+                try await stepManager.cycleStepStatus(step)
+                await routineManager.checkRoutineCompletion(routine)
+            } catch {
+                print("Error cycling step status: \(error.localizedDescription)")
             }
-            .padding(.vertical, 6)
-        }
-        .buttonStyle(.plain)
-    }
-    
-    private var stepColor: Color {
-        switch step.status {
-        case .incomplete:
-            return .secondary
-        case .complete:
-            return routine.getIconColor()
-        case .skipped:
-            return .orange
         }
     }
 }

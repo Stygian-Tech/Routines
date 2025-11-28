@@ -22,6 +22,14 @@ struct RoutineStepListView: View {
     @State private var editingStepIndex: Int? = nil
     @State private var updatedStepName: String = ""
     
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
+    
+    private var stepManager: StepManager {
+        StepManager(modelContext: modelContext)
+    }
+    
     var routineColor: Color {
         get {
             return routine.getIconColor()
@@ -145,77 +153,96 @@ struct RoutineStepListView: View {
     }
     
     func saveRoutine(_ tempRoutine: Routine) {
-        routine.name = tempRoutine.name
-        routine.time = tempRoutine.time
-        routine.iconSymbol = tempRoutine.iconSymbol
-        routine.iconColor = tempRoutine.iconColor
-        routine.days = tempRoutine.days
-        modelContext.delete(tempRoutine)
-        editRoutineViewIsPresented = false
+        Task {
+            do {
+                try await routineManager.updateRoutine(
+                    routine,
+                    name: tempRoutine.name,
+                    time: tempRoutine.time,
+                    iconColor: tempRoutine.iconColor,
+                    iconSymbol: tempRoutine.iconSymbol,
+                    days: tempRoutine.days
+                )
+                modelContext.delete(tempRoutine)
+                editRoutineViewIsPresented = false
+            } catch {
+                print("Error updating routine: \(error.localizedDescription)")
+            }
+        }
     }
     
     func deleteStep(_ indexSet: IndexSet) {
-        var tempSteps = routine.steps ?? []
-        tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
-
-        for index in indexSet.map({ $0 }) {
-            tempSteps.remove(at: index)
+        let stepsToDelete = indexSet.map { index in
+            let sortedSteps = (routine.steps ?? []).sorted(by: { $0.order < $1.order })
+            return sortedSteps[index]
         }
-
-        for (index, step) in tempSteps.enumerated() {
-            step.order = index
+        
+        Task {
+            do {
+                try await stepManager.deleteSteps(stepsToDelete, from: routine)
+                await routineManager.checkRoutineCompletion(routine)
+            } catch {
+                print("Error deleting steps: \(error.localizedDescription)")
+            }
         }
-
-        routine.steps = tempSteps
-        save()
-        routine.checkRoutineCompletion()
     }
 
     func addStep() {
         guard !newStepName.isEmpty else { return }
+        
+        let stepName = newStepName
+        newStepName = ""
+        let days = stepDays
+        stepDays = daysOfTheWeek
 
         withAnimation {
-            let newStep = Step(name: newStepName, routine: routine, order: (routine.steps?.count ?? 0), days: stepDays)
-            newStepName = ""
-            stepDays = daysOfTheWeek
-            modelContext.insert(newStep)
-            if routine.steps == nil {
-                routine.steps = []
+            Task {
+                do {
+                    _ = try await stepManager.createStep(
+                        name: stepName,
+                        routine: routine,
+                        days: days
+                    )
+                    await routineManager.checkRoutineCompletion(routine)
+                } catch {
+                    print("Error adding step: \(error.localizedDescription)")
+                }
             }
-            routine.steps?.append(newStep)
         }
-        
-        save()
-        routine.checkRoutineCompletion()
     }
 
     func addQuickStep(_ name: String) {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
+        
         withAnimation {
-            let newStep = Step(name: trimmedName, routine: routine, order: (routine.steps?.count ?? 0), days: daysOfTheWeek)
-            modelContext.insert(newStep)
-            if routine.steps == nil {
-                routine.steps = []
+            Task {
+                do {
+                    _ = try await stepManager.createStep(
+                        name: trimmedName,
+                        routine: routine,
+                        days: daysOfTheWeek
+                    )
+                    await routineManager.checkRoutineCompletion(routine)
+                } catch {
+                    print("Error adding quick step: \(error.localizedDescription)")
+                }
             }
-            routine.steps?.append(newStep)
         }
-        save()
-        routine.checkRoutineCompletion()
     }
 
     func moveItem(from source: IndexSet, to destination: Int) {
-        var tempSteps = routine.steps ?? []
-        tempSteps = tempSteps.sorted(by: { $0.order < $1.order })
-        tempSteps.move(fromOffsets: source, toOffset: destination)
-
-        for (index, step) in tempSteps.enumerated() {
-            step.order = index
+        Task {
+            do {
+                try await stepManager.moveSteps(
+                    from: source,
+                    to: destination,
+                    in: routine
+                )
+            } catch {
+                print("Error moving steps: \(error.localizedDescription)")
+            }
         }
-
-        routine.steps = tempSteps
-        save()
-
     }
 
     func save() {

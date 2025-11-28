@@ -8,9 +8,20 @@
 import SwiftUI
 
 struct RingProgressView: View {
-	var progress: Double
-	var color: Color
+	var routine: Routine
 	var lineWidth: CGFloat = 2
+	
+	private var totalStepsToday: Int {
+		(routine.steps ?? []).filter { $0.isToday() }.count
+	}
+	
+	private var progress: Double {
+		(totalStepsToday == 0) ? 0 : Double(routine.finishedStepCount) / Double(totalStepsToday)
+	}
+	
+	private var color: Color {
+		routine.getIconColor()
+	}
 	
 	var body: some View {
 		ZStack {
@@ -21,6 +32,8 @@ struct RingProgressView: View {
 				.stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
 				.rotationEffect(.degrees(-90))
 		}
+		.accessibilityLabel(Text("Progress"))
+		.accessibilityValue(Text("\(routine.finishedStepCount) of \(totalStepsToday) steps complete"))
 	}
 }
 

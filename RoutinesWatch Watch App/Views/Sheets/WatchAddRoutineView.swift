@@ -18,6 +18,10 @@ struct WatchAddRoutineView: View {
     @State private var selectedSymbol: String = "list.bullet"
     @FocusState private var isTextFieldFocused: Bool
     
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
+    
     private let commonSymbols = [
         "sun.and.horizon", "moon.stars", "cup.and.saucer.fill",
         "figure.run", "bed.double.fill", "book.fill",
@@ -126,20 +130,18 @@ struct WatchAddRoutineView: View {
         let trimmedName = routineName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
         
-        let newRoutine = Routine(
-            name: trimmedName,
-            time: selectedTime,
-            iconColor: selectedColor.rawValue,
-            iconSymbol: selectedSymbol
-        )
-        
-        modelContext.insert(newRoutine)
-        
-        do {
-            try modelContext.save()
-            isPresented = false
-        } catch {
-            print("Error creating routine: \(error.localizedDescription)")
+        Task {
+            do {
+                _ = try await routineManager.createRoutine(
+                    name: trimmedName,
+                    time: selectedTime,
+                    iconColor: selectedColor.rawValue,
+                    iconSymbol: selectedSymbol
+                )
+                isPresented = false
+            } catch {
+                print("Error creating routine: \(error.localizedDescription)")
+            }
         }
     }
 }

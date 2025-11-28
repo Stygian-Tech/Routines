@@ -10,9 +10,15 @@ import SwiftData
 
 struct WatchRoutineListView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(sort: \Routine.time) var routines: [Routine]
+    @State private var routines: [Routine] = []
     @State private var selectedRoutineID: UUID?
     @State private var showingAddRoutine = false
+    @State private var showingMenu = false
+    @State private var showingResetAlert = false
+    
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
     
     var body: some View {
         NavigationStack {
@@ -39,7 +45,7 @@ struct WatchRoutineListView: View {
                 List {
                     ForEach(routines) { routine in
                         NavigationLink(value: routine.id) {
-                            WatchRoutineRowView(routine: routine)
+                           WatchRoutineRowView(routine: routine)
                         }
                     }
                 }
@@ -47,12 +53,22 @@ struct WatchRoutineListView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button(action: {
-                            showingAddRoutine = true
+                            showingMenu = true
                         }) {
-                            Image(systemName: "plus")
+                            Image(systemName: "ellipsis.circle")
                         }
-                        .accessibilityLabel("Add Routine")
+                        .accessibilityLabel("More Options")
                     }
+                    ToolbarItem(placement: .topBarLeading) {
+                    }
+                }
+                .alert("Reset All Routines?", isPresented: $showingResetAlert) {
+                    Button("Reset", role: .destructive) {
+                        resetAllRoutines()
+                    }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("This will reset all routines to incomplete.")
                 }
                 .navigationDestination(for: UUID.self) { id in
                     if let routine = routines.first(where: { $0.id == id }) {
@@ -63,49 +79,55 @@ struct WatchRoutineListView: View {
                 }
             }
         }
+        .sheet(isPresented: $showingMenu) {
+            WatchMenuView(
+                isPresented: $showingMenu,
+                showingAddRoutine: $showingAddRoutine,
+                onResetSelected: {
+                    showingResetAlert = true
+                }
+            )
+        }
         .sheet(isPresented: $showingAddRoutine) {
             WatchAddRoutineView(isPresented: $showingAddRoutine)
         }
-        .onAppear {
-            // Check routine completion on appear
-            for routine in routines {
-                routine.checkRoutineCompletion()
+        .task {
+            // Fetch today's routines and check completion on appear
+            do {
+                routines = try await routineManager.getTodayRoutines()
+                await routineManager.checkRoutinesCompletion(routines)
+            } catch {
+                print("Error fetching routines: \(error.localizedDescription)")
             }
         }
-    }
-}
-
-struct WatchRoutineRowView: View {
-    let routine: Routine
-    
-    var body: some View {
-        HStack {
-            Image(systemName: routine.iconSymbol)
-                .foregroundStyle(routine.getIconColor())
-                .frame(width: 20)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(routine.name)
-                    .font(.headline)
-                    .lineLimit(1)
-                
-                HStack(spacing: 4) {
-                    Image(systemName: "clock")
-                        .font(.caption2)
-                    Text(routine.timeToString())
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                    
-                    if routine.status == .complete || routine.status == .completeWithSkippedSteps {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.caption2)
-                            .foregroundStyle(.green)
+        .onChange(of: showingAddRoutine) { _, isPresented in
+            // Refresh routines when add sheet is dismissed
+            if !isPresented {
+                Task {
+                    do {
+                        routines = try await routineManager.getTodayRoutines()
+                        await routineManager.checkRoutinesCompletion(routines)
+                    } catch {
+                        print("Error refreshing routines: \(error.localizedDescription)")
                     }
                 }
             }
-            
-            Spacer()
         }
-        .padding(.vertical, 2)
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func resetAllRoutines() {
+        Task {
+            do {
+                try await routineManager.resetRoutines(routines)
+                try await routineManager.save()
+                // Refresh routines after reset
+                routines = try await routineManager.getTodayRoutines()
+                await routineManager.checkRoutinesCompletion(routines)
+            } catch {
+                print("Error resetting routines: \(error.localizedDescription)")
+            }
+        }
     }
 }

@@ -16,6 +16,14 @@ struct WatchAddStepView: View {
     @State private var stepName: String = ""
     @FocusState private var isTextFieldFocused: Bool
     
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
+    
+    private var stepManager: StepManager {
+        StepManager(modelContext: modelContext)
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -59,25 +67,19 @@ struct WatchAddStepView: View {
         let trimmedName = stepName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
         
-        let newStep = Step(
-            name: trimmedName,
-            routine: routine,
-            order: (routine.steps?.count ?? 0),
-            days: routine.days
-        )
-        
-        modelContext.insert(newStep)
-        if routine.steps == nil {
-            routine.steps = []
-        }
-        routine.steps?.append(newStep)
-        
-        do {
-            try modelContext.save()
-            routine.checkRoutineCompletion()
-            isPresented = false
-        } catch {
-            print("Error adding step: \(error.localizedDescription)")
+        Task {
+            do {
+                _ = try await stepManager.createStep(
+                    name: trimmedName,
+                    routine: routine,
+                    days: routine.days
+                )
+                await routineManager.checkRoutineCompletion(routine)
+                isPresented = false
+            } catch {
+                print("Error adding step: \(error.localizedDescription)")
+            }
         }
     }
 }
+

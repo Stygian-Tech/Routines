@@ -16,6 +16,10 @@ struct RoutineList: View {
     @Binding var showRoutineDetails: Bool
 
     let deleteRoutine: ([Routine]) -> Void
+    
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
+    }
 
     var body: some View {
         let displayedRoutines = routines.filter { $0.isToday() || showAllRoutines }
@@ -27,16 +31,32 @@ struct RoutineList: View {
                 .accessibilityLabel(Text(routine.name))
                 .accessibilityHint(Text("Opens routine"))
                 .contextMenu {
-                    Button(action: routine.skipRemainingSteps) {
+                    Button(action: {
+                        Task {
+                            do {
+                                try await routineManager.skipRemainingSteps(routine)
+                            } catch {
+                                print("Error skipping steps: \(error.localizedDescription)")
+                            }
+                        }
+                    }) {
                         Label("Skip Remaining Steps", systemImage: "circle.slash")
                     }
-                    Button(action: routine.completeRemainingSteps) {
+                    Button(action: {
+                        Task {
+                            do {
+                                try await routineManager.completeRemainingSteps(routine)
+                            } catch {
+                                print("Error completing steps: \(error.localizedDescription)")
+                            }
+                        }
+                    }) {
                         Label("Complete Remaining Steps", systemImage: "checkmark.circle")
                     }
                     Button(action: { routineToEdit = routine }) {
                         Label("Edit \(routine.name)", systemImage: "pencil")
                     }
-                    Button(role: .destructive, action: { modelContext.delete(routine) }, label: { Label("Delete \(routine.name)", systemImage: "trash") })
+                    Button(role: .destructive, action: { deleteRoutine([routine]) }, label: { Label("Delete \(routine.name)", systemImage: "trash") })
                 }
             }
             .onDelete { indexSet in

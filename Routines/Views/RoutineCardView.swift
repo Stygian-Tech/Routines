@@ -40,20 +40,13 @@ struct RoutineCardView: View {
                 HStack {
                     let totalStepsToday = stepCount
                     if routine.status == .incomplete && totalStepsToday > 1 {
-                        let progress = (totalStepsToday == 0) ? 0 : Double(routine.finishedStepCount) / Double(totalStepsToday)
-                        RingProgressView(progress: progress, color: routine.getIconColor(), lineWidth: 2)
+                        RingProgressView(routine: routine, lineWidth: 2)
                             .frame(width: 18, height: 18)
                             .padding(.leading, 6)
                             .padding(.bottom, 1)
                             .layoutPriority(0) // Resizes the ProgressView to avoid text wrapping
-                            .accessibilityLabel(Text("Progress"))
-                            .accessibilityValue(Text("\(routine.finishedStepCount) of \(totalStepsToday) steps complete"))
                     } else {
-                        Image(systemName: "checkmark.circle")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(routine.status.icon.iconColor2 ?? routine.status.icon.iconColor1, routine.status.icon.iconColor1)
-                            .padding(.leading, 3)
-                            .accessibilityHidden(true)
+                        CompletionIconView(routine: routine)
                     }
                     Text(routine.name)
                         .font(.headline)
