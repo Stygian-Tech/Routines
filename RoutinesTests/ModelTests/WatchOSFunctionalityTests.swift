@@ -106,10 +106,10 @@ struct WatchOSFunctionalityTests {
     /// Tests that step filtering by today works correctly
     @Test func stepFilteringByToday() async throws {
         let routine = Routine(name: "Test Routine")
-        routine.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        routine.days = DateUtility.allWeekdays()
         
         let step1 = Step(name: "Step 1", routine: routine, order: 0, days: routine.days)
-        let step2 = Step(name: "Step 2", routine: routine, order: 1, days: ["Monday"]) // Only Monday
+        let step2 = Step(name: "Step 2", routine: routine, order: 1, days: [Weekday(rawValue: 2)]) // Only Monday
         
         routine.steps = [step1, step2]
         

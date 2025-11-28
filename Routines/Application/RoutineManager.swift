@@ -40,7 +40,21 @@ final class RoutineManager: @unchecked Sendable {
     // MARK: - Completion Checking
     
     /// Checks and updates the completion status of a routine based on its steps
-    func checkRoutineCompletion(_ routine: Routine) async {
+    func checkRoutineCompletion(_ routine: Routine) async throws {
+        // Ensure migration is done before checking completion
+        let needsMigration = routine.migrateDaysIfNeeded()
+        var stepNeedsMigration = false
+        for step in routine.steps ?? [] {
+            if step.migrateDaysIfNeeded() {
+                stepNeedsMigration = true
+            }
+        }
+        
+        // Save migrations if any occurred
+        if needsMigration || stepNeedsMigration {
+            try modelContext.save()
+        }
+        
         var finishedCount = 0
         var incompleteFlag = false
         var skippedFlag = false
@@ -77,9 +91,9 @@ final class RoutineManager: @unchecked Sendable {
     }
     
     /// Checks completion status for multiple routines
-    func checkRoutinesCompletion(_ routines: [Routine]) async {
+    func checkRoutinesCompletion(_ routines: [Routine]) async throws {
         for routine in routines {
-            await checkRoutineCompletion(routine)
+            try await checkRoutineCompletion(routine)
         }
     }
     
@@ -115,7 +129,7 @@ final class RoutineManager: @unchecked Sendable {
         time: Date,
         iconColor: String,
         iconSymbol: String,
-        days: [String] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        days: [Weekday] = DateUtility.allWeekdays()
     ) async throws -> Routine {
         let routine = Routine(
             name: name,
@@ -136,7 +150,7 @@ final class RoutineManager: @unchecked Sendable {
         time: Date? = nil,
         iconColor: String? = nil,
         iconSymbol: String? = nil,
-        days: [String]? = nil
+        days: [Weekday]? = nil
     ) async throws {
         if let name = name {
             routine.name = name
@@ -177,6 +191,19 @@ final class RoutineManager: @unchecked Sendable {
             sortBy: [SortDescriptor(\Routine.time, order: .forward)]
         )
         let allRoutines = try modelContext.fetch(descriptor)
+        
+        // Migrate days data if needed (lazy migration on access)
+        for routine in allRoutines {
+            routine.migrateDaysIfNeeded()
+            // Also migrate steps
+            for step in routine.steps ?? [] {
+                step.migrateDaysIfNeeded()
+            }
+        }
+        
+        // Save any migrations that occurred
+        try modelContext.save()
+        
         return allRoutines.filter { $0.isToday() }
     }
     

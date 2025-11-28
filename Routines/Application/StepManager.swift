@@ -26,7 +26,7 @@ final class StepManager: @unchecked Sendable {
         name: String,
         routine: Routine,
         order: Int? = nil,
-        days: [String]? = nil
+        days: [Weekday]? = nil
     ) async throws -> Step {
         let stepOrder = order ?? (routine.steps?.count ?? 0)
         let stepDays = days ?? routine.days
@@ -81,7 +81,7 @@ final class StepManager: @unchecked Sendable {
     }
     
     /// Updates a step's days
-    func updateStepDays(_ step: Step, days: [String]) async throws {
+    func updateStepDays(_ step: Step, days: [Weekday]) async throws {
         step.days = days
         try modelContext.save()
     }
@@ -148,7 +148,22 @@ final class StepManager: @unchecked Sendable {
     }
     
     /// Gets all steps for today from a routine
-    func getTodaySteps(from routine: Routine) -> [Step] {
+    /// - Throws: If migration occurs and saving fails
+    func getTodaySteps(from routine: Routine) throws -> [Step] {
+        // Ensure migration is done before filtering
+        let routineNeedsMigration = routine.migrateDaysIfNeeded()
+        var stepNeedsMigration = false
+        for step in routine.steps ?? [] {
+            if step.migrateDaysIfNeeded() {
+                stepNeedsMigration = true
+            }
+        }
+        
+        // Save migrations if any occurred
+        if routineNeedsMigration || stepNeedsMigration {
+            try modelContext.save()
+        }
+        
         return (routine.steps ?? []).filter { $0.isToday() }.sorted { $0.order < $1.order }
     }
     

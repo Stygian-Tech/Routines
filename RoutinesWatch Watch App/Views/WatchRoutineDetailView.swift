@@ -138,7 +138,11 @@ struct WatchRoutineDetailView: View {
         }
         .onAppear {
             Task {
-                await routineManager.checkRoutineCompletion(routine)
+                do {
+                    try await routineManager.checkRoutineCompletion(routine)
+                } catch {
+                    print("Error checking routine completion: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -147,7 +151,7 @@ struct WatchRoutineDetailView: View {
         Task {
             do {
                 try await stepManager.cycleStepStatus(step)
-                await routineManager.checkRoutineCompletion(routine)
+                try await routineManager.checkRoutineCompletion(routine)
             } catch {
                 print("Error cycling step status: \(error.localizedDescription)")
             }

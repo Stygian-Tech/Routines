@@ -10,30 +10,45 @@ import SwiftUI
 import SwiftData
 
 public struct EditDaysView: View {
-    @Binding var days: [String]
+    @Binding var days: [Weekday]
     var iconColor: Color
+    @StateObject private var localeObserver = LocaleObserver()
     
-    let daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    var daysOfTheWeek: [Weekday] {
+        DateUtility.allWeekdays()
+    }
     
     public var body: some View {
         HStack {
-            ForEach(daysOfTheWeek, id: \.self) { day in
-                DayToggleButton(iconColor: iconColor, day: day, isSelected: days.contains(day)) {
+            ForEach(daysOfTheWeek) { weekday in
+                DayToggleButton(iconColor: iconColor, weekday: weekday, isSelected: days.contains(weekday)) {
                     withAnimation {
-                        toggleDay(day)
+                        toggleDay(weekday)
                     }
                 }
             }
         }
+        .onReceive(localeObserver.$firstWeekday) { _ in
+            // View will automatically refresh when week start changes
+            // The daysOfTheWeek computed property will return the new order
+        }
+        .onReceive(localeObserver.$localeIdentifier) { _ in
+            // View will automatically refresh when locale changes
+            // Day names will update via DateUtility.displayName()
+        }
+        .onAppear {
+            // Refresh locale settings when view appears (in case user changed settings)
+            localeObserver.refresh()
+        }
     }
     
-    func toggleDay(_ day: String) {
-        if let index = days.firstIndex(of: day) {
+    func toggleDay(_ weekday: Weekday) {
+        if let index = days.firstIndex(of: weekday) {
             days.remove(at: index)
-            print("Removed \(day)")
+            print("Removed \(DateUtility.displayName(for: weekday))")
         } else {
-            days.append(day)
-            print("Added \(day)")
+            days.append(weekday)
+            print("Added \(DateUtility.displayName(for: weekday))")
         }
     }
 }

@@ -9,9 +9,18 @@ import SwiftUI
 
 struct DayToggleButton: View {
     var iconColor: Color
-    let day: String
+    let weekday: Weekday
     let isSelected: Bool
     let action: () -> Void
+    @StateObject private var localeObserver = LocaleObserver()
+    
+    private var dayDisplayName: String {
+        DateUtility.abbreviatedDisplayName(for: weekday)
+    }
+    
+    private var dayFullName: String {
+        DateUtility.displayName(for: weekday)
+    }
     
     var body: some View {
         HStack {
@@ -20,7 +29,7 @@ struct DayToggleButton: View {
                 .frame(width: 32)
                 .fixedSize()
                 .overlay(
-                    Text(day.prefix(1))
+                    Text(dayDisplayName)
                         .foregroundStyle(isSelected ? .white : .secondary)
                         .bold()
                 )
@@ -28,14 +37,25 @@ struct DayToggleButton: View {
                     action()
                 }
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text(day))
+                .accessibilityLabel(Text(dayFullName))
                 .accessibilityValue(Text(isSelected ? "Selected" : "Not selected"))
                 .accessibilityAddTraits(.isButton)
-                .accessibilityHint(Text("Toggles selection for \(day)"))
+                .accessibilityHint(Text("Toggles selection for \(dayFullName)"))
                 .accessibilityAction {
                     action()
                 }
         }
         .frame(maxWidth: .infinity)
+        .onReceive(localeObserver.$localeIdentifier) { _ in
+            // View will automatically refresh when locale changes
+            // Day names will update via DateUtility.displayName()
+        }
+        .onReceive(localeObserver.$firstWeekday) { _ in
+            // View will automatically refresh when week start changes
+        }
+        .onAppear {
+            // Refresh locale settings when view appears
+            localeObserver.refresh()
+        }
     }
 }

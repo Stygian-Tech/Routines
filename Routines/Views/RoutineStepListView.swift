@@ -36,8 +36,10 @@ struct RoutineStepListView: View {
         }
     }
     
-    var daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    @State var stepDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    var daysOfTheWeek: [Weekday] {
+        DateUtility.allWeekdays()
+    }
+    @State var stepDays: [Weekday] = DateUtility.allWeekdays()
     
     var body: some View {
         
@@ -180,7 +182,7 @@ struct RoutineStepListView: View {
         Task {
             do {
                 try await stepManager.deleteSteps(stepsToDelete, from: routine)
-                await routineManager.checkRoutineCompletion(routine)
+                try await routineManager.checkRoutineCompletion(routine)
             } catch {
                 print("Error deleting steps: \(error.localizedDescription)")
             }
@@ -203,7 +205,7 @@ struct RoutineStepListView: View {
                         routine: routine,
                         days: days
                     )
-                    await routineManager.checkRoutineCompletion(routine)
+                    try await routineManager.checkRoutineCompletion(routine)
                 } catch {
                     print("Error adding step: \(error.localizedDescription)")
                 }
@@ -223,7 +225,7 @@ struct RoutineStepListView: View {
                         routine: routine,
                         days: daysOfTheWeek
                     )
-                    await routineManager.checkRoutineCompletion(routine)
+                    try await routineManager.checkRoutineCompletion(routine)
                 } catch {
                     print("Error adding quick step: \(error.localizedDescription)")
                 }

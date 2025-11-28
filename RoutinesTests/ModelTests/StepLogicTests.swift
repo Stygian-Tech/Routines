@@ -10,23 +10,23 @@ import Foundation
 @testable import Routines
 
 struct StepLogicTests {
-    private func todayName() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE"
-        return formatter.string(from: Date())
+    private func todayWeekday() -> Weekday {
+        DateUtility.todayWeekday()
     }
     
     @Test func isTodayTrueWhenIncluded() async throws {
         let routine = Routine()
-        let step = Step(name: "A", routine: routine, order: 0, days: [todayName()])
+        let today = todayWeekday()
+        let step = Step(name: "A", routine: routine, order: 0, days: [today])
         #expect(step.isToday() == true)
     }
     
     @Test func isTodayFalseWhenExcluded() async throws {
         let routine = Routine()
-        var other = "Monday"
-        if todayName() == other { other = "Tuesday" }
-        let step = Step(name: "A", routine: routine, order: 0, days: [other])
+        let today = todayWeekday()
+        // Pick a day that is not today
+        let otherDay = Weekday(rawValue: ((today.rawValue % 7) + 1))
+        let step = Step(name: "A", routine: routine, order: 0, days: [otherDay])
         #expect(step.isToday() == false)
     }
 }

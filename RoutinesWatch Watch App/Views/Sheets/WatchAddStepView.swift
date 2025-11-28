@@ -74,7 +74,7 @@ struct WatchAddStepView: View {
                     routine: routine,
                     days: routine.days
                 )
-                await routineManager.checkRoutineCompletion(routine)
+                try await routineManager.checkRoutineCompletion(routine)
                 isPresented = false
             } catch {
                 print("Error adding step: \(error.localizedDescription)")

@@ -35,12 +35,10 @@ struct RoutineListView: View {
     // Layout Properties
     private let backgroundGradient = Gradient(colors: [.accentColor.opacity(0.28), Color(.systemBackground)])
     private let resetRoutinesTip = ResetRoutinesTip()
+    @StateObject private var localeObserver = LocaleObserver()
     
     private var today: String {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE"
-        return formatter.string(from: date)
+        DateUtility.displayName(for: DateUtility.todayWeekday())
     }
 
     var body: some View {
@@ -65,9 +63,21 @@ struct RoutineListView: View {
                         }
                         .onAppear() {
                             Task {
-                                await routineManager.checkRoutinesCompletion(routines)
+                                do {
+                                    try await routineManager.checkRoutinesCompletion(routines)
+                                } catch {
+                                    print("Error checking routine completion: \(error.localizedDescription)")
+                                }
                             }
+                            // Refresh locale settings when view appears
+                            localeObserver.refresh()
                             // Defer showing the add button to when this view is fully visible again.
+                        }
+                        .onReceive(localeObserver.$localeIdentifier) { _ in
+                            // Refresh today's day name when locale changes
+                        }
+                        .onReceive(localeObserver.$firstWeekday) { _ in
+                            // Refresh when week start changes
                         }
                     }
                 }

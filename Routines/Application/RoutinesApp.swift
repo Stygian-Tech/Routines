@@ -52,12 +52,22 @@ struct RoutinesApp: App {
                 await subscriptionManager.setupSubscription()
             }
             
-            // Check initial data count
+            // Check initial data count and perform migration if needed
             Task { [container] in
                 let context = ModelContext(container)
                 do {
                     let routines: [Routine] = try context.fetch(FetchDescriptor<Routine>())
                     print("iOS: Routine count: \(routines.count)")
+                    
+                    // Perform lazy migration on app launch
+                    for routine in routines {
+                        routine.migrateDaysIfNeeded()
+                        for step in routine.steps ?? [] {
+                            step.migrateDaysIfNeeded()
+                        }
+                    }
+                    try context.save()
+                    
                     if routines.isEmpty {
                         print("iOS: WARNING - No routines found. Make sure data was migrated to CloudKit.")
                     }
@@ -87,6 +97,10 @@ struct RoutinesApp: App {
                         await Self.migrateLocalDataToCloudKit(container: container)
                     }
                 }
+                .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
+                    // Refresh UI when locale changes
+                    // Views will automatically update via LocaleObserver
+                }
         }
         .modelContainer(container)
     }
@@ -109,7 +123,7 @@ struct RoutinesApp: App {
             let existing: [Routine] = try context.fetch(FetchDescriptor<Routine>())
             if existing.isEmpty {
                 let routine = Routine(name: "Morning", time: Date(), iconColor: SystemColors.purple.rawValue, iconSymbol: "sun.and.horizon")
-                routine.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                routine.days = DateUtility.allWeekdays()
                 let step1 = Step(name: "Brush Teeth", routine: routine, order: 0, days: routine.days)
                 let step2 = Step(name: "Coffee", routine: routine, order: 1, days: routine.days)
                 context.insert(routine)

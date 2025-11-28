@@ -41,7 +41,7 @@ struct StepRowView: View {
                             } else {
                                 try await stepManager.updateStepStatus(step, status: .incomplete)
                             }
-                            await routineManager.checkRoutineCompletion(routine)
+                            try await routineManager.checkRoutineCompletion(routine)
                         } catch {
                             print("Error updating step status: \(error.localizedDescription)")
                         }
@@ -61,7 +61,7 @@ struct StepRowView: View {
                         Task {
                             do {
                                 try await stepManager.updateStepStatus(step, status: .skipped)
-                                await routineManager.checkRoutineCompletion(routine)
+                                try await routineManager.checkRoutineCompletion(routine)
                             } catch {
                                 print("Error skipping step: \(error.localizedDescription)")
                             }
@@ -73,7 +73,7 @@ struct StepRowView: View {
                         Task {
                             do {
                                 try await stepManager.updateStepStatus(step, status: .complete)
-                                await routineManager.checkRoutineCompletion(routine)
+                                try await routineManager.checkRoutineCompletion(routine)
                             } catch {
                                 print("Error completing step: \(error.localizedDescription)")
                             }
@@ -85,7 +85,7 @@ struct StepRowView: View {
                         Task {
                             do {
                                 try await stepManager.deleteSteps([step], from: routine)
-                                await routineManager.checkRoutineCompletion(routine)
+                                try await routineManager.checkRoutineCompletion(routine)
                             } catch {
                                 print("Error deleting step: \(error.localizedDescription)")
                             }

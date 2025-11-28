@@ -95,7 +95,7 @@ struct WatchRoutineListView: View {
             // Fetch today's routines and check completion on appear
             do {
                 routines = try await routineManager.getTodayRoutines()
-                await routineManager.checkRoutinesCompletion(routines)
+                try await routineManager.checkRoutinesCompletion(routines)
             } catch {
                 print("Error fetching routines: \(error.localizedDescription)")
             }
@@ -106,7 +106,7 @@ struct WatchRoutineListView: View {
                 Task {
                     do {
                         routines = try await routineManager.getTodayRoutines()
-                        await routineManager.checkRoutinesCompletion(routines)
+                        try await routineManager.checkRoutinesCompletion(routines)
                     } catch {
                         print("Error refreshing routines: \(error.localizedDescription)")
                     }
@@ -124,7 +124,7 @@ struct WatchRoutineListView: View {
                 try await routineManager.save()
                 // Refresh routines after reset
                 routines = try await routineManager.getTodayRoutines()
-                await routineManager.checkRoutinesCompletion(routines)
+                try await routineManager.checkRoutinesCompletion(routines)
             } catch {
                 print("Error resetting routines: \(error.localizedDescription)")
             }

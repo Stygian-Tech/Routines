@@ -22,14 +22,47 @@ class Routine: Identifiable {
     var status = RoutineCompletionStatus.incomplete
     var finishedStepCount = 0
     
-    var days: [String] {
+    var days: [Weekday] {
         get {
-            guard let data = daysData else { return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] }
-            return (try? JSONDecoder().decode([String].self, from: data)) ?? []
+            guard let data = daysData else { return DateUtility.allWeekdays() }
+            
+            // Try to decode as new format (array of Int)
+            if let weekdayValues = try? JSONDecoder().decode([Int].self, from: data) {
+                return weekdayValues.map { Weekday(rawValue: $0) }
+            }
+            
+            // Try to decode as old format (array of String) - migration path
+            // Note: We return the migrated value but don't modify daysData here
+            // Migration will be persisted when days is next set, or via migrateDaysIfNeeded()
+            if let dayStrings = try? JSONDecoder().decode([String].self, from: data) {
+                return DateUtility.weekdaysFromStrings(dayStrings)
+            }
+            
+            // Default: return all weekdays
+            return DateUtility.allWeekdays()
         }
         set {
-            daysData = try? JSONEncoder().encode(newValue)
+            let weekdayValues = newValue.map { $0.rawValue }
+            daysData = try? JSONEncoder().encode(weekdayValues)
         }
+    }
+    
+    /// Migrates days data from old string format to new weekday format if needed
+    /// Call this method when you have access to ModelContext to ensure proper transaction handling
+    /// - Returns: `true` if migration occurred, `false` if no migration was needed
+    @discardableResult
+    func migrateDaysIfNeeded() -> Bool {
+        guard let data = daysData else { return false }
+        
+        // Check if migration is needed (old string format)
+        if let dayStrings = try? JSONDecoder().decode([String].self, from: data) {
+            let weekdays = DateUtility.weekdaysFromStrings(dayStrings)
+            // This setter call will properly trigger SwiftData change tracking
+            self.days = weekdays
+            return true
+        }
+        
+        return false
     }
     
     @Relationship(deleteRule: .cascade) var steps: [Step]?
@@ -50,12 +83,21 @@ class Routine: Identifiable {
         self.steps = steps
     }
     
-    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", days: [String]) {
+    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", days: [Weekday]) {
         self.name = name
         self.time = time
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
         self.days = days
+    }
+    
+    // Convenience initializer for backward compatibility with string arrays (for migration)
+    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", daysStrings: [String]) {
+        self.name = name
+        self.time = time
+        self.iconColor = iconColor
+        self.iconSymbol = iconSymbol
+        self.days = DateUtility.weekdaysFromStrings(daysStrings)
     }
     
     
@@ -199,16 +241,8 @@ class Routine: Identifiable {
     }
     
     func isToday() -> Bool {
-        let date = Date()
-        let formatter = DateFormatter()
-        
-        formatter.dateFormat = "EEEE"
-        formatter.locale = Locale(identifier: "en_US")
-        
-        let dayOfWeek = formatter.string(from: date)
-        // print(dayOfWeek)
-        
-        return days.contains(dayOfWeek)
+        let today = DateUtility.todayWeekday()
+        return days.contains(today)
     }
     
     func skipRemainingSteps() {

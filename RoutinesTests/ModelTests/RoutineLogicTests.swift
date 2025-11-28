@@ -12,31 +12,31 @@ import SwiftUI
 
 struct RoutineLogicTests {
     
-    private func todayName() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE"
-        return formatter.string(from: Date())
+    private func todayWeekday() -> Weekday {
+        DateUtility.todayWeekday()
     }
     
     @Test func routineIsTodayTrueWhenDayIncluded() async throws {
         let routine = Routine()
-        routine.days = [todayName()]
+        routine.days = [todayWeekday()]
         #expect(routine.isToday() == true)
     }
     
     @Test func routineIsTodayFalseWhenDayExcluded() async throws {
         let routine = Routine()
-        routine.days = ["Monday"]
-        // Pick a day that is guaranteed not to be the only day in the set by adding a different one than today
-        if todayName() == "Monday" { routine.days = ["Tuesday"] }
+        let today = todayWeekday()
+        // Pick a day that is not today
+        let otherDay = Weekday(rawValue: ((today.rawValue % 7) + 1))
+        routine.days = [otherDay]
         #expect(routine.isToday() == false)
     }
     
     @Test func resetStepsResetsAllState() async throws {
         let routine = Routine()
-        routine.days = [todayName()]
-        let step1 = Step(name: "A", routine: routine, order: 0, days: [todayName()])
-        let step2 = Step(name: "B", routine: routine, order: 1, days: [todayName()])
+        let today = todayWeekday()
+        routine.days = [today]
+        let step1 = Step(name: "A", routine: routine, order: 0, days: [today])
+        let step2 = Step(name: "B", routine: routine, order: 1, days: [today])
         routine.steps = [step1, step2]
         step1.status = .complete
         step2.status = .skipped
@@ -53,10 +53,11 @@ struct RoutineLogicTests {
     
     @Test func skipRemainingStepsMarksIncompleteAsSkipped() async throws {
         let routine = Routine()
-        routine.days = [todayName()]
-        let step1 = Step(name: "A", routine: routine, order: 0, days: [todayName()])
-        let step2 = Step(name: "B", routine: routine, order: 1, days: [todayName()])
-        let step3 = Step(name: "C", routine: routine, order: 2, days: [todayName()])
+        let today = todayWeekday()
+        routine.days = [today]
+        let step1 = Step(name: "A", routine: routine, order: 0, days: [today])
+        let step2 = Step(name: "B", routine: routine, order: 1, days: [today])
+        let step3 = Step(name: "C", routine: routine, order: 2, days: [today])
         routine.steps = [step1, step2, step3]
         step1.status = .complete
         step2.status = .incomplete
@@ -74,9 +75,10 @@ struct RoutineLogicTests {
     
     @Test func completeRemainingStepsMarksIncompleteAsComplete() async throws {
         let routine = Routine()
-        routine.days = [todayName()]
-        let step1 = Step(name: "A", routine: routine, order: 0, days: [todayName()])
-        let step2 = Step(name: "B", routine: routine, order: 1, days: [todayName()])
+        let today = todayWeekday()
+        routine.days = [today]
+        let step1 = Step(name: "A", routine: routine, order: 0, days: [today])
+        let step2 = Step(name: "B", routine: routine, order: 1, days: [today])
         routine.steps = [step1, step2]
         step1.status = .complete
         step2.status = .incomplete
