@@ -17,6 +17,7 @@ struct RoutinesApp: App {
     let container: ModelContainer
     private let cloudKitSyncObserver: CloudKitSyncObserver
     private let cloudKitSubscriptionManager: CloudKitSubscriptionManager
+    private let cloudKitNotificationManager: CloudKitNotificationManager
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     private var isUITestSeedEnabled: Bool { ProcessInfo.processInfo.arguments.contains("UI_TEST_SEED") }
     private static let migrationKey = "com.sam-clemente.routines-app.localToCloudKitMigrationCompleted"
@@ -38,6 +39,9 @@ struct RoutinesApp: App {
             
             // Set up CloudKit sync observer for real-time updates
             cloudKitSyncObserver = CloudKitSyncObserver(container: container)
+            
+            // Set up CloudKit notification manager for handling push notifications
+            cloudKitNotificationManager = CloudKitNotificationManager(syncObserver: cloudKitSyncObserver)
             
             // Set up CloudKit subscription manager for push notifications
             cloudKitSubscriptionManager = CloudKitSubscriptionManager()
@@ -89,8 +93,8 @@ struct RoutinesApp: App {
         WindowGroup {
             RoutineListView()
                 .onAppear {
-                    // Set up the sync observer reference in app delegate after initialization
-                    appDelegate.cloudKitSyncObserver = cloudKitSyncObserver
+                    // Set up the notification manager reference in app delegate
+                    appDelegate.notificationManager = cloudKitNotificationManager
                     promptForNotifications()
                     // Migrate local data to CloudKit if needed
                     Task { [container] in

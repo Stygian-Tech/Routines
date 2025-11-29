@@ -7,11 +7,12 @@
 
 import Foundation
 import UIKit
-import CloudKit
 
 // MARK: - AppDelegate for handling CloudKit push notifications
+/// Minimal AppDelegate that only handles required iOS delegate methods.
+/// Business logic is handled by CloudKitNotificationManager.
 class AppDelegate: NSObject, UIApplicationDelegate {
-    var cloudKitSyncObserver: CloudKitSyncObserver?
+    var notificationManager: CloudKitNotificationManager?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Register for remote notifications
@@ -28,20 +29,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // Check if this is a CloudKit notification
-        let notification = CKNotification(fromRemoteNotificationDictionary: userInfo)
-        
-        if let cloudKitNotification = notification {
-            print("AppDelegate: Received CloudKit notification: \(String(describing: cloudKitNotification.notificationID))")
-            
-            // Trigger fetch changes in CloudKitSyncObserver
-            Task { @MainActor in
-                await cloudKitSyncObserver?.fetchChanges()
-                completionHandler(.newData)
-            }
-        } else {
-            // Not a CloudKit notification
+        // Route to CloudKitNotificationManager for processing
+        guard let notificationManager = notificationManager else {
+            print("AppDelegate: Warning - CloudKitNotificationManager not set, cannot process notification")
             completionHandler(.noData)
+            return
+        }
+        
+        Task { @MainActor in
+            let result = await notificationManager.handleRemoteNotification(userInfo)
+            completionHandler(result)
         }
     }
 }
