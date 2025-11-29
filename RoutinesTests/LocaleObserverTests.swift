@@ -24,7 +24,7 @@ struct LocaleObserverTests {
         let observer = LocaleObserver()
         
         #expect(observer.localeIdentifier == Locale.current.identifier)
-        #expect(observer.calendarIdentifier == Calendar.current.identifier.rawValue)
+        #expect(observer.calendarIdentifier == String(describing: Calendar.current.identifier))
         #expect(observer.firstWeekday == Calendar.current.firstWeekday)
     }
     

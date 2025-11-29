@@ -21,7 +21,7 @@ class LocaleObserver: ObservableObject {
     
     init() {
         self.localeIdentifier = Locale.current.identifier
-        self.calendarIdentifier = Calendar.current.identifier.rawValue
+        self.calendarIdentifier = String(describing: Calendar.current.identifier)
         self.firstWeekday = Calendar.current.firstWeekday
         
         // Observe locale changes (triggers when user changes language/region)
@@ -48,7 +48,7 @@ class LocaleObserver: ObservableObject {
     
     private func updateLocale() {
         let newLocale = Locale.current.identifier
-        let newCalendar = Calendar.current.identifier.rawValue
+        let newCalendar = String(describing: Calendar.current.identifier)
         let newFirstWeekday = Calendar.current.firstWeekday
         
         // Only update if something actually changed

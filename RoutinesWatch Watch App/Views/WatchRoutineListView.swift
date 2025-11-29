@@ -23,60 +23,14 @@ struct WatchRoutineListView: View {
     var body: some View {
         NavigationStack {
             if routines.isEmpty {
-                VStack(spacing: 12) {
-                    Image(systemName: "list.bullet")
-                        .font(.largeTitle)
-                        .foregroundStyle(.secondary)
-                    Text("No Routines")
-                        .foregroundStyle(.secondary)
-                        .font(.headline)
-                    
-                    Button(action: {
-                        showingAddRoutine = true
-                    }) {
-                        Label("Create Routine", systemImage: "plus.circle.fill")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .padding(.horizontal)
-                }
-                .navigationTitle("Routines")
+                WatchEmptyRoutinesView(showingAddRoutine: $showingAddRoutine)
             } else {
-                List {
-                    ForEach(routines) { routine in
-                        NavigationLink(value: routine.id) {
-                           WatchRoutineRowView(routine: routine)
-                        }
-                    }
-                }
-                .navigationTitle("Routines")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            showingMenu = true
-                        }) {
-                            Image(systemName: "ellipsis.circle")
-                        }
-                        .accessibilityLabel("More Options")
-                    }
-                    ToolbarItem(placement: .topBarLeading) {
-                    }
-                }
-                .alert("Reset All Routines?", isPresented: $showingResetAlert) {
-                    Button("Reset", role: .destructive) {
-                        resetAllRoutines()
-                    }
-                    Button("Cancel", role: .cancel) {}
-                } message: {
-                    Text("This will reset all routines to incomplete.")
-                }
-                .navigationDestination(for: UUID.self) { id in
-                    if let routine = routines.first(where: { $0.id == id }) {
-                        WatchRoutineDetailView(routine: routine)
-                    } else {
-                        Text("Routine Not Found")
-                    }
-                }
+                WatchRoutinesListContent(
+                    routines: routines,
+                    showingMenu: $showingMenu,
+                    showingResetAlert: $showingResetAlert,
+                    onReset: resetAllRoutines
+                )
             }
         }
         .sheet(isPresented: $showingMenu) {

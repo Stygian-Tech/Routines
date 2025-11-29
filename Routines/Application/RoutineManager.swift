@@ -106,7 +106,7 @@ final class RoutineManager: @unchecked Sendable {
                 step.status = .skipped
             }
         }
-        await checkRoutineCompletion(routine)
+        try await checkRoutineCompletion(routine)
         try modelContext.save()
     }
     
@@ -117,7 +117,7 @@ final class RoutineManager: @unchecked Sendable {
                 step.status = .complete
             }
         }
-        await checkRoutineCompletion(routine)
+        try await checkRoutineCompletion(routine)
         try modelContext.save()
     }
     

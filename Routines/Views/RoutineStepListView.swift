@@ -197,18 +197,16 @@ struct RoutineStepListView: View {
         let days = stepDays
         stepDays = daysOfTheWeek
 
-        withAnimation {
-            Task {
-                do {
-                    _ = try await stepManager.createStep(
-                        name: stepName,
-                        routine: routine,
-                        days: days
-                    )
-                    try await routineManager.checkRoutineCompletion(routine)
-                } catch {
-                    print("Error adding step: \(error.localizedDescription)")
-                }
+        Task {
+            do {
+                _ = try await stepManager.createStep(
+                    name: stepName,
+                    routine: routine,
+                    days: days
+                )
+                try await routineManager.checkRoutineCompletion(routine)
+            } catch {
+                print("Error adding step: \(error.localizedDescription)")
             }
         }
     }
@@ -217,18 +215,16 @@ struct RoutineStepListView: View {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
         
-        withAnimation {
-            Task {
-                do {
-                    _ = try await stepManager.createStep(
-                        name: trimmedName,
-                        routine: routine,
-                        days: daysOfTheWeek
-                    )
-                    try await routineManager.checkRoutineCompletion(routine)
-                } catch {
-                    print("Error adding quick step: \(error.localizedDescription)")
-                }
+        Task {
+            do {
+                _ = try await stepManager.createStep(
+                    name: trimmedName,
+                    routine: routine,
+                    days: daysOfTheWeek
+                )
+                try await routineManager.checkRoutineCompletion(routine)
+            } catch {
+                print("Error adding quick step: \(error.localizedDescription)")
             }
         }
     }

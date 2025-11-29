@@ -75,17 +75,15 @@ struct DateUtility {
             return formatter.weekdaySymbols[weekday.calendarWeekday - 1]
         }
         
-        switch style {
-        case .full:
-            formatter.dateFormat = "EEEE"
-        case .long:
-            formatter.dateFormat = "EEEE"
-        case .medium:
-            formatter.dateFormat = "EEE"
-        case .short:
-            formatter.dateFormat = "EEE"
+        // Set date format based on style
+        // DateFormatter.Style cases: .none, .short, .medium, .long, .full
+        formatter.dateFormat = switch style {
+        case .none, .long, .full:
+            "EEEE"  // Full weekday name
+        case .short, .medium:
+            "EEE"   // Abbreviated weekday name
         @unknown default:
-            formatter.dateFormat = "EEEE"
+            "EEEE"  // Default to full name
         }
         
         return formatter.string(from: date)
@@ -184,7 +182,9 @@ extension DateUtility {
     private static func weekdayFromStringInLocale(_ dayString: String, locale: Locale) -> Weekday? {
         let formatter = DateFormatter()
         formatter.locale = locale
-        formatter.calendar = Calendar(identifier: locale.calendar?.identifier ?? .gregorian)
+        // Use Gregorian calendar as default (most common)
+        // The locale will handle the formatting appropriately
+        formatter.calendar = Calendar(identifier: .gregorian)
         
         // Try full weekday names
         formatter.dateFormat = "EEEE"
