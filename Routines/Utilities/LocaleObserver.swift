@@ -34,6 +34,7 @@ class LocaleObserver: ObservableObject {
             .store(in: &cancellables)
         
         // Observe when app becomes active (user may have changed settings while app was backgrounded)
+        #if os(iOS)
         NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
             .sink { [weak self] _ in
                 Task { @MainActor in
@@ -41,6 +42,7 @@ class LocaleObserver: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+        #endif
         
         // Also check periodically (in case notifications are missed)
         // Check every time the view appears or when explicitly requested

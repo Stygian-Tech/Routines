@@ -1,5 +1,5 @@
 //
-//  RoutineStepListView.swift
+//  RoutineDetailView.swift
 //  Routines
 //
 //  Created by Sam Clemente on 7/2/24.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct RoutineStepListView: View {
+struct RoutineDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Bindable var routine: Routine
     
@@ -251,3 +251,4 @@ struct RoutineStepListView: View {
         }
     }
 }
+

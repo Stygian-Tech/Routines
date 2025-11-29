@@ -1,5 +1,5 @@
 //
-//  Tips.swift
+//  ResetRoutinesTip.swift
 //  Routines
 //
 //  Created by Sam Clemente on 8/12/24.
@@ -21,3 +21,4 @@ struct ResetRoutinesTip: Tip {
         Image(systemName: "arrow.circlepath")
     }
 }
+

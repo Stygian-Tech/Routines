@@ -1,5 +1,5 @@
 //
-//  RoutineList.swift
+//  RoutineListContent.swift
 //  Routines
 //
 //  Created by Sam Clemente on 3/22/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct RoutineList: View {
+struct RoutineListContent: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) var routines: [Routine]
     @Binding var showAllRoutines: Bool

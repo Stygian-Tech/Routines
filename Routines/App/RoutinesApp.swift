@@ -262,39 +262,3 @@ struct RoutinesApp: App {
     }
 }
 
-// MARK: - AppDelegate for handling CloudKit push notifications
-class AppDelegate: NSObject, UIApplicationDelegate {
-    var cloudKitSyncObserver: CloudKitSyncObserver?
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // Register for remote notifications
-        application.registerForRemoteNotifications()
-        return true
-    }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("AppDelegate: Successfully registered for remote notifications")
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("AppDelegate: Failed to register for remote notifications: \(error.localizedDescription)")
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // Check if this is a CloudKit notification
-        let notification = CKNotification(fromRemoteNotificationDictionary: userInfo)
-        
-        if let cloudKitNotification = notification {
-            print("AppDelegate: Received CloudKit notification: \(String(describing: cloudKitNotification.notificationID))")
-            
-            // Trigger fetch changes in CloudKitSyncObserver
-            Task { @MainActor in
-                await cloudKitSyncObserver?.fetchChanges()
-                completionHandler(.newData)
-            }
-        } else {
-            // Not a CloudKit notification
-            completionHandler(.noData)
-        }
-    }
-}

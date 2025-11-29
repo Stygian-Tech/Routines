@@ -1,6 +1,6 @@
 //
 //  CloudKitSyncObserver.swift
-//  RoutinesWatch
+//  Routines
 //
 //  Created by Sam Clemente on 1/27/25.
 //
@@ -53,7 +53,11 @@ class CloudKitSyncObserver {
             }
         }
         
+        #if os(iOS)
+        print("CloudKitSyncObserver: Remote change observer set up")
+        #elseif os(watchOS)
         print("CloudKitSyncObserver: Remote change observer set up (WatchOS)")
+        #endif
     }
     
     /// Explicitly fetches changes from CloudKit and processes them
@@ -63,7 +67,11 @@ class CloudKitSyncObserver {
     
     /// Internal method to fetch changes from CloudKit
     private func fetchChanges(container: ModelContainer) async {
+        #if os(iOS)
+        print("CloudKitSyncObserver: Fetching changes from CloudKit...")
+        #elseif os(watchOS)
         print("CloudKitSyncObserver: Fetching changes from CloudKit... (WatchOS)")
+        #endif
         
         let context = ModelContext(container)
         
@@ -84,9 +92,17 @@ class CloudKitSyncObserver {
             let descriptor = FetchDescriptor<Routine>()
             _ = try? context.fetch(descriptor)
             
+            #if os(iOS)
+            print("CloudKitSyncObserver: Successfully fetched and processed remote changes")
+            #elseif os(watchOS)
             print("CloudKitSyncObserver: Successfully fetched and processed remote changes (WatchOS)")
+            #endif
         } catch {
+            #if os(iOS)
+            print("CloudKitSyncObserver: Error fetching changes: \(error.localizedDescription)")
+            #elseif os(watchOS)
             print("CloudKitSyncObserver: Error fetching changes: \(error.localizedDescription) (WatchOS)")
+            #endif
         }
     }
 }

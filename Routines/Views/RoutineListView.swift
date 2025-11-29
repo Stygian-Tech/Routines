@@ -55,7 +55,7 @@ struct RoutineListView: View {
                             .foregroundStyle(.secondary)
                             .accessibilityLabel(Text("No routines"))
                     } else {
-                        RoutineList(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, showRoutineDetails: $showRoutineDetails, deleteRoutine: deleteRoutine)
+                        RoutineListContent(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, showRoutineDetails: $showRoutineDetails, deleteRoutine: deleteRoutine)
                         .onChange(of: routineToEdit) { _, newValue in
                             if newValue != nil {
                                 editRoutineIsPresented = true
@@ -117,7 +117,7 @@ struct RoutineListView: View {
                 .toolbarBackground(Color.clear, for: .navigationBar)
                 .navigationDestination(for: UUID.self) { id in
                     if let routine = routines.first(where: { $0.id == id }) {
-                        RoutineStepListView(routine: routine)
+                        RoutineDetailView(routine: routine)
                     } else {
                         Text("Routine Not Found")
                     }
