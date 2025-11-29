@@ -207,6 +207,28 @@ final class RoutineManager: @unchecked Sendable {
         return allRoutines.filter { $0.isToday() }
     }
     
+    /// Fetches all routines, sorted by time
+    func getAllRoutines() async throws -> [Routine] {
+        let descriptor = FetchDescriptor<Routine>(
+            sortBy: [SortDescriptor(\Routine.time, order: .forward)]
+        )
+        let allRoutines = try modelContext.fetch(descriptor)
+        
+        // Migrate days data if needed (lazy migration on access)
+        for routine in allRoutines {
+            routine.migrateDaysIfNeeded()
+            // Also migrate steps
+            for step in routine.steps ?? [] {
+                step.migrateDaysIfNeeded()
+            }
+        }
+        
+        // Save any migrations that occurred
+        try modelContext.save()
+        
+        return allRoutines
+    }
+    
     /// Saves the model context
     func save() async throws {
         try modelContext.save()

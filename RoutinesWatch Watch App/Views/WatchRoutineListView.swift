@@ -15,6 +15,7 @@ struct WatchRoutineListView: View {
     @State private var showingAddRoutine = false
     @State private var showingMenu = false
     @State private var showingResetAlert = false
+    @State private var showAllRoutines = false
     
     private var routineManager: RoutineManager {
         RoutineManager(modelContext: modelContext)
@@ -37,6 +38,7 @@ struct WatchRoutineListView: View {
             WatchMenuView(
                 isPresented: $showingMenu,
                 showingAddRoutine: $showingAddRoutine,
+                showAllRoutines: $showAllRoutines,
                 onResetSelected: {
                     showingResetAlert = true
                 }
@@ -46,42 +48,49 @@ struct WatchRoutineListView: View {
             WatchAddRoutineView(isPresented: $showingAddRoutine)
         }
         .task {
-            // Fetch today's routines and check completion on appear
-            do {
-                routines = try await routineManager.getTodayRoutines()
-                try await routineManager.checkRoutinesCompletion(routines)
-            } catch {
-                print("Error fetching routines: \(error.localizedDescription)")
-            }
+            await loadRoutines()
         }
         .onChange(of: showingAddRoutine) { _, isPresented in
             // Refresh routines when add sheet is dismissed
             if !isPresented {
                 Task {
-                    do {
-                        routines = try await routineManager.getTodayRoutines()
-                        try await routineManager.checkRoutinesCompletion(routines)
-                    } catch {
-                        print("Error refreshing routines: \(error.localizedDescription)")
-                    }
+                    await loadRoutines()
                 }
+            }
+        }
+        .onChange(of: showAllRoutines) { _, _ in
+            // Reload routines when toggle changes
+            Task {
+                await loadRoutines()
             }
         }
     }
     
     // MARK: - Helper Methods
     
+    private func loadRoutines() async {
+        do {
+            if showAllRoutines {
+                routines = try await routineManager.getAllRoutines()
+            } else {
+                routines = try await routineManager.getTodayRoutines()
+            }
+            try await routineManager.checkRoutinesCompletion(routines)
+        } catch {
+            print("Error fetching routines: \(error.localizedDescription)")
+        }
+    }
+    
     private func resetAllRoutines() {
         Task {
-            do {
-                try await routineManager.resetRoutines(routines)
-                try await routineManager.save()
-                // Refresh routines after reset
-                routines = try await routineManager.getTodayRoutines()
-                try await routineManager.checkRoutinesCompletion(routines)
-            } catch {
-                print("Error resetting routines: \(error.localizedDescription)")
-            }
+            await resetRoutines(
+                routines,
+                using: routineManager,
+                onCompletion: {
+                    // Refresh routines after reset
+                    await loadRoutines()
+                }
+            )
         }
     }
 }

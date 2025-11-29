@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-enum MenuOption {
-    case addRoutine
-    case resetAllRoutines
-}
-
 struct WatchMenuView: View {
     @Binding var isPresented: Bool
     @Binding var showingAddRoutine: Bool
+    @Binding var showAllRoutines: Bool
     var onResetSelected: () -> Void
     
     var body: some View {
@@ -25,6 +21,16 @@ struct WatchMenuView: View {
                     isPresented = false
                 }) {
                     Label("Add Routine", systemImage: "plus")
+                }
+                
+                Button(action: {
+                    showAllRoutines.toggle()
+                    isPresented = false
+                }) {
+                    Label(
+                        showAllRoutines ? "Show Today's Routines" : "Show All Routines",
+                        systemImage: showAllRoutines ? "calendar" : "list.number"
+                    )
                 }
                 
                 Button(role: .destructive, action: {

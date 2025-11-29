@@ -23,12 +23,13 @@ struct WatchRoutineRowView: View {
                     .lineLimit(1)
                 
                 HStack(spacing: 4) {
-                    if routine.status == .complete || routine.status == .completeWithSkippedSteps {
-                        CompletionIconView(routine: routine)
-                    } else if routine.steps != nil {
-                        EmptyView()
+                    if routine.steps == nil {
+                        CompletionIconView(for: routine)
+                            .foregroundStyle(.clear)
+                    } else if routine.status == .complete || routine.status == .completeWithSkippedSteps {
+                        CompletionIconView(for: routine)
                     } else {
-                        RingProgressView(routine: routine)
+                        RingProgressView(for: routine)
                             .frame(width: 12, height: 12)
                             .padding(.trailing, 4)
                             .layoutPriority(0)

@@ -108,17 +108,20 @@
 		22207DC72ED3AD5600391617 /* Exceptions for "Routines" folder in "RoutinesWatch Watch App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Application/DateUtility.swift,
-				Application/RoutineManager.swift,
-				Application/StepManager.swift,
-				"Models/Persisted Models/Routine.swift",
-				"Models/Persisted Models/Step.swift",
+				Models/Routine.swift,
 				Models/RoutineCompletionIcon.swift,
 				Models/RoutineCompletionStatus.swift,
+				Models/Step.swift,
 				Models/StepCompletionStatus.swift,
 				Models/Symbol.swift,
 				Models/SystemColors.swift,
 				Models/Weekday.swift,
+				Services/CloudKitSubscriptionManager.swift,
+				Services/CloudKitSyncObserver.swift,
+				Services/RoutineManager.swift,
+				Services/StepManager.swift,
+				Utilities/DateUtility.swift,
+				Utilities/LocaleObserver.swift,
 				Views/Components/CompletionIconView.swift,
 				Views/Components/RingProgressView.swift,
 			);

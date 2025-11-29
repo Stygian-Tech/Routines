@@ -10,6 +10,10 @@ import SwiftUI
 struct CompletionIconView: View {
     let routine: Routine
     
+    init(for routine: Routine) {
+        self.routine = routine
+    }
+    
     var body: some View {
         Image(systemName: "checkmark.circle")
             .symbolRenderingMode(.palette)

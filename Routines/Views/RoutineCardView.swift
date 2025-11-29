@@ -37,16 +37,16 @@ struct RoutineCardView: View {
                     Spacer()
                 }
                 .padding(.bottom, 4)
-                HStack {
+                HStack(alignment: .center) {
                     let totalStepsToday = stepCount
                     if routine.status == .incomplete && totalStepsToday > 1 {
-                        RingProgressView(routine: routine, lineWidth: 2)
+                        RingProgressView(for: routine)
                             .frame(width: 18, height: 18)
                             .padding(.leading, 6)
                             .padding(.bottom, 1)
                             .layoutPriority(0) // Resizes the ProgressView to avoid text wrapping
                     } else {
-                        CompletionIconView(routine: routine)
+                        CompletionIconView(for: routine)
                     }
                     Text(routine.name)
                         .font(.headline)

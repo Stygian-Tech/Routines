@@ -9,7 +9,12 @@ import SwiftUI
 
 struct RingProgressView: View {
 	var routine: Routine
-	var lineWidth: CGFloat = 2
+	var lineWidth: CGFloat
+    
+    init(for routine: Routine, withLineWidthOf lineWidth: CGFloat = 2) {
+        self.routine = routine
+        self.lineWidth = lineWidth
+    }
 	
 	private var totalStepsToday: Int {
 		(routine.steps ?? []).filter { $0.isToday() }.count

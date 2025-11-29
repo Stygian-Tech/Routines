@@ -51,12 +51,8 @@ struct WatchRoutineDetailView: View {
                     
                     Spacer()
                     
-                    if routine.status == .complete {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                    } else if routine.status == .completeWithSkippedSteps {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
+                    if routine.status != .incomplete{
+                        CompletionIconView(for: routine)
                     }
                 }
                 .padding(.bottom, 4)
@@ -102,21 +98,13 @@ struct WatchRoutineDetailView: View {
                         .buttonStyle(.bordered)
                         .tint(routine.getIconColor())
                         
-                        Button(action: {
-                            Task {
-                                do {
-                                    try await routineManager.resetRoutine(routine)
-                                    try await routineManager.save()
-                                } catch {
-                                    print("Error resetting routine: \(error.localizedDescription)")
+                        WatchResetButton(
+                            action: {
+                                Task {
+                                    await resetRoutine(routine, using: routineManager)
                                 }
                             }
-                        }) {
-                            Label("Reset", systemImage: "arrow.circlepath")
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(.secondary)
+                        )
                     }
                 } else {
                     Button(action: {
@@ -158,3 +146,4 @@ struct WatchRoutineDetailView: View {
         }
     }
 }
+
