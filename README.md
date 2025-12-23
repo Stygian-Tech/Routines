@@ -209,8 +209,3 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 - Website: [getroutines.app](https://getroutines.app)
 - Developer: [Stygian Tech](https://stygiantech.dev)
-
-## Version History
-
-See the [CHANGELOG](CHANGELOG.md) for version history and release notes.
-
