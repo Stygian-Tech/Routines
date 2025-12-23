@@ -14,7 +14,6 @@ struct RoutineDetailView: View {
     
     @State private var editRoutineViewIsPresented = false
     @State private var addStepViewIsPresented = false
-    @State private var showHiddenSteps = false
     @State private var addButtonIsPresented = false
     @State private var addIsPressed = false
    
@@ -28,6 +27,10 @@ struct RoutineDetailView: View {
     
     private var stepManager: StepManager {
         StepManager(modelContext: modelContext)
+    }
+    
+    private var daySynchronizer: RoutineDaySynchronizer {
+        RoutineDaySynchronizer(modelContext: modelContext)
     }
     
     var routineColor: Color {
@@ -52,7 +55,7 @@ struct RoutineDetailView: View {
                 VStack {
                     StepListView(
                         routine: routine,
-                        showHiddenSteps: $showHiddenSteps,
+                        showHiddenSteps: .constant(false),
                         editingStepIndex: $editingStepIndex,
                         moveItem: moveItem,
                         deleteStep: deleteStep,
@@ -70,17 +73,6 @@ struct RoutineDetailView: View {
                                     .accessibilityHidden(true)
                             }
                             .accessibilityLabel(Text("Edit routine"))
-                        }
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.22)) {
-                                    showHiddenSteps.toggle()
-                                }
-                            }) {
-                                Image(systemName: showHiddenSteps ? "eye" : "eye.slash")
-                                    .accessibilityHidden(true)
-                            }
-                            .accessibilityLabel(Text(showHiddenSteps ? "Show only today" : "Show all days"))
                         }
                     }
                     .sheet(isPresented: $addStepViewIsPresented) {
@@ -157,13 +149,42 @@ struct RoutineDetailView: View {
     func saveRoutine(_ tempRoutine: Routine) {
         Task {
             do {
+                // Find days that were removed from routine
+                let oldDays = Set(routine.days)
+                let newDays = Set(tempRoutine.days)
+                let removedDays = oldDays.subtracting(newDays)
+                let addedDays = newDays.subtracting(oldDays)
+                
+                // Cascade removed days to steps using synchronizer
+                if !removedDays.isEmpty {
+                    for removedDay in removedDays {
+                        _ = daySynchronizer.cascadeRemoveDayFromRoutine(removedDay, routine: routine)
+                    }
+                    // Explicitly save step changes
+                    try modelContext.save()
+                }
+                
+                // Add any new days to routine (don't cascade to steps)
+                if !addedDays.isEmpty {
+                    var routineDays = routine.days
+                    for addedDay in addedDays {
+                        if !routineDays.contains(addedDay) {
+                            routineDays.append(addedDay)
+                        }
+                    }
+                    routine.days = routineDays.sorted()
+                }
+                
+                // Final synchronization: ensure routine days are superset of all step days
+                daySynchronizer.synchronizeRoutineDays(routine)
+                
                 try await routineManager.updateRoutine(
                     routine,
                     name: tempRoutine.name,
                     time: tempRoutine.time,
                     iconColor: tempRoutine.iconColor,
                     iconSymbol: tempRoutine.iconSymbol,
-                    days: tempRoutine.days
+                    days: routine.days
                 )
                 modelContext.delete(tempRoutine)
                 editRoutineViewIsPresented = false

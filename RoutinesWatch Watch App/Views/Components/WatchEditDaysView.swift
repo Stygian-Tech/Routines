@@ -1,15 +1,13 @@
 //
-//  EditDaysView.swift
-//  Routines
+//  WatchEditDaysView.swift
+//  RoutinesWatch
 //
-//  Created by Sam Clemente on 9/16/24.
+//  Compact day picker for watchOS
 //
 
-import Foundation
 import SwiftUI
-import SwiftData
 
-public struct EditDaysView: View {
+struct WatchEditDaysView: View {
     @Binding var days: [Weekday]
     var iconColor: Color
     /// When provided, days not in this array will appear dimmed.
@@ -20,44 +18,32 @@ public struct EditDaysView: View {
     var daysRequiredByChildren: Set<Weekday> = []
     /// When true, at least one day must remain selected. Prevents removing the last day.
     var requiresAtLeastOneDay: Bool = false
-    /// Optional callback for long press gesture on a day button
-    var onLongPress: ((Weekday) -> Void)? = nil
-    @StateObject private var localeObserver = LocaleObserver()
     
     var daysOfTheWeek: [Weekday] {
         DateUtility.allWeekdays()
     }
     
-    public var body: some View {
-        HStack {
+    var body: some View {
+        // Use a grid layout for better fit on watch
+        LazyVGrid(columns: [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ], spacing: 6) {
             ForEach(daysOfTheWeek) { weekday in
-                DayToggleButton(
+                WatchDayToggleButton(
                     iconColor: iconColor,
                     weekday: weekday,
                     isSelected: days.contains(weekday),
                     isOutsideParentSchedule: isOutsideParentSchedule(weekday),
-                    isRequiredByChildren: daysRequiredByChildren.contains(weekday),
-                    requiresAtLeastOneDay: requiresAtLeastOneDay && days.count <= 1 && days.contains(weekday),
-                    action: {
-                        return toggleDay(weekday)
-                    },
-                    onLongPress: onLongPress != nil ? {
-                        onLongPress?(weekday)
-                    } : nil
-                )
+                    isRequiredByChildren: daysRequiredByChildren.contains(weekday)
+                ) {
+                    withAnimation {
+                        toggleDay(weekday)
+                    }
+                }
             }
-        }
-        .onReceive(localeObserver.$firstWeekday) { _ in
-            // View will automatically refresh when week start changes
-            // The daysOfTheWeek computed property will return the new order
-        }
-        .onReceive(localeObserver.$localeIdentifier) { _ in
-            // View will automatically refresh when locale changes
-            // Day names will update via DateUtility.displayName()
-        }
-        .onAppear {
-            // Refresh locale settings when view appears (in case user changed settings)
-            localeObserver.refresh()
         }
     }
     
@@ -69,25 +55,20 @@ public struct EditDaysView: View {
         return !parentDays.contains(weekday)
     }
     
-    @discardableResult
-    func toggleDay(_ weekday: Weekday) -> Bool {
+    private func toggleDay(_ weekday: Weekday) {
         // Prevent removing days required by children
         if days.contains(weekday) && daysRequiredByChildren.contains(weekday) {
-            return false
+            return
         }
         
         if let index = days.firstIndex(of: weekday) {
             // Prevent removing the last day if requiresAtLeastOneDay is true
             if requiresAtLeastOneDay && days.count <= 1 {
-                return false
+                return
             }
             days.remove(at: index)
-            print("Removed \(DateUtility.displayName(for: weekday))")
-            return true
         } else {
             days.append(weekday)
-            print("Added \(DateUtility.displayName(for: weekday))")
-            return true
         }
     }
 }

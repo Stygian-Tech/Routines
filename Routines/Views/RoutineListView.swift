@@ -99,7 +99,7 @@ struct RoutineListView: View {
                             .accessibilityLabel(Text("Reset routines"))
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Show All Routines", systemImage: showAllRoutines ? "eye" : "eye.slash") {
+                        Button("Edit", systemImage: "pencil") {
                             // Update list filter immediately without animating the entire list
                             showAllRoutines.toggle()
                             // Animate the day pickers in a separate transaction so they fade/slide
@@ -109,7 +109,7 @@ struct RoutineListView: View {
                                 }
                             }
                         }
-                        .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines"))
+                        .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines and edit"))
                     }
                 }
                 .navigationTitle(showAllRoutines ? "All Routines" : "Routines")

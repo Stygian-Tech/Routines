@@ -1,18 +1,20 @@
 //
-//  WatchAddStepView.swift
+//  WatchEditStepView.swift
 //  RoutinesWatch
 //
-//  Created for watchOS step creation
+//  Created for watchOS step editing
 //
 
 import SwiftUI
 import SwiftData
 
-struct WatchAddStepView: View {
+struct WatchEditStepView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
+    @Bindable var step: Step
     @Bindable var routine: Routine
     @Binding var isPresented: Bool
+    
     @State private var stepName: String = ""
     @State private var selectedDays: [Weekday] = []
     @FocusState private var isTextFieldFocused: Bool
@@ -55,19 +57,19 @@ struct WatchAddStepView: View {
                     }
                     
                     Button(action: {
-                        addStep()
+                        saveStep()
                     }) {
-                        Label("Add Step", systemImage: "plus.circle.fill")
+                        Label("Save Step", systemImage: "checkmark.circle.fill")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(routine.getIconColor())
                     .disabled(stepName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedDays.isEmpty)
-                    .accessibilityLabel("Add step")
+                    .accessibilityLabel("Save step")
                 }
                 .padding()
             }
-            .navigationTitle("Add Step")
+            .navigationTitle("Edit Step")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -77,46 +79,43 @@ struct WatchAddStepView: View {
                 }
             }
             .onAppear {
-                // Initialize selected days to match routine days
-                selectedDays = routine.days
-                isTextFieldFocused = true
+                stepName = step.name
+                selectedDays = step.days
             }
         }
     }
     
-    private func addStep() {
+    private func saveStep() {
         let trimmedName = stepName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
         
         Task {
             do {
-                // Expand routine days if step includes days outside routine
-                var routineDaysModified = false
-                for day in selectedDays {
-                    if !routine.days.contains(day) {
-                        var routineDays = routine.days
-                        routineDays.append(day)
-                        routine.days = routineDays.sorted()
-                        routineDaysModified = true
-                    }
+                // Update step name if changed
+                if trimmedName != step.name {
+                    try await stepManager.updateStepName(step, name: trimmedName)
                 }
                 
-                // Save routine days changes if modified
-                if routineDaysModified {
-                    try await routineManager.updateRoutine(routine, days: routine.days)
+                // Sync days with routine
+                let oldDays = Set(step.days)
+                let newDays = Set(selectedDays)
+                
+                // Add new days
+                for day in newDays.subtracting(oldDays) {
+                    daySynchronizer.addDayToStep(step, day: day, routine: routine)
                 }
                 
-                _ = try await stepManager.createStep(
-                    name: trimmedName,
-                    routine: routine,
-                    days: selectedDays
-                )
+                // Remove old days
+                for day in oldDays.subtracting(newDays) {
+                    daySynchronizer.removeDayFromStep(step, day: day, routine: routine)
+                }
+                
+                try daySynchronizer.save()
                 try await routineManager.checkRoutineCompletion(routine)
                 isPresented = false
             } catch {
-                print("Error adding step: \(error.localizedDescription)")
+                print("Error saving step: \(error.localizedDescription)")
             }
         }
     }
 }
-

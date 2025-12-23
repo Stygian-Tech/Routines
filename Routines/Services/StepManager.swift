@@ -167,6 +167,39 @@ final class StepManager: @unchecked Sendable {
         return (routine.steps ?? []).filter { $0.isToday() }.sorted { $0.order < $1.order }
     }
     
+    /// Returns all days used by any step in the routine
+    /// - Parameter routine: The routine to check
+    /// - Returns: Set of weekdays that are used by at least one step
+    func getAllDaysUsedBySteps(in routine: Routine) -> Set<Weekday> {
+        guard let steps = routine.steps else { return [] }
+        var allDays = Set<Weekday>()
+        for step in steps {
+            for day in step.days {
+                allDays.insert(day)
+            }
+        }
+        return allDays
+    }
+    
+    /// Checks if a specific day is used by any step in the routine
+    /// - Parameters:
+    ///   - day: The day to check
+    ///   - routine: The routine to check against
+    ///   - excludingStep: Optional step to exclude from the check
+    /// - Returns: True if any step (excluding the specified one) uses this day
+    func isDayUsedByAnyStep(_ day: Weekday, in routine: Routine, excludingStep: Step? = nil) -> Bool {
+        guard let steps = routine.steps else { return false }
+        for step in steps {
+            if let excludedStep = excludingStep, step.id == excludedStep.id {
+                continue
+            }
+            if step.days.contains(day) {
+                return true
+            }
+        }
+        return false
+    }
+    
     /// Saves the model context
     func save() throws {
         try modelContext.save()

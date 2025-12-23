@@ -20,7 +20,7 @@ struct StepTests {
         #expect(step.name == "Step")
         #expect(step.status == .incomplete)
         #expect(step.order == 0)
-        #expect(step.routine.id == routine.id)
+        #expect(step.routine?.id == routine.id)
     }
     
     /// Tests creation of a step with a name passed to the initializer
@@ -31,6 +31,6 @@ struct StepTests {
         #expect(step.name == "Make Breakfast")
         #expect(step.status == .incomplete)
         #expect(step.order == 1)
-        #expect(step.routine.id == routine.id)
+        #expect(step.routine?.id == routine.id)
     }
 }

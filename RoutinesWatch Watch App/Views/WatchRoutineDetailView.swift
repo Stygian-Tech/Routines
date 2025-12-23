@@ -14,6 +14,9 @@ struct WatchRoutineDetailView: View {
     @State private var showingStepActions = false
     @State private var selectedStep: Step?
     @State private var showingAddStep = false
+    @State private var showingEditRoutine = false
+    @State private var showingEditStep = false
+    @State private var stepToEdit: Step?
     
     private var routineManager: RoutineManager {
         RoutineManager(modelContext: modelContext)
@@ -78,6 +81,13 @@ struct WatchRoutineDetailView: View {
                             routine: routine,
                             onTap: {
                                 cycleStepStatus(step)
+                            },
+                            onEdit: {
+                                stepToEdit = step
+                                showingEditStep = true
+                            },
+                            onDelete: {
+                                deleteStep(step)
                             }
                         )
                     }
@@ -89,14 +99,23 @@ struct WatchRoutineDetailView: View {
                         .padding(.top, 4)
                     
                     VStack(spacing: 8) {
-                        Button(action: {
-                            showingAddStep = true
-                        }) {
-                            Label("Add Step", systemImage: "plus")
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(routine.getIconColor())
+                        WatchActionButton(
+                            title: "Add Step",
+                            systemImage: "plus",
+                            action: {
+                                showingAddStep = true
+                            },
+                            tint: routine.getIconColor()
+                        )
+                        
+                        WatchActionButton(
+                            title: "Edit Routine",
+                            systemImage: "pencil",
+                            action: {
+                                showingEditRoutine = true
+                            },
+                            tint: .none
+                        )
                         
                         WatchResetButton(
                             action: {
@@ -107,14 +126,14 @@ struct WatchRoutineDetailView: View {
                         )
                     }
                 } else {
-                    Button(action: {
-                        showingAddStep = true
-                    }) {
-                        Label("Add First Step", systemImage: "plus")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(routine.getIconColor())
+                    WatchActionButton(
+                        title: "Add First Step",
+                        systemImage: "plus",
+                        action: {
+                            showingAddStep = true
+                        },
+                        tint: routine.getIconColor(),
+                    )
                 }
             }
             .padding()
@@ -123,6 +142,21 @@ struct WatchRoutineDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showingAddStep) {
             WatchAddStepView(routine: routine, isPresented: $showingAddStep)
+        }
+        .sheet(isPresented: $showingEditRoutine) {
+            WatchEditRoutineView(
+                isPresented: $showingEditRoutine,
+                routine: routine
+            )
+        }
+        .sheet(isPresented: $showingEditStep) {
+            if let step = stepToEdit {
+                WatchEditStepView(
+                    step: step,
+                    routine: routine,
+                    isPresented: $showingEditStep
+                )
+            }
         }
         .onAppear {
             Task {
@@ -142,6 +176,26 @@ struct WatchRoutineDetailView: View {
                 try await routineManager.checkRoutineCompletion(routine)
             } catch {
                 print("Error cycling step status: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func deleteStep(_ step: Step) {
+        Task {
+            do {
+                // Get synchronizer to handle routine day updates
+                let daySynchronizer = RoutineDaySynchronizer(modelContext: modelContext)
+                
+                // Delete the step
+                try await stepManager.deleteSteps([step], from: routine)
+                
+                // Synchronize routine days after step deletion
+                daySynchronizer.synchronizeRoutineDays(routine)
+                try daySynchronizer.save()
+                
+                try await routineManager.checkRoutineCompletion(routine)
+            } catch {
+                print("Error deleting step: \(error.localizedDescription)")
             }
         }
     }

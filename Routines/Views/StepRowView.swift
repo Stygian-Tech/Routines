@@ -30,10 +30,16 @@ struct StepRowView: View {
         StepManager(modelContext: modelContext)
     }
     
+    private var daySynchronizer: RoutineDaySynchronizer {
+        RoutineDaySynchronizer(modelContext: modelContext)
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Button(action: {
+                    // Provide haptic feedback when checking off step
+                    HapticFeedback.medium()
                     Task {
                         do {
                             if step.status != .complete {
@@ -58,6 +64,7 @@ struct StepRowView: View {
                 .accessibilityHint(Text("Toggles completion state"))
                 .contextMenu {
                     Button(action: {
+                        HapticFeedback.medium()
                         Task {
                             do {
                                 try await stepManager.updateStepStatus(step, status: .skipped)
@@ -70,6 +77,7 @@ struct StepRowView: View {
                         Label("Skip '\(step.name)'", systemImage: "circle.slash")
                     }
                     Button(action: {
+                        HapticFeedback.medium()
                         Task {
                             do {
                                 try await stepManager.updateStepStatus(step, status: .complete)
@@ -122,21 +130,63 @@ struct StepRowView: View {
             if showHiddenSteps || shouldRenderPicker {
                 if let steps = routine.steps, let index = steps.firstIndex(where: {$0.id == step.id }) {
                     ZStack {
-                        EditDaysView(days: Binding(
-                            get: { steps[index].days },
-                            set: { newDays in
-                                steps[index].days = newDays
-                                Task {
-                                    do {
-                                        try await stepManager.updateStepDays(steps[index], days: newDays)
-                                    } catch {
-                                        print("Error updating step days: \(error.localizedDescription)")
+                        EditDaysView(
+                            days: Binding(
+                                get: {
+                                    let originalStepDays = steps[index].days
+                                    let routineDaysSet = Set(routine.days)
+                                    
+                                    // Filter out any days that aren't in the routine's schedule
+                                    // This is a safeguard in case cascade removal didn't work
+                                    var filteredStepDays = originalStepDays.filter { routineDaysSet.contains($0) }
+                                    
+                                    // If filtering changed the days, update the step
+                                    if Set(filteredStepDays) != Set(originalStepDays) {
+                                        filteredStepDays.sort { $0.rawValue < $1.rawValue }
+                                        steps[index].days = filteredStepDays
+                                        // Save the correction immediately
+                                        do {
+                                            try modelContext.save()
+                                        } catch {
+                                            print("Error saving corrected step days: \(error.localizedDescription)")
+                                        }
+                                    }
+                                    
+                                    return filteredStepDays
+                                },
+                                set: { newDays in
+                                    // Determine which day was toggled by comparing old and new
+                                    let oldDays = Set(steps[index].days)
+                                    let newDaysSet = Set(newDays)
+                                    
+                                    // Find added days
+                                    let addedDays = newDaysSet.subtracting(oldDays)
+                                    // Find removed days
+                                    let removedDays = oldDays.subtracting(newDaysSet)
+                                    
+                                    // Use synchronizer for proper routine-step day sync
+                                    for day in addedDays {
+                                        daySynchronizer.addDayToStep(steps[index], day: day, routine: routine)
+                                    }
+                                    for day in removedDays {
+                                        daySynchronizer.removeDayFromStep(steps[index], day: day, routine: routine)
+                                    }
+                                    
+                                    Task {
+                                        do {
+                                            try daySynchronizer.save()
+                                        } catch {
+                                            print("Error saving step days: \(error.localizedDescription)")
+                                        }
                                     }
                                 }
-                            }
-                        ), iconColor: routine.getIconColor())
-                            .opacity(animatePicker ? 1 : 0)
-                            .offset(y: animatePicker ? 0 : 8)
+                            ),
+                            iconColor: routine.getIconColor(),
+                            parentRoutineDays: routine.days,
+                            requiresAtLeastOneDay: true
+                        )
+                        .opacity(animatePicker ? 1 : 0)
+                        .offset(y: animatePicker ? 0 : 8)
                     }
                     .zIndex(1)
                 }

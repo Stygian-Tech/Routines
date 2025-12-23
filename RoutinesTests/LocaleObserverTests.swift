@@ -9,6 +9,7 @@ import Testing
 import Foundation
 @testable import Routines
 
+@MainActor
 struct LocaleObserverTests {
     
     @Test func localeObserverInitializesWithCurrentSettings() async throws {

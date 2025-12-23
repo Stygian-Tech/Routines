@@ -11,6 +11,8 @@ struct WatchStepRowView: View {
     let step: Step
     let routine: Routine
     let onTap: () -> Void
+    var onEdit: (() -> Void)? = nil
+    var onDelete: (() -> Void)? = nil
     
     var body: some View {
         Button(action: onTap) {
@@ -28,6 +30,18 @@ struct WatchStepRowView: View {
             .padding(.vertical, 6)
         }
         .buttonStyle(.plain)
+        .contextMenu {
+            if let editAction = onEdit {
+                Button(action: editAction) {
+                    Label("Edit Step", systemImage: "pencil")
+                }
+            }
+            if let deleteAction = onDelete {
+                Button(role: .destructive, action: deleteAction) {
+                    Label("Delete Step", systemImage: "trash")
+                }
+            }
+        }
     }
     
     private var stepColor: Color {

@@ -12,12 +12,16 @@ struct WatchRoutinesListContent: View {
     @Binding var showingMenu: Bool
     @Binding var showingResetAlert: Bool
     let onReset: () -> Void
+    let onDelete: (Routine) -> Void
     
     var body: some View {
         List {
             ForEach(routines) { routine in
                 NavigationLink(value: routine.id) {
-                    WatchRoutineRowView(routine: routine)
+                    WatchRoutineRowView(
+                        routine: routine,
+                        onDelete: { routine in onDelete(routine) }
+                    )
                 }
             }
         }

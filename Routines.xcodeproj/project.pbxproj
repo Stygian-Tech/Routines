@@ -118,6 +118,7 @@
 				Models/Weekday.swift,
 				Services/CloudKitSubscriptionManager.swift,
 				Services/CloudKitSyncObserver.swift,
+				Services/RoutineDaySynchronizer.swift,
 				Services/RoutineManager.swift,
 				Services/StepManager.swift,
 				Utilities/DateUtility.swift,

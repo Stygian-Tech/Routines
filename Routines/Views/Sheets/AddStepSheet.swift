@@ -1,28 +1,27 @@
 //
-//  WatchAddStepView.swift
-//  RoutinesWatch
+//  AddStepSheet.swift
+//  Routines
 //
-//  Created for watchOS step creation
+//  Created for adding steps from edit routine view
 //
 
 import SwiftUI
 import SwiftData
 
-struct WatchAddStepView: View {
+struct AddStepSheet: View {
     @Environment(\.modelContext) var modelContext
-    @Environment(\.dismiss) var dismiss
     @Bindable var routine: Routine
     @Binding var isPresented: Bool
+    
     @State private var stepName: String = ""
     @State private var selectedDays: [Weekday] = []
-    @FocusState private var isTextFieldFocused: Bool
-    
-    private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
-    }
     
     private var stepManager: StepManager {
         StepManager(modelContext: modelContext)
+    }
+    
+    private var routineManager: RoutineManager {
+        RoutineManager(modelContext: modelContext)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {
@@ -31,41 +30,20 @@ struct WatchAddStepView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 12) {
+            Form {
+                Section("Name") {
                     TextField("Step Name", text: $stepName)
-                        .textInputAutocapitalization(.words)
-                        .focused($isTextFieldFocused)
-                        .padding()
-                        .background(Color(.gray).opacity(0.03))
-                        .cornerRadius(8)
-                    
-                    // Days selection
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Days")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        
-                        WatchEditDaysView(
-                            days: $selectedDays,
-                            iconColor: routine.getIconColor(),
-                            parentRoutineDays: routine.days,
-                            requiresAtLeastOneDay: true
-                        )
-                    }
-                    
-                    Button(action: {
-                        addStep()
-                    }) {
-                        Label("Add Step", systemImage: "plus.circle.fill")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(routine.getIconColor())
-                    .disabled(stepName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedDays.isEmpty)
-                    .accessibilityLabel("Add step")
+                        .accessibilityLabel(Text("Step name"))
                 }
-                .padding()
+                Section("Days") {
+                    EditDaysView(
+                        days: $selectedDays,
+                        iconColor: routine.getIconColor(),
+                        parentRoutineDays: routine.days,
+                        requiresAtLeastOneDay: true
+                    )
+                    .padding(.vertical, 3)
+                }
             }
             .navigationTitle("Add Step")
             .navigationBarTitleDisplayMode(.inline)
@@ -75,11 +53,16 @@ struct WatchAddStepView: View {
                         isPresented = false
                     }
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        addStep()
+                    }
+                    .disabled(stepName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedDays.isEmpty)
+                }
             }
             .onAppear {
                 // Initialize selected days to match routine days
                 selectedDays = routine.days
-                isTextFieldFocused = true
             }
         }
     }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct WatchRoutineRowView: View {
     let routine: Routine
+    let onDelete: ((Routine) -> Void)
+    @State private var showingDeleteConfirm: Bool = false
     
     var body: some View {
         HStack {
@@ -46,6 +48,21 @@ struct WatchRoutineRowView: View {
             Spacer()
         }
         .padding(.vertical, 2)
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button(role: .destructive) {
+                showingDeleteConfirm = true
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
+        .alert("Delete \u{201C}\(routine.name)\u{201D}?", isPresented: $showingDeleteConfirm) {
+            Button("Delete", role: .destructive) {
+                onDelete(routine)
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("This action cannot be undone.")
+        }
     }
 }
 

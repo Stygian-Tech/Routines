@@ -30,7 +30,17 @@ struct WatchRoutineListView: View {
                     routines: routines,
                     showingMenu: $showingMenu,
                     showingResetAlert: $showingResetAlert,
-                    onReset: resetAllRoutines
+                    onReset: resetAllRoutines,
+                    onDelete: { routine in
+                        Task {
+                            do {
+                                try await routineManager.deleteRoutines([routine])
+                                await loadRoutines()
+                            } catch {
+                                print("Error deleting routine: \(error.localizedDescription)")
+                            }
+                        }
+                    }
                 )
             }
         }
@@ -45,7 +55,7 @@ struct WatchRoutineListView: View {
             )
         }
         .sheet(isPresented: $showingAddRoutine) {
-            WatchAddRoutineView(isPresented: $showingAddRoutine)
+            WatchEditRoutineView(isPresented: $showingAddRoutine)
         }
         .task {
             await loadRoutines()
@@ -94,3 +104,4 @@ struct WatchRoutineListView: View {
         }
     }
 }
+
