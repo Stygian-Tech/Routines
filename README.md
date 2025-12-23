@@ -133,8 +133,9 @@ Run tests from Xcode (`Cmd+U`) or via command line (see above).
 
 ## Dependencies
 
-- **SFSymbolsPickerForSwiftUI** (v1.0.6+): SF Symbols picker component
-- **LicensePlist** (v3.25.1+): License file generation tool
+- **[SocialSymbols](https://github.com/jeremieb/social-symbols)** (v1.0.14+): Various Social Media Icons as SF Symbols
+- **[SFSymbolsPickerForSwiftUI](https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI)** (v1.0.6+): SF Symbols picker component
+- **[LicensePlist](https://github.com/mono0926/LicensePlist)** (v3.25.1+): License file generation tool
 
 ## Development Guidelines
 
