@@ -14,6 +14,7 @@ struct EditableStepRowView: View {
     @Bindable var step: Step
     @Binding var editingStepId: UUID?
     @Binding var tempRoutineDays: [Weekday]
+    var routineColor: Color
     @State private var updatedStepName: String = ""
     
     let onEdit: () -> Void
@@ -26,47 +27,26 @@ struct EditableStepRowView: View {
         RoutineDaySynchronizer(modelContext: modelContext)
     }
     
-    private var routineColor: Color {
-        routine.getIconColor()
-    }
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 12) {
-                // Drag handle indicator
-                Image(systemName: "line.3.horizontal")
-                    .foregroundStyle(.secondary)
-                    .font(.caption)
-                
-                // Step name - editable inline
-                if editingStepId == step.id {
-                    TextField("Step name", text: $updatedStepName)
-                        .textFieldStyle(.plain)
-                        .onSubmit {
-                            saveName()
-                        }
-                        .onAppear {
-                            updatedStepName = step.name
-                        }
-                        .accessibilityLabel(Text("Edit step name"))
-                } else {
-                    Text(step.name)
-                        .onTapGesture {
-                            updatedStepName = step.name
-                            editingStepId = step.id
-                        }
-                        .accessibilityLabel(Text(step.name))
-                }
-                
-                Spacer()
-                
-                // Edit button
-                Button(action: onEdit) {
-                    Image(systemName: "pencil")
-                        .foregroundStyle(routineColor)
-                        .font(.body)
-                }
-                .accessibilityLabel(Text("Edit \(step.name)"))
+            // Step name - editable inline
+            if editingStepId == step.id {
+                TextField("Step name", text: $updatedStepName)
+                    .textFieldStyle(.plain)
+                    .onSubmit {
+                        saveName()
+                    }
+                    .onAppear {
+                        updatedStepName = step.name
+                    }
+                    .accessibilityLabel(Text("Edit step name"))
+            } else {
+                Text(step.name)
+                    .onTapGesture {
+                        updatedStepName = step.name
+                        editingStepId = step.id
+                    }
+                    .accessibilityLabel(Text(step.name))
             }
             
             // Day picker - always visible in edit mode

@@ -67,21 +67,22 @@ struct WatchOSFunctionalityTests {
     /// Tests that steps can be added to a routine with correct ordering
     @Test func addingStepsToRoutine() async throws {
         let routine = Routine(name: "Test Routine")
+        routine.steps = []
         
         // Add first step
         let step1 = Step(name: "First Step", routine: routine, order: 0)
-        routine.steps.append(step1)
-        #expect(routine.steps.count == 1)
-        #expect(routine.steps[0].order == 0)
+        routine.steps?.append(step1)
+        #expect((routine.steps ?? []).count == 1)
+        #expect(routine.steps?[0].order == 0)
         
         // Add second step
         let step2 = Step(name: "Second Step", routine: routine, order: 1)
-        routine.steps.append(step2)
-        #expect(routine.steps.count == 2)
-        #expect(routine.steps[1].order == 1)
+        routine.steps?.append(step2)
+        #expect((routine.steps ?? []).count == 2)
+        #expect(routine.steps?[1].order == 1)
         
         // Verify steps are in correct order
-        let sortedSteps = routine.steps.sorted { $0.order < $1.order }
+        let sortedSteps = (routine.steps ?? []).sorted { $0.order < $1.order }
         #expect(sortedSteps[0].name == "First Step")
         #expect(sortedSteps[1].name == "Second Step")
     }
@@ -100,7 +101,7 @@ struct WatchOSFunctionalityTests {
         #expect(routine.time == time)
         #expect(routine.iconColor == SystemColors.purple.rawValue)
         #expect(routine.iconSymbol == "sun.and.horizon")
-        #expect(routine.steps.isEmpty)
+        #expect((routine.steps ?? []).isEmpty)
     }
     
     /// Tests that step filtering by today works correctly
@@ -114,7 +115,7 @@ struct WatchOSFunctionalityTests {
         routine.steps = [step1, step2]
         
         // Both steps should be available today (assuming test runs on a day in the week)
-        let todaySteps = routine.steps.filter { $0.isToday() }
+        let todaySteps = (routine.steps ?? []).filter { $0.isToday() }
         #expect(todaySteps.count >= 1) // At least step1 should be available
         
         // Verify step1 is always available

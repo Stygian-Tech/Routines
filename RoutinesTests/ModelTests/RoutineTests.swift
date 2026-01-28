@@ -22,7 +22,7 @@ struct RoutineTests {
         // #expect(routine.time == Date())
         #expect(routine.iconColor == ".blue")
         #expect(routine.iconSymbol == "list.bullet")
-        #expect(routine.steps.isEmpty)
+        #expect((routine.steps ?? []).isEmpty)
     }
     
     /// Ensures that routines are being created correctly with all properties
@@ -39,8 +39,8 @@ struct RoutineTests {
         #expect(routine.time == tempTime)
         #expect(routine.iconColor == ".yellow")
         #expect(routine.iconSymbol == "sunrise")
-        #expect(routine.steps.isEmpty == false)
-        #expect(routine.steps[0].name == "Brush Teeth")
+        #expect((routine.steps ?? []).isEmpty == false)
+        #expect(routine.steps?[0].name == "Brush Teeth")
     }
     
     /// Ensures that the formatting of the time string is correct when displayed in app
@@ -63,7 +63,7 @@ struct RoutineTests {
         
         #expect(routine1.id != routine2.id)
         #expect(routine1.name != routine2.name)
-        #expect(routine2.steps.isEmpty)
+        #expect((routine2.steps ?? []).isEmpty)
     }
     
     /// Ensures that the color string is properly grabbing the corresponding ``Color`` object

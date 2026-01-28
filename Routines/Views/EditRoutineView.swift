@@ -199,6 +199,7 @@ struct EditRoutineView: View {
                         step: step,
                         editingStepId: $editingStepId,
                         tempRoutineDays: $tempRoutine.days,
+                        routineColor: tempColor,
                         onEdit: {
                             stepToEdit = step
                         }

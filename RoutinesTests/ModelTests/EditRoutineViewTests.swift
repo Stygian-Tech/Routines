@@ -79,7 +79,9 @@ struct EditRoutineViewTests {
         let step1 = Step(name: "Step 1", routine: routine, order: 0)
         let step2 = Step(name: "Step 2", routine: routine, order: 1)
         let step3 = Step(name: "Step 3", routine: routine, order: 2)
-        
+        context.insert(step1)
+        context.insert(step2)
+        context.insert(step3)
         routine.steps = [step1, step2, step3]
         try context.save()
         
@@ -103,12 +105,15 @@ struct EditRoutineViewTests {
         let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
         let context = container.mainContext
         
+        let monday = Weekday(rawValue: 2)
+        let tuesday = Weekday(rawValue: 3)
+        let wednesday = Weekday(rawValue: 4)
         let routine = Routine(name: "Test Routine")
-        routine.days = [.monday, .tuesday, .wednesday]
+        routine.days = [monday, tuesday, wednesday]
         context.insert(routine)
         
-        let step1 = Step(name: "Step 1", routine: routine, order: 0, days: [.monday])
-        let step2 = Step(name: "Step 2", routine: routine, order: 1, days: [.tuesday, .wednesday])
+        let step1 = Step(name: "Step 1", routine: routine, order: 0, days: [monday])
+        let step2 = Step(name: "Step 2", routine: routine, order: 1, days: [tuesday, wednesday])
         
         routine.steps = [step1, step2]
         try context.save()
@@ -124,9 +129,9 @@ struct EditRoutineViewTests {
         try daySynchronizer.save()
         
         // Routine should now only have Monday (used by remaining step)
-        #expect(routine.days.contains(.monday))
-        #expect(!routine.days.contains(.tuesday))
-        #expect(!routine.days.contains(.wednesday))
+        #expect(routine.days.contains(monday))
+        #expect(!routine.days.contains(tuesday))
+        #expect(!routine.days.contains(wednesday))
     }
     
     /// Tests that inline step name editing updates step name
@@ -156,12 +161,14 @@ struct EditRoutineViewTests {
         let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
         let context = container.mainContext
         
+        let monday = Weekday(rawValue: 2)
+        let friday = Weekday(rawValue: 6)
         let routine = Routine(name: "Test Routine")
-        routine.days = [.monday, .friday] // Not today
+        routine.days = [monday, friday] // Not today
         context.insert(routine)
         
-        let step1 = Step(name: "Monday Step", routine: routine, order: 0, days: [.monday])
-        let step2 = Step(name: "Friday Step", routine: routine, order: 1, days: [.friday])
+        let step1 = Step(name: "Monday Step", routine: routine, order: 0, days: [monday])
+        let step2 = Step(name: "Friday Step", routine: routine, order: 1, days: [friday])
         
         routine.steps = [step1, step2]
         try context.save()

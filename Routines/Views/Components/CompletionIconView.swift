@@ -14,11 +14,22 @@ struct CompletionIconView: View {
         self.routine = routine
     }
     
+    private var accessibilityLabelForStatus: String {
+        switch routine.status {
+        case .incomplete:
+            return "Incomplete"
+        case .complete:
+            return "Complete"
+        case .completeWithSkippedSteps:
+            return "Complete with skipped steps"
+        }
+    }
+    
     var body: some View {
         Image(systemName: "checkmark.circle")
             .symbolRenderingMode(.palette)
             .foregroundStyle(routine.status.icon.iconColor2 ?? routine.status.icon.iconColor1, routine.status.icon.iconColor1)
             .padding(.leading, 3)
-            .accessibilityHidden(true)
+            .accessibilityLabel(accessibilityLabelForStatus)
     }
 }

@@ -15,7 +15,7 @@ struct WatchEmptyRoutinesView: View {
             Image(systemName: "list.bullet")
                 .font(.largeTitle)
                 .foregroundStyle(.secondary)
-            Text("No Routines")
+            Text("No Routines Today")
                 .foregroundStyle(.secondary)
                 .font(.headline)
             

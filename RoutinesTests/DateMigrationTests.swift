@@ -20,15 +20,15 @@ struct DateMigrationTests {
         let stringData = try JSONEncoder().encode(dayStrings)
         routine.daysData = stringData
         
-        // Access days property should trigger migration
+        // Access days property returns migrated values (getter does not persist)
         let weekdays = routine.days
-        
         #expect(weekdays.count == 3)
         #expect(weekdays.contains(Weekday(rawValue: 2))) // Monday
         #expect(weekdays.contains(Weekday(rawValue: 4))) // Wednesday
         #expect(weekdays.contains(Weekday(rawValue: 6))) // Friday
         
-        // Verify data was migrated (should now be Int array)
+        // Explicitly migrate to persist; then verify data is Int array
+        _ = routine.migrateDaysIfNeeded()
         let migratedData = routine.daysData
         let migratedInts = try? JSONDecoder().decode([Int].self, from: migratedData!)
         #expect(migratedInts != nil)
@@ -83,14 +83,14 @@ struct DateMigrationTests {
         let stringData = try JSONEncoder().encode(dayStrings)
         step.daysData = stringData
         
-        // Access days property should trigger migration
+        // Access days property returns migrated values (getter does not persist)
         let weekdays = step.days
-        
         #expect(weekdays.count == 2)
         #expect(weekdays.contains(Weekday(rawValue: 3))) // Tuesday
         #expect(weekdays.contains(Weekday(rawValue: 5))) // Thursday
         
-        // Verify data was migrated
+        // Explicitly migrate to persist; then verify data is Int array
+        _ = step.migrateDaysIfNeeded()
         let migratedData = step.daysData
         let migratedInts = try? JSONDecoder().decode([Int].self, from: migratedData!)
         #expect(migratedInts != nil)
@@ -128,9 +128,6 @@ struct DateMigrationTests {
     @Test func migrateDaysIfNeededMigratesRoutineDays() async throws {
         let routine = Routine()
         let dayStrings = ["Monday", "Friday"]
-        let stringData = try JSONEncoder().encode(dayStrings)
-        // Use reflection or direct property access for testing
-        // Since daysData is private, we'll test via the public API
         routine.days = DateUtility.weekdaysFromStrings(dayStrings)
         
         // Verify migration worked

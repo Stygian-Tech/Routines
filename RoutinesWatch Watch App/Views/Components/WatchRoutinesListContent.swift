@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WatchRoutinesListContent: View {
     let routines: [Routine]
+    @Binding var showAllRoutines: Bool
     @Binding var showingMenu: Bool
     @Binding var showingResetAlert: Bool
     let onReset: () -> Void
@@ -25,7 +26,7 @@ struct WatchRoutinesListContent: View {
                 }
             }
         }
-        .navigationTitle("Routines")
+        .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
@@ -34,8 +35,6 @@ struct WatchRoutinesListContent: View {
                     Image(systemName: "ellipsis.circle")
                 }
                 .accessibilityLabel("More Options")
-            }
-            ToolbarItem(placement: .topBarLeading) {
             }
         }
         .alert("Reset All Routines?", isPresented: $showingResetAlert) {

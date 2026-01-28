@@ -25,7 +25,6 @@ struct RoutineListView: View {
     @State private var settingsIsPresented = false
     @State private var resetAlertIsPresented = false
     @State private var showAllRoutines = false
-    @State private var showRoutineDetails = false
     @State private var routinesAreHidden = false
     @State private var addIsPressed = false
     @State private var addButtonIsPresented = true
@@ -44,9 +43,10 @@ struct RoutineListView: View {
     var body: some View {
         ZStack {
             // Ensure the rest of the screen uses the system background so the gradient only shows at the top
-            Color(.systemBackground)
-                .ignoresSafeArea()
-            TopBackgroundGradient(color: .purple, height: 320)
+            // TODO: Uncomment this when the gradient is working
+            // Color(.systemBackground)
+            //     .ignoresSafeArea()
+            // TopBackgroundGradient(color: .purple, height: 320)
             
             NavigationStack(path: $navPath) {
                 Group {
@@ -55,7 +55,7 @@ struct RoutineListView: View {
                             .foregroundStyle(.secondary)
                             .accessibilityLabel(Text("No routines"))
                     } else {
-                        RoutineListContent(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, showRoutineDetails: $showRoutineDetails, deleteRoutine: deleteRoutine)
+                        RoutineListContent(showAllRoutines: $showAllRoutines, routineToEdit: $routineToEdit, deleteRoutine: deleteRoutine)
                         .onChange(of: routineToEdit) { _, newValue in
                             if newValue != nil {
                                 editRoutineIsPresented = true
@@ -99,17 +99,12 @@ struct RoutineListView: View {
                             .accessibilityLabel(Text("Reset routines"))
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Edit", systemImage: "pencil") {
-                            // Update list filter immediately without animating the entire list
+                        Button(action: {
                             showAllRoutines.toggle()
-                            // Animate the day pickers in a separate transaction so they fade/slide
-                            DispatchQueue.main.async {
-                                withAnimation(.easeInOut(duration: 0.24)) {
-                                    showRoutineDetails.toggle()
-                                }
-                            }
+                        }) {
+                            Image(systemName: showAllRoutines ? "eye.slash" : "eye")
                         }
-                        .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines and edit"))
+                        .accessibilityLabel(Text(showAllRoutines ? "Show only today" : "Show all routines"))
                     }
                 }
                 .navigationTitle(showAllRoutines ? "All Routines" : "Routines")
@@ -190,5 +185,3 @@ struct RoutineListView: View {
         }
     }
 }
-
-// Sheet subviews moved to separate files for modularity

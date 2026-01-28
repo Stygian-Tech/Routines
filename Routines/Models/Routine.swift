@@ -66,7 +66,7 @@ class Routine: Identifiable {
     }
     
     @Relationship(deleteRule: .cascade) var steps: [Step]?
-    @Attribute private var daysData: Data? = nil
+    @Attribute var daysData: Data? = nil
     
     init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet") {
         self.name = name

@@ -28,6 +28,7 @@ struct WatchRoutineListView: View {
             } else {
                 WatchRoutinesListContent(
                     routines: routines,
+                    showAllRoutines: $showAllRoutines,
                     showingMenu: $showingMenu,
                     showingResetAlert: $showingResetAlert,
                     onReset: resetAllRoutines,

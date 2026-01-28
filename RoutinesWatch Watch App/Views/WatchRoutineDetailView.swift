@@ -54,8 +54,13 @@ struct WatchRoutineDetailView: View {
                     
                     Spacer()
                     
-                    if routine.status != .incomplete{
-                        CompletionIconView(for: routine)
+                    if routine.status != .incomplete {
+                        HStack(spacing: 4) {
+                            CompletionIconView(for: routine)
+                            Text(routine.status == .complete ? "Complete" : "Complete (skipped steps)")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
                 .padding(.bottom, 4)

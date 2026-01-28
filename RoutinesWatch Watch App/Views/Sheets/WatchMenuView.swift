@@ -25,12 +25,8 @@ struct WatchMenuView: View {
                 
                 Button(action: {
                     showAllRoutines.toggle()
-                    isPresented = false
                 }) {
-                    Label(
-                        showAllRoutines ? "Show Today's Routines" : "Show All Routines",
-                        systemImage: showAllRoutines ? "calendar" : "list.number"
-                    )
+                    Label(showAllRoutines ? "Show Only Today" : "Show All Routines", systemImage: showAllRoutines ? "eye.slash" : "eye")
                 }
                 
                 Button(role: .destructive, action: {
@@ -42,13 +38,6 @@ struct WatchMenuView: View {
             }
             .navigationTitle("Options")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        isPresented = false
-                    }
-                }
-            }
         }
     }
 }

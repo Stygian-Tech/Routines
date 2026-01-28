@@ -57,8 +57,8 @@ class Step: Identifiable {
         
         return false
     }
-    @Attribute private var daysData: Data?
-    
+    @Attribute var daysData: Data?
+
     init(name: String = "Step", routine: Routine?, order: Int = 0) {
         self.name = name
         self.routine = routine

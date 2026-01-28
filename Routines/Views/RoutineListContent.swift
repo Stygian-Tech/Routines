@@ -13,20 +13,26 @@ struct RoutineListContent: View {
     @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) var routines: [Routine]
     @Binding var showAllRoutines: Bool
     @Binding var routineToEdit: Routine?
-    @Binding var showRoutineDetails: Bool
 
     let deleteRoutine: ([Routine]) -> Void
     
     private var routineManager: RoutineManager {
         RoutineManager(modelContext: modelContext)
     }
+    
+    private var displayedRoutines: [Routine] {
+        if showAllRoutines {
+            return routines
+        } else {
+            return routines.filter { $0.isToday() }
+        }
+    }
 
     var body: some View {
-        let displayedRoutines = routines.filter { $0.isToday() || showAllRoutines }
         List {
             ForEach(displayedRoutines, id: \.id) { routine in
                 NavigationLink(value: routine.id) {
-                    RoutineCardView(routine: routine, showDetail: $showRoutineDetails)
+                    RoutineCardView(routine: routine)
                 }
                 .accessibilityLabel(Text(routine.name))
                 .accessibilityHint(Text("Opens routine"))
