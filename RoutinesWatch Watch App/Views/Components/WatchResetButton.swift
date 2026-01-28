@@ -20,12 +20,12 @@ struct WatchResetButton: View {
     ///   - action: The action to perform when the button is tapped
     ///   - label: The text label for the button
     ///   - systemImage: The SF Symbol name for the button icon
-    ///   - tint: Optional color tint for the button
+    ///   - tint: Optional color tint for the button (defaults to red for destructive appearance)
     init(
         action: @escaping () -> Void,
         label: String = "Reset",
         systemImage: String = "arrow.circlepath",
-        tint: Color? = .secondary
+        tint: Color? = .red
     ) {
         self.action = action
         self.label = label
@@ -38,6 +38,7 @@ struct WatchResetButton: View {
             Label(label, systemImage: systemImage)
                 .frame(maxWidth: .infinity)
         }
+        .buttonStyle(.borderedProminent)
         .tint(tint)
     }
 }

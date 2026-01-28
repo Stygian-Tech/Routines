@@ -15,15 +15,45 @@ struct WatchEditRoutineView: View {
     @Binding var isPresented: Bool
     var routine: Routine?
     
-    @State private var routineName: String = ""
-    @State private var selectedTime = Date()
-    @State private var selectedColor: SystemColors = .blue
-    @State private var selectedSymbol: String = "list.bullet"
-    @State private var selectedDays: [Weekday] = DateUtility.allWeekdays()
+    @State private var routineName: String
+    @State private var selectedTime: Date
+    @State private var selectedColor: SystemColors
+    @State private var selectedSymbol: String
+    @State private var selectedDays: [Weekday]
     @FocusState private var isTextFieldFocused: Bool
+    
+    init(isPresented: Binding<Bool>, routine: Routine? = nil) {
+        self._isPresented = isPresented
+        self.routine = routine
+        
+        // Initialize selectedTime from routine if available, otherwise use current time
+        if let routine = routine {
+            _selectedTime = State(initialValue: routine.time)
+            _routineName = State(initialValue: routine.name)
+            _selectedColor = State(initialValue: SystemColors(rawValue: routine.iconColor) ?? .blue)
+            _selectedSymbol = State(initialValue: routine.iconSymbol)
+            _selectedDays = State(initialValue: routine.days)
+        } else {
+            _selectedTime = State(initialValue: Date())
+            _routineName = State(initialValue: "")
+            _selectedColor = State(initialValue: .blue)
+            _selectedSymbol = State(initialValue: "list.bullet")
+            _selectedDays = State(initialValue: DateUtility.allWeekdays())
+        }
+    }
     
     private var routineManager: RoutineManager {
         RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
+    }
+    
+    private var stepManager: StepManager {
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
+    }
+    
+    /// Sorted steps for display
+    private var sortedSteps: [Step] {
+        guard let routine = routine, let steps = routine.steps else { return [] }
+        return steps.sorted(by: { $0.order < $1.order })
     }
     
     /// Days that cannot be removed because at least one step has only that day scheduled.
@@ -132,6 +162,24 @@ struct WatchEditRoutineView: View {
                         }
                     }
                     
+                    // Steps section (only show when editing existing routine)
+                    if isEditing && !sortedSteps.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Steps")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            
+                            List {
+                                ForEach(sortedSteps, id: \.id) { step in
+                                    Text(step.name)
+                                        .font(.body)
+                                }
+                                .onMove(perform: moveSteps)
+                            }
+                            .frame(height: min(CGFloat(sortedSteps.count) * 44, 200))
+                        }
+                    }
+                    
                     // Save/Create button
                     Button(action: {
                         saveRoutine()
@@ -156,14 +204,6 @@ struct WatchEditRoutineView: View {
                 }
             }
             .onAppear {
-                if let routine = routine {
-                    // Initialize from existing routine
-                    routineName = routine.name
-                    selectedTime = routine.time
-                    selectedColor = SystemColors(rawValue: routine.iconColor) ?? .blue
-                    selectedSymbol = routine.iconSymbol
-                    selectedDays = routine.days
-                }
                 isTextFieldFocused = true
             }
         }
@@ -216,6 +256,24 @@ struct WatchEditRoutineView: View {
                 isPresented = false
             } catch {
                 print("Error saving routine: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // MARK: - Step Management
+    
+    private func moveSteps(from source: IndexSet, to destination: Int) {
+        guard let routine = routine else { return }
+        
+        Task {
+            do {
+                try await stepManager.moveSteps(
+                    from: source,
+                    to: destination,
+                    in: routine
+                )
+            } catch {
+                print("Error moving steps: \(error.localizedDescription)")
             }
         }
     }

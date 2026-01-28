@@ -12,12 +12,8 @@ struct WatchRoutineDetailView: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
-    @State private var showingStepActions = false
-    @State private var selectedStep: Step?
     @State private var showingAddStep = false
     @State private var showingEditRoutine = false
-    @State private var showingEditStep = false
-    @State private var stepToEdit: Step?
     
     private var routineManager: RoutineManager {
         RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
@@ -54,15 +50,6 @@ struct WatchRoutineDetailView: View {
                     }
                     
                     Spacer()
-                    
-                    if routine.status != .incomplete {
-                        HStack(spacing: 4) {
-                            CompletionIconView(for: routine)
-                            Text(routine.status == .complete ? "Complete" : "Complete (skipped steps)")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
                 }
                 .padding(.bottom, 4)
                 
@@ -87,13 +74,6 @@ struct WatchRoutineDetailView: View {
                             routine: routine,
                             onTap: {
                                 cycleStepStatus(step)
-                            },
-                            onEdit: {
-                                stepToEdit = step
-                                showingEditStep = true
-                            },
-                            onDelete: {
-                                deleteStep(step)
                             }
                         )
                     }
@@ -155,15 +135,6 @@ struct WatchRoutineDetailView: View {
                 routine: routine
             )
         }
-        .sheet(isPresented: $showingEditStep) {
-            if let step = stepToEdit {
-                WatchEditStepView(
-                    step: step,
-                    routine: routine,
-                    isPresented: $showingEditStep
-                )
-            }
-        }
         .onAppear {
             Task {
                 do {
@@ -186,24 +157,5 @@ struct WatchRoutineDetailView: View {
         }
     }
     
-    private func deleteStep(_ step: Step) {
-        Task {
-            do {
-                // Get synchronizer to handle routine day updates
-                let daySynchronizer = RoutineDaySynchronizer(modelContext: modelContext)
-                
-                // Delete the step
-                try await stepManager.deleteSteps([step], from: routine)
-                
-                // Synchronize routine days after step deletion
-                daySynchronizer.synchronizeRoutineDays(routine)
-                try daySynchronizer.save()
-                
-                try await routineManager.checkRoutineCompletion(routine)
-            } catch {
-                print("Error deleting step: \(error.localizedDescription)")
-            }
-        }
-    }
 }
 
