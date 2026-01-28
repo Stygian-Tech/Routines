@@ -10,7 +10,8 @@ import SwiftData
 
 struct WatchRoutineListView: View {
     @Environment(\.modelContext) var modelContext
-    @State private var routines: [Routine] = []
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
+    @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) private var allRoutines: [Routine]
     @State private var selectedRoutineID: UUID?
     @State private var showingAddRoutine = false
     @State private var showingMenu = false
@@ -18,16 +19,25 @@ struct WatchRoutineListView: View {
     @State private var showAllRoutines = false
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
+    }
+    
+    // Computed property to filter routines based on showAllRoutines
+    private var displayedRoutines: [Routine] {
+        if showAllRoutines {
+            return allRoutines
+        } else {
+            return allRoutines.filter { $0.isToday() }
+        }
     }
     
     var body: some View {
         NavigationStack {
-            if routines.isEmpty {
+            if displayedRoutines.isEmpty {
                 WatchEmptyRoutinesView(showingAddRoutine: $showingAddRoutine)
             } else {
                 WatchRoutinesListContent(
-                    routines: routines,
+                    routines: displayedRoutines,
                     showAllRoutines: $showAllRoutines,
                     showingMenu: $showingMenu,
                     showingResetAlert: $showingResetAlert,
@@ -36,7 +46,6 @@ struct WatchRoutineListView: View {
                         Task {
                             do {
                                 try await routineManager.deleteRoutines([routine])
-                                await loadRoutines()
                             } catch {
                                 print("Error deleting routine: \(error.localizedDescription)")
                             }
@@ -59,48 +68,55 @@ struct WatchRoutineListView: View {
             WatchEditRoutineView(isPresented: $showingAddRoutine)
         }
         .task {
-            await loadRoutines()
+            // Check routine completion on initial load
+            do {
+                try await routineManager.checkRoutinesCompletion(displayedRoutines)
+            } catch {
+                print("Error checking routine completion: \(error.localizedDescription)")
+            }
         }
         .onChange(of: showingAddRoutine) { _, isPresented in
-            // Refresh routines when add sheet is dismissed
+            // Check completion when add sheet is dismissed
             if !isPresented {
                 Task {
-                    await loadRoutines()
+                    do {
+                        try await routineManager.checkRoutinesCompletion(displayedRoutines)
+                    } catch {
+                        print("Error checking routine completion: \(error.localizedDescription)")
+                    }
                 }
             }
         }
-        .onChange(of: showAllRoutines) { _, _ in
-            // Reload routines when toggle changes
+        .onChange(of: allRoutines) { _, _ in
+            // When routines change (from CloudKit sync), check completion
             Task {
-                await loadRoutines()
+                do {
+                    try await routineManager.checkRoutinesCompletion(displayedRoutines)
+                } catch {
+                    print("Error checking routine completion: \(error.localizedDescription)")
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .cloudKitSyncCompleted)) { _ in
+            // When CloudKit sync completes, check routine completion
+            Task {
+                do {
+                    try await routineManager.checkRoutinesCompletion(displayedRoutines)
+                } catch {
+                    print("Error checking routine completion: \(error.localizedDescription)")
+                }
             }
         }
     }
     
     // MARK: - Helper Methods
     
-    private func loadRoutines() async {
-        do {
-            if showAllRoutines {
-                routines = try await routineManager.getAllRoutines()
-            } else {
-                routines = try await routineManager.getTodayRoutines()
-            }
-            try await routineManager.checkRoutinesCompletion(routines)
-        } catch {
-            print("Error fetching routines: \(error.localizedDescription)")
-        }
-    }
-    
     private func resetAllRoutines() {
         Task {
             await resetRoutines(
-                routines,
+                displayedRoutines,
                 using: routineManager,
-                onCompletion: {
-                    // Refresh routines after reset
-                    await loadRoutines()
-                }
+                onCompletion: nil // Routines will automatically refresh via @Query
             )
         }
     }

@@ -11,6 +11,7 @@ import SwiftData
 struct WatchEditRoutineView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Binding var isPresented: Bool
     var routine: Routine?
     
@@ -22,7 +23,7 @@ struct WatchEditRoutineView: View {
     @FocusState private var isTextFieldFocused: Bool
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     /// Days that cannot be removed because at least one step has only that day scheduled.

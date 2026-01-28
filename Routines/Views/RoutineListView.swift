@@ -12,12 +12,13 @@ import TipKit
 struct RoutineListView: View {
     // Data Models
     @Environment(\.modelContext) var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Query var routines: [Routine]
     @State var newRoutine: Routine?
     @State var routineToEdit: Routine?
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     // Presentation Logic

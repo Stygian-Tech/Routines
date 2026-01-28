@@ -14,9 +14,21 @@ import SwiftUI
 @MainActor
 final class StepManager: @unchecked Sendable {
     private let modelContext: ModelContext
+    private weak var syncObserver: CloudKitSyncObserver?
     
-    init(modelContext: ModelContext) {
+    init(modelContext: ModelContext, syncObserver: CloudKitSyncObserver? = nil) {
         self.modelContext = modelContext
+        self.syncObserver = syncObserver
+    }
+    
+    /// Helper to trigger sync after critical saves
+    /// Waits a short time to allow CloudKit to process the save before syncing
+    private func triggerSyncIfNeeded() {
+        Task { @MainActor [weak self] in
+            // Wait a moment for CloudKit to process the save
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+            await self?.syncObserver?.fetchChanges()
+        }
     }
     
     // MARK: - CRUD Operations
@@ -47,6 +59,7 @@ final class StepManager: @unchecked Sendable {
         routine.steps?.append(newStep)
         
         try modelContext.save()
+        triggerSyncIfNeeded()
         return newStep
     }
     
@@ -57,6 +70,7 @@ final class StepManager: @unchecked Sendable {
         }
         step.name = name
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Updates a step's status
@@ -65,6 +79,7 @@ final class StepManager: @unchecked Sendable {
     func updateStepStatus(_ step: Step, status: StepCompletionStatus) async throws {
         step.status = status
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Cycles through step status: incomplete -> complete -> skipped -> incomplete
@@ -78,12 +93,14 @@ final class StepManager: @unchecked Sendable {
             step.status = .incomplete
         }
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Updates a step's days
     func updateStepDays(_ step: Step, days: [Weekday]) async throws {
         step.days = days
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Deletes one or more steps and reorders remaining steps
@@ -104,6 +121,7 @@ final class StepManager: @unchecked Sendable {
         
         routine.steps = currentSteps
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     // MARK: - Reordering Operations

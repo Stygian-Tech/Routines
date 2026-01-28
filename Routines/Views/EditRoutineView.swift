@@ -12,6 +12,7 @@ import SFSymbolsPicker
 
 struct EditRoutineView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable private var routine: Routine
     @State private var tempRoutine: Routine
    
@@ -32,11 +33,11 @@ struct EditRoutineView: View {
     }
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {

@@ -10,6 +10,7 @@ import SwiftData
 
 struct AddStepSheet: View {
     @Environment(\.modelContext) var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
     @Binding var isPresented: Bool
     
@@ -17,11 +18,11 @@ struct AddStepSheet: View {
     @State private var selectedDays: [Weekday] = []
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {

@@ -13,9 +13,21 @@ import SwiftData
 @MainActor
 final class RoutineManager: @unchecked Sendable {
     private let modelContext: ModelContext
+    private weak var syncObserver: CloudKitSyncObserver?
     
-    init(modelContext: ModelContext) {
+    init(modelContext: ModelContext, syncObserver: CloudKitSyncObserver? = nil) {
         self.modelContext = modelContext
+        self.syncObserver = syncObserver
+    }
+    
+    /// Helper to trigger sync after critical saves
+    /// Waits a short time to allow CloudKit to process the save before syncing
+    private func triggerSyncIfNeeded() {
+        Task { @MainActor [weak self] in
+            // Wait a moment for CloudKit to process the save
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+            await self?.syncObserver?.fetchChanges()
+        }
     }
     
     // MARK: - Reset Operations
@@ -26,6 +38,7 @@ final class RoutineManager: @unchecked Sendable {
             try await resetRoutine(routine)
         }
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Resets all steps in a single routine to incomplete state
@@ -35,6 +48,7 @@ final class RoutineManager: @unchecked Sendable {
         }
         routine.status = .incomplete
         routine.finishedStepCount = 0
+        // Note: Sync will be triggered by resetRoutines which calls save()
     }
     
     // MARK: - Completion Checking
@@ -88,6 +102,8 @@ final class RoutineManager: @unchecked Sendable {
         }
         
         routine.finishedStepCount = finishedCount
+        // Note: Don't trigger sync here as this is often called after step updates
+        // Sync will be triggered by the step update that caused this check
     }
     
     /// Checks completion status for multiple routines
@@ -108,6 +124,7 @@ final class RoutineManager: @unchecked Sendable {
         }
         try await checkRoutineCompletion(routine)
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Completes all remaining incomplete steps for today in a routine
@@ -119,6 +136,7 @@ final class RoutineManager: @unchecked Sendable {
         }
         try await checkRoutineCompletion(routine)
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     // MARK: - CRUD Operations
@@ -129,17 +147,19 @@ final class RoutineManager: @unchecked Sendable {
         time: Date,
         iconColor: String,
         iconSymbol: String,
-        days: [Weekday] = DateUtility.allWeekdays()
+        days: [Weekday]? = nil
     ) async throws -> Routine {
+        let routineDays = days ?? DateUtility.allWeekdays()
         let routine = Routine(
             name: name,
             time: time,
             iconColor: iconColor,
             iconSymbol: iconSymbol,
-            days: days
+            days: routineDays
         )
         modelContext.insert(routine)
         try modelContext.save()
+        triggerSyncIfNeeded()
         return routine
     }
     
@@ -168,6 +188,7 @@ final class RoutineManager: @unchecked Sendable {
             routine.days = days
         }
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     /// Deletes one or more routines
@@ -176,6 +197,7 @@ final class RoutineManager: @unchecked Sendable {
             modelContext.delete(routine)
         }
         try modelContext.save()
+        triggerSyncIfNeeded()
     }
     
     // MARK: - Utility Operations

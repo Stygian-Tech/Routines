@@ -10,6 +10,7 @@ import SwiftData
 
 struct WatchRoutineDetailView: View {
     @Environment(\.modelContext) var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
     @State private var showingStepActions = false
     @State private var selectedStep: Step?
@@ -19,11 +20,11 @@ struct WatchRoutineDetailView: View {
     @State private var stepToEdit: Step?
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     var todaySteps: [Step] {

@@ -12,9 +12,10 @@ struct EditRoutineSheet: View {
     let routine: Routine
     @Binding var isPresented: Bool
     @Environment(\.modelContext) var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {

@@ -10,6 +10,7 @@ import SwiftData
 
 struct RoutineListContent: View {
     @Environment(\.modelContext) var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Query(sort: [SortDescriptor(\Routine.time, order: .forward)]) var routines: [Routine]
     @Binding var showAllRoutines: Bool
     @Binding var routineToEdit: Routine?
@@ -17,7 +18,7 @@ struct RoutineListContent: View {
     let deleteRoutine: ([Routine]) -> Void
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var displayedRoutines: [Routine] {

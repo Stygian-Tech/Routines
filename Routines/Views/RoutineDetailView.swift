@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RoutineDetailView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
     
     @State private var editRoutineViewIsPresented = false
@@ -22,11 +23,11 @@ struct RoutineDetailView: View {
     @State private var updatedStepName: String = ""
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {

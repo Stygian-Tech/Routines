@@ -91,20 +91,23 @@ struct RoutinesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RoutineListView()
-                .onAppear {
-                    // Set up the notification manager reference in app delegate
-                    appDelegate.notificationManager = cloudKitNotificationManager
-                    promptForNotifications()
-                    // Migrate local data to CloudKit if needed
-                    Task { [container] in
-                        await Self.migrateLocalDataToCloudKit(container: container)
+            AppLifecycleSyncView(syncObserver: cloudKitSyncObserver) {
+                RoutineListView()
+                    .onAppear {
+                        // Set up the notification manager reference in app delegate
+                        appDelegate.notificationManager = cloudKitNotificationManager
+                        promptForNotifications()
+                        // Migrate local data to CloudKit if needed
+                        Task { [container] in
+                            await Self.migrateLocalDataToCloudKit(container: container)
+                        }
                     }
-                }
-                .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
-                    // Refresh UI when locale changes
-                    // Views will automatically update via LocaleObserver
-                }
+                    .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
+                        // Refresh UI when locale changes
+                        // Views will automatically update via LocaleObserver
+                    }
+                    .environmentObject(cloudKitSyncObserver)
+            }
         }
         .modelContainer(container)
     }
@@ -164,7 +167,7 @@ struct RoutinesApp: App {
     /// attempts to load data from a local-only store and copy it to CloudKit
     private static func migrateLocalDataToCloudKit(container: ModelContainer) async {
         // Check if migration has already been completed
-        if UserDefaults.standard.bool(forKey: migrationKey) {
+        if UserDefaults.standard.bool(forKey: Self.migrationKey) {
             print("Migration already completed, skipping")
             return
         }
@@ -263,6 +266,30 @@ struct RoutinesApp: App {
             // If local store doesn't exist or migration fails, mark as complete to avoid retrying
             UserDefaults.standard.set(true, forKey: Self.migrationKey)
         }
+    }
+}
+
+// Helper view to handle scene phase changes for sync
+private struct AppLifecycleSyncView<Content: View>: View {
+    let syncObserver: CloudKitSyncObserver
+    let content: Content
+    @Environment(\.scenePhase) private var scenePhase
+    
+    init(syncObserver: CloudKitSyncObserver, @ViewBuilder content: () -> Content) {
+        self.syncObserver = syncObserver
+        self.content = content()
+    }
+    
+    var body: some View {
+        content
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                // Trigger sync when app becomes active
+                if newPhase == .active {
+                    Task { @MainActor in
+                        await syncObserver.fetchChanges()
+                    }
+                }
+            }
     }
 }
 

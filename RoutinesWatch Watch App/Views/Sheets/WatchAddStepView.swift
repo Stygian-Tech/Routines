@@ -11,6 +11,7 @@ import SwiftData
 struct WatchAddStepView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
     @Binding var isPresented: Bool
     @State private var stepName: String = ""
@@ -18,11 +19,11 @@ struct WatchAddStepView: View {
     @FocusState private var isTextFieldFocused: Bool
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {

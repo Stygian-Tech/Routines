@@ -14,6 +14,7 @@ import SwiftData
 
 struct StepRowView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
     @Bindable var step: Step
     @State private var updatedStepName: String = ""
@@ -23,11 +24,11 @@ struct StepRowView: View {
     @State private var shouldRenderPicker: Bool = false
     
     private var routineManager: RoutineManager {
-        RoutineManager(modelContext: modelContext)
+        RoutineManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {

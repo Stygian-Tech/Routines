@@ -10,6 +10,7 @@ import SwiftData
 
 struct EditableStepRowView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var syncObserver: CloudKitSyncObserver
     @Bindable var routine: Routine
     @Bindable var step: Step
     @Binding var editingStepId: UUID?
@@ -20,7 +21,7 @@ struct EditableStepRowView: View {
     let onEdit: () -> Void
     
     private var stepManager: StepManager {
-        StepManager(modelContext: modelContext)
+        StepManager(modelContext: modelContext, syncObserver: syncObserver)
     }
     
     private var daySynchronizer: RoutineDaySynchronizer {
