@@ -45,9 +45,11 @@ final class RoutineManager: @unchecked Sendable {
     func resetRoutine(_ routine: Routine) async throws {
         for step in routine.steps ?? [] {
             step.status = .incomplete
+            step.markAsModified()
         }
         routine.status = .incomplete
         routine.finishedStepCount = 0
+        routine.markAsModified()
         // Note: Sync will be triggered by resetRoutines which calls save()
     }
     
@@ -88,6 +90,7 @@ final class RoutineManager: @unchecked Sendable {
         }
         
         // Determine routine status
+        let oldStatus = routine.status
         if incompleteFlag {
             routine.status = .incomplete
         } else if skippedFlag {
@@ -102,6 +105,11 @@ final class RoutineManager: @unchecked Sendable {
         }
         
         routine.finishedStepCount = finishedCount
+        
+        // Mark as modified if status or count changed
+        if oldStatus != routine.status {
+            routine.markAsModified()
+        }
         // Note: Don't trigger sync here as this is often called after step updates
         // Sync will be triggered by the step update that caused this check
     }
@@ -120,9 +128,11 @@ final class RoutineManager: @unchecked Sendable {
         for step in routine.steps ?? [] {
             if step.status == .incomplete && step.isToday() {
                 step.status = .skipped
+                step.markAsModified()
             }
         }
         try await checkRoutineCompletion(routine)
+        routine.markAsModified()
         try modelContext.save()
         triggerSyncIfNeeded()
     }
@@ -132,9 +142,11 @@ final class RoutineManager: @unchecked Sendable {
         for step in routine.steps ?? [] {
             if step.status == .incomplete && step.isToday() {
                 step.status = .complete
+                step.markAsModified()
             }
         }
         try await checkRoutineCompletion(routine)
+        routine.markAsModified()
         try modelContext.save()
         triggerSyncIfNeeded()
     }
@@ -172,20 +184,30 @@ final class RoutineManager: @unchecked Sendable {
         iconSymbol: String? = nil,
         days: [Weekday]? = nil
     ) async throws {
-        if let name = name {
+        var hasChanges = false
+        if let name = name, routine.name != name {
             routine.name = name
+            hasChanges = true
         }
-        if let time = time {
+        if let time = time, routine.time != time {
             routine.time = time
+            hasChanges = true
         }
-        if let iconColor = iconColor {
+        if let iconColor = iconColor, routine.iconColor != iconColor {
             routine.iconColor = iconColor
+            hasChanges = true
         }
-        if let iconSymbol = iconSymbol {
+        if let iconSymbol = iconSymbol, routine.iconSymbol != iconSymbol {
             routine.iconSymbol = iconSymbol
+            hasChanges = true
         }
-        if let days = days {
+        if let days = days, Set(routine.days) != Set(days) {
             routine.days = days
+            hasChanges = true
+        }
+        
+        if hasChanges {
+            routine.markAsModified()
         }
         try modelContext.save()
         triggerSyncIfNeeded()

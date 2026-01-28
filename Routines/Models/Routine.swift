@@ -67,12 +67,14 @@ class Routine: Identifiable {
     
     @Relationship(deleteRule: .cascade) var steps: [Step]?
     @Attribute var daysData: Data? = nil
+    @Attribute var lastModifiedDate: Date?
     
     init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet") {
         self.name = name
         self.time = time
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
+        self.lastModifiedDate = Date()
     }
 
     init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", steps: [Step] = [Step]()) {
@@ -81,6 +83,7 @@ class Routine: Identifiable {
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
         self.steps = steps
+        self.lastModifiedDate = Date()
     }
     
     init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", days: [Weekday]) {
@@ -89,6 +92,7 @@ class Routine: Identifiable {
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
         self.days = days
+        self.lastModifiedDate = Date()
     }
     
     // Convenience initializer for backward compatibility with string arrays (for migration)
@@ -98,6 +102,7 @@ class Routine: Identifiable {
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
         self.days = DateUtility.weekdaysFromStrings(daysStrings)
+        self.lastModifiedDate = Date()
     }
     
     
@@ -263,6 +268,20 @@ class Routine: Identifiable {
         }
         
         self.checkRoutineCompletion()
+    }
+    
+    /// Marks the routine as modified by updating the lastModifiedDate timestamp
+    /// Call this method whenever a property is changed to track modifications
+    func markAsModified() {
+        self.lastModifiedDate = Date()
+    }
+    
+    /// Ensures lastModifiedDate is initialized (for backward compatibility with existing data)
+    /// Call this when loading existing routines that might not have timestamps
+    func ensureTimestampInitialized() {
+        if lastModifiedDate == nil {
+            lastModifiedDate = Date()
+        }
     }
     
 }

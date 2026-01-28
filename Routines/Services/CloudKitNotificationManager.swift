@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import UIKit
 import CloudKit
 import Combine
+#if os(iOS)
+import UIKit
+#endif
 
 /// Manages CloudKit push notification processing and sync triggering
 /// This class handles the business logic for CloudKit notifications, making it SwiftUI-friendly
@@ -34,7 +36,8 @@ class CloudKitNotificationManager: ObservableObject {
     
     /// Handles a remote notification from CloudKit
     /// - Parameter userInfo: The notification user info dictionary
-    /// - Returns: The background fetch result indicating what happened
+    /// - Returns: The background fetch result indicating what happened (iOS only)
+    #if os(iOS)
     func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
         // Check if this is a CloudKit notification
         guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else {
@@ -60,5 +63,30 @@ class CloudKitNotificationManager: ObservableObject {
         
         return .newData
     }
+    #elseif os(watchOS)
+    func handleRemoteNotification(_ userInfo: [AnyHashable: Any]) async {
+        // Check if this is a CloudKit notification
+        guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else {
+            // Not a CloudKit notification
+            print("CloudKitNotificationManager: Received non-CloudKit notification")
+            return
+        }
+        
+        let notificationID = notification.notificationID?.description ?? "unknown"
+        print("CloudKitNotificationManager: Received CloudKit notification: \(notificationID)")
+        
+        // Update published properties
+        lastNotificationID = notificationID
+        notificationReceived.send(notificationID)
+        
+        // Trigger sync
+        isSyncing = true
+        await syncObserver.fetchChanges()
+        isSyncing = false
+        
+        // Notify observers that sync completed
+        syncCompleted.send(true)
+    }
+    #endif
 }
 

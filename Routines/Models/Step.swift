@@ -58,11 +58,13 @@ class Step: Identifiable {
         return false
     }
     @Attribute var daysData: Data?
+    @Attribute var lastModifiedDate: Date?
 
     init(name: String = "Step", routine: Routine?, order: Int = 0) {
         self.name = name
         self.routine = routine
         self.order = order
+        self.lastModifiedDate = Date()
     }
     
     init(name: String = "Step", routine: Routine?, order: Int = 0, days: [Weekday]) {
@@ -70,6 +72,7 @@ class Step: Identifiable {
         self.routine = routine
         self.order = order
         self.days = days
+        self.lastModifiedDate = Date()
     }
     
     // Convenience initializer for backward compatibility with string arrays (for migration)
@@ -78,10 +81,25 @@ class Step: Identifiable {
         self.routine = routine
         self.order = order
         self.days = DateUtility.weekdaysFromStrings(daysStrings)
+        self.lastModifiedDate = Date()
     }
     
     func isToday() -> Bool {
         let today = DateUtility.todayWeekday()
         return days.contains(today)
+    }
+    
+    /// Marks the step as modified by updating the lastModifiedDate timestamp
+    /// Call this method whenever a property is changed to track modifications
+    func markAsModified() {
+        self.lastModifiedDate = Date()
+    }
+    
+    /// Ensures lastModifiedDate is initialized (for backward compatibility with existing data)
+    /// Call this when loading existing steps that might not have timestamps
+    func ensureTimestampInitialized() {
+        if lastModifiedDate == nil {
+            lastModifiedDate = Date()
+        }
     }
 }

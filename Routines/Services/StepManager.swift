@@ -57,6 +57,7 @@ final class StepManager: @unchecked Sendable {
             routine.steps = []
         }
         routine.steps?.append(newStep)
+        routine.markAsModified() // Routine changed (added step)
         
         try modelContext.save()
         triggerSyncIfNeeded()
@@ -68,7 +69,10 @@ final class StepManager: @unchecked Sendable {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             throw StepManagerError.invalidName
         }
-        step.name = name
+        if step.name != name {
+            step.name = name
+            step.markAsModified()
+        }
         try modelContext.save()
         triggerSyncIfNeeded()
     }
@@ -77,13 +81,17 @@ final class StepManager: @unchecked Sendable {
     /// Note: Routine completion checking should be handled by the caller using RoutineManager
     /// to avoid circular dependencies between managers
     func updateStepStatus(_ step: Step, status: StepCompletionStatus) async throws {
-        step.status = status
+        if step.status != status {
+            step.status = status
+            step.markAsModified()
+        }
         try modelContext.save()
         triggerSyncIfNeeded()
     }
     
     /// Cycles through step status: incomplete -> complete -> skipped -> incomplete
     func cycleStepStatus(_ step: Step) async throws {
+        let oldStatus = step.status
         switch step.status {
         case .incomplete:
             step.status = .complete
@@ -92,13 +100,19 @@ final class StepManager: @unchecked Sendable {
         case .skipped:
             step.status = .incomplete
         }
+        if step.status != oldStatus {
+            step.markAsModified()
+        }
         try modelContext.save()
         triggerSyncIfNeeded()
     }
     
     /// Updates a step's days
     func updateStepDays(_ step: Step, days: [Weekday]) async throws {
-        step.days = days
+        if Set(step.days) != Set(days) {
+            step.days = days
+            step.markAsModified()
+        }
         try modelContext.save()
         triggerSyncIfNeeded()
     }
@@ -116,10 +130,14 @@ final class StepManager: @unchecked Sendable {
         
         // Reorder remaining steps
         for (index, step) in currentSteps.enumerated() {
-            step.order = index
+            if step.order != index {
+                step.order = index
+                step.markAsModified()
+            }
         }
         
         routine.steps = currentSteps
+        routine.markAsModified() // Routine changed (removed steps)
         try modelContext.save()
         triggerSyncIfNeeded()
     }
@@ -138,10 +156,14 @@ final class StepManager: @unchecked Sendable {
         
         // Update order for all steps
         for (index, step) in tempSteps.enumerated() {
-            step.order = index
+            if step.order != index {
+                step.order = index
+                step.markAsModified()
+            }
         }
         
         routine.steps = tempSteps
+        routine.markAsModified() // Routine changed (reordered steps)
         try modelContext.save()
     }
     
@@ -151,10 +173,14 @@ final class StepManager: @unchecked Sendable {
         steps = steps.sorted(by: { $0.order < $1.order })
         
         for (index, step) in steps.enumerated() {
-            step.order = index
+            if step.order != index {
+                step.order = index
+                step.markAsModified()
+            }
         }
         
         routine.steps = steps
+        routine.markAsModified() // Routine changed (reordered steps)
         try modelContext.save()
     }
     

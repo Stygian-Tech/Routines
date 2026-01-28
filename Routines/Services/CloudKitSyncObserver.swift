@@ -30,6 +30,11 @@ class CloudKitSyncObserver: ObservableObject {
     @Published var isSyncing: Bool = false
     @Published var lastSyncDate: Date?
     @Published var lastSyncError: Error?
+    @Published var remoteChangesNewerThanLocal: Set<UUID> = []
+    
+    // Source of truth services
+    private let sourceOfTruthService: CloudKitSourceOfTruth
+    private let conflictResolver: CloudKitConflictResolver
     
     // Periodic sync management
     private var syncTimer: Timer?
@@ -43,6 +48,8 @@ class CloudKitSyncObserver: ObservableObject {
     
     init(container: ModelContainer) {
         self.container = container
+        self.sourceOfTruthService = CloudKitSourceOfTruth()
+        self.conflictResolver = CloudKitConflictResolver()
         setupRemoteChangeObserver()
         startPeriodicSync()
         setupAppLifecycleObservers()
@@ -233,9 +240,20 @@ class CloudKitSyncObserver: ObservableObject {
             let stepDescriptor = FetchDescriptor<Step>()
             let steps = try context.fetch(stepDescriptor)
             
+            // Ensure timestamps are initialized for existing data (backward compatibility)
+            for routine in routines {
+                routine.ensureTimestampInitialized()
+            }
+            for step in steps {
+                step.ensureTimestampInitialized()
+            }
+            
             // Process pending changes again after fetching to incorporate any new remote changes
             // This applies any remote changes that were fetched from CloudKit
             context.processPendingChanges()
+            
+            // Check source of truth for all routines and steps
+            await checkSourceOfTruth(routines: routines, steps: steps, context: context)
             
             // Note: @Query views will automatically update when the persistent store changes
             // SwiftData handles this automatically when CloudKit syncs changes
@@ -282,6 +300,109 @@ class CloudKitSyncObserver: ObservableObject {
             } else {
                 retryCount = 0 // Reset for next sync attempt
             }
+        }
+    }
+    
+    /// Checks source of truth for routines and steps, tracking which have remote changes newer than local
+    /// - Parameters:
+    ///   - routines: Array of Routines to check
+    ///   - steps: Array of Steps to check
+    ///   - context: The ModelContext for saving changes
+    private func checkSourceOfTruth(routines: [Routine], steps: [Step], context: ModelContext) async {
+        var remoteNewerIDs = Set<UUID>()
+        var conflictsToResolve: [Routine] = []
+        var stepConflictsToResolve: [Step] = []
+        
+        // Batch check source of truth for routines
+        let routineSourceOfTruth = await sourceOfTruthService.batchDetermineSourceOfTruth(for: routines)
+        
+        for (routineID, sourceOfTruth) in routineSourceOfTruth {
+            switch sourceOfTruth {
+            case .remote:
+                remoteNewerIDs.insert(routineID)
+                if let routine = routines.first(where: { $0.id == routineID }) {
+                    conflictsToResolve.append(routine)
+                }
+                #if os(iOS)
+                print("CloudKitSyncObserver: Routine \(routineID) has remote changes newer than local")
+                #elseif os(watchOS)
+                print("CloudKitSyncObserver: Routine \(routineID) has remote changes newer than local (WatchOS)")
+                #endif
+            case .conflict:
+                if let routine = routines.first(where: { $0.id == routineID }) {
+                    conflictsToResolve.append(routine)
+                }
+                #if os(iOS)
+                print("CloudKitSyncObserver: Routine \(routineID) has conflict (both local and remote modified)")
+                #elseif os(watchOS)
+                print("CloudKitSyncObserver: Routine \(routineID) has conflict (both local and remote modified) (WatchOS)")
+                #endif
+            case .local, .unknown:
+                // Local is source of truth or unknown - no action needed
+                break
+            }
+        }
+        
+        // Batch check source of truth for steps
+        let stepSourceOfTruth = await sourceOfTruthService.batchDetermineSourceOfTruth(for: steps)
+        
+        for (stepID, sourceOfTruth) in stepSourceOfTruth {
+            switch sourceOfTruth {
+            case .remote:
+                remoteNewerIDs.insert(stepID)
+                if let step = steps.first(where: { $0.id == stepID }) {
+                    stepConflictsToResolve.append(step)
+                }
+                #if os(iOS)
+                print("CloudKitSyncObserver: Step \(stepID) has remote changes newer than local")
+                #elseif os(watchOS)
+                print("CloudKitSyncObserver: Step \(stepID) has remote changes newer than local (WatchOS)")
+                #endif
+            case .conflict:
+                if let step = steps.first(where: { $0.id == stepID }) {
+                    stepConflictsToResolve.append(step)
+                }
+                #if os(iOS)
+                print("CloudKitSyncObserver: Step \(stepID) has conflict (both local and remote modified)")
+                #elseif os(watchOS)
+                print("CloudKitSyncObserver: Step \(stepID) has conflict (both local and remote modified) (WatchOS)")
+                #endif
+            case .local, .unknown:
+                // Local is source of truth or unknown - no action needed
+                break
+            }
+        }
+        
+        // Update published property
+        remoteChangesNewerThanLocal = remoteNewerIDs
+        
+        // Resolve conflicts if any
+        if !conflictsToResolve.isEmpty {
+            #if os(iOS)
+            print("CloudKitSyncObserver: Resolving \(conflictsToResolve.count) routine conflicts")
+            #elseif os(watchOS)
+            print("CloudKitSyncObserver: Resolving \(conflictsToResolve.count) routine conflicts (WatchOS)")
+            #endif
+            let resolvedCount = await conflictResolver.resolveConflicts(for: conflictsToResolve, modelContext: context)
+            #if os(iOS)
+            print("CloudKitSyncObserver: Resolved \(resolvedCount) routine conflicts")
+            #elseif os(watchOS)
+            print("CloudKitSyncObserver: Resolved \(resolvedCount) routine conflicts (WatchOS)")
+            #endif
+        }
+        
+        if !stepConflictsToResolve.isEmpty {
+            #if os(iOS)
+            print("CloudKitSyncObserver: Resolving \(stepConflictsToResolve.count) step conflicts")
+            #elseif os(watchOS)
+            print("CloudKitSyncObserver: Resolving \(stepConflictsToResolve.count) step conflicts (WatchOS)")
+            #endif
+            let resolvedCount = await conflictResolver.resolveConflicts(for: stepConflictsToResolve, modelContext: context)
+            #if os(iOS)
+            print("CloudKitSyncObserver: Resolved \(resolvedCount) step conflicts")
+            #elseif os(watchOS)
+            print("CloudKitSyncObserver: Resolved \(resolvedCount) step conflicts (WatchOS)")
+            #endif
         }
     }
 }
