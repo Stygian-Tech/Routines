@@ -27,7 +27,14 @@ struct StepListView: View {
                         editingStepIndex: $editingStepIndex,
                         showHiddenSteps: $showHiddenSteps
                     )
-                    .listRowBackground(.liquidGlass)
+                    .listRowBackground {
+                        if #available(iOS 18.0, *) {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(.liquidGlass)
+                        } else {
+                            Color.clear
+                        }
+                    }
                 }
             }
             .onMove(perform: moveItem)

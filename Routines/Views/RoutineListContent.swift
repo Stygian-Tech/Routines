@@ -35,7 +35,14 @@ struct RoutineListContent: View {
                 NavigationLink(value: routine.id) {
                     RoutineCardView(routine: routine)
                 }
-                .listRowBackground(.liquidGlass)
+                .listRowBackground {
+                    if #available(iOS 18.0, *) {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.liquidGlass)
+                    } else {
+                        Color.clear
+                    }
+                }
                 .accessibilityLabel(Text(routine.name))
                 .accessibilityHint(Text("Opens routine"))
                 .contextMenu {
