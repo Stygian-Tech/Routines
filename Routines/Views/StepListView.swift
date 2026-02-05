@@ -27,6 +27,7 @@ struct StepListView: View {
                         editingStepIndex: $editingStepIndex,
                         showHiddenSteps: $showHiddenSteps
                     )
+                    .listRowBackground(.liquidGlass)
                 }
             }
             .onMove(perform: moveItem)

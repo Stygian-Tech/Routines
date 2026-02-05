@@ -35,6 +35,7 @@ struct RoutineListContent: View {
                 NavigationLink(value: routine.id) {
                     RoutineCardView(routine: routine)
                 }
+                .listRowBackground(.liquidGlass)
                 .accessibilityLabel(Text(routine.name))
                 .accessibilityHint(Text("Opens routine"))
                 .contextMenu {
