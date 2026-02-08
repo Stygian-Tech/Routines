@@ -159,7 +159,9 @@ final class RoutineManager: @unchecked Sendable {
         time: Date,
         iconColor: String,
         iconSymbol: String,
-        days: [Weekday]? = nil
+        days: [Weekday]? = nil,
+        repeatInterval: RoutineRepeatInterval = .weekly,
+        repeatAnchorDate: Date = Date()
     ) async throws -> Routine {
         let routineDays = days ?? DateUtility.allWeekdays()
         let routine = Routine(
@@ -167,6 +169,8 @@ final class RoutineManager: @unchecked Sendable {
             time: time,
             iconColor: iconColor,
             iconSymbol: iconSymbol,
+            repeatInterval: repeatInterval,
+            repeatAnchorDate: repeatAnchorDate,
             days: routineDays
         )
         modelContext.insert(routine)
@@ -182,7 +186,9 @@ final class RoutineManager: @unchecked Sendable {
         time: Date? = nil,
         iconColor: String? = nil,
         iconSymbol: String? = nil,
-        days: [Weekday]? = nil
+        days: [Weekday]? = nil,
+        repeatInterval: RoutineRepeatInterval? = nil,
+        repeatAnchorDate: Date? = nil
     ) async throws {
         var hasChanges = false
         if let name = name, routine.name != name {
@@ -203,6 +209,14 @@ final class RoutineManager: @unchecked Sendable {
         }
         if let days = days, Set(routine.days) != Set(days) {
             routine.days = days
+            hasChanges = true
+        }
+        if let repeatInterval = repeatInterval, routine.repeatInterval != repeatInterval {
+            routine.repeatInterval = repeatInterval
+            hasChanges = true
+        }
+        if let repeatAnchorDate = repeatAnchorDate, routine.repeatAnchorDate != repeatAnchorDate {
+            routine.repeatAnchorDate = repeatAnchorDate
             hasChanges = true
         }
         
@@ -278,4 +292,3 @@ final class RoutineManager: @unchecked Sendable {
         try modelContext.save()
     }
 }
-

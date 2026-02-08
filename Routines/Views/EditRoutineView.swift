@@ -80,6 +80,13 @@ struct EditRoutineView: View {
                 DatePicker("Time", selection: $tempRoutine.time, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.compact)
                     .accessibilityLabel(Text("Routine time"))
+                Picker("Repeat", selection: $tempRoutine.repeatInterval) {
+                    ForEach(RoutineRepeatInterval.allCases) { interval in
+                        Text(interval.displayName).tag(interval)
+                    }
+                }
+                .pickerStyle(.menu)
+                .accessibilityHint(Text("Sets how often this routine repeats"))
                 EditDaysView(
                     days: Binding(
                         get: { tempRoutine.days },

@@ -185,7 +185,9 @@ struct RoutineDetailView: View {
                     time: tempRoutine.time,
                     iconColor: tempRoutine.iconColor,
                     iconSymbol: tempRoutine.iconSymbol,
-                    days: routine.days
+                    days: routine.days,
+                    repeatInterval: tempRoutine.repeatInterval,
+                    repeatAnchorDate: tempRoutine.repeatAnchorDate
                 )
                 modelContext.delete(tempRoutine)
                 editRoutineViewIsPresented = false
@@ -273,4 +275,3 @@ struct RoutineDetailView: View {
         }
     }
 }
-

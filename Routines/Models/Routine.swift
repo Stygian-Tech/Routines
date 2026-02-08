@@ -21,6 +21,8 @@ class Routine: Identifiable {
     var iconSymbol: String = "list.bullet"
     var status = RoutineCompletionStatus.incomplete
     var finishedStepCount = 0
+    var repeatIntervalRawValue: String = RoutineRepeatInterval.weekly.rawValue
+    var repeatAnchorDate: Date = Date()
     
     var days: [Weekday] {
         get {
@@ -69,40 +71,88 @@ class Routine: Identifiable {
     @Attribute var daysData: Data? = nil
     @Attribute var lastModifiedDate: Date?
     
-    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet") {
+    init(
+        name: String = "New Routine",
+        time: Date = Date(),
+        iconColor: String = SystemColors.blue.rawValue,
+        iconSymbol: String = "list.bullet",
+        repeatInterval: RoutineRepeatInterval = .weekly,
+        repeatAnchorDate: Date = Date()
+    ) {
         self.name = name
         self.time = time
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
+        self.repeatInterval = repeatInterval
+        self.repeatAnchorDate = repeatAnchorDate
         self.lastModifiedDate = Date()
     }
 
-    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", steps: [Step] = [Step]()) {
+    init(
+        name: String = "New Routine",
+        time: Date = Date(),
+        iconColor: String = SystemColors.blue.rawValue,
+        iconSymbol: String = "list.bullet",
+        repeatInterval: RoutineRepeatInterval = .weekly,
+        repeatAnchorDate: Date = Date(),
+        steps: [Step] = [Step]()
+    ) {
         self.name = name
         self.time = time
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
+        self.repeatInterval = repeatInterval
+        self.repeatAnchorDate = repeatAnchorDate
         self.steps = steps
         self.lastModifiedDate = Date()
     }
     
-    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", days: [Weekday]) {
+    init(
+        name: String = "New Routine",
+        time: Date = Date(),
+        iconColor: String = SystemColors.blue.rawValue,
+        iconSymbol: String = "list.bullet",
+        repeatInterval: RoutineRepeatInterval = .weekly,
+        repeatAnchorDate: Date = Date(),
+        days: [Weekday]
+    ) {
         self.name = name
         self.time = time
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
+        self.repeatInterval = repeatInterval
+        self.repeatAnchorDate = repeatAnchorDate
         self.days = days
         self.lastModifiedDate = Date()
     }
     
     // Convenience initializer for backward compatibility with string arrays (for migration)
-    init(name: String = "New Routine", time: Date = Date(), iconColor: String = SystemColors.blue.rawValue, iconSymbol: String = "list.bullet", daysStrings: [String]) {
+    init(
+        name: String = "New Routine",
+        time: Date = Date(),
+        iconColor: String = SystemColors.blue.rawValue,
+        iconSymbol: String = "list.bullet",
+        repeatInterval: RoutineRepeatInterval = .weekly,
+        repeatAnchorDate: Date = Date(),
+        daysStrings: [String]
+    ) {
         self.name = name
         self.time = time
         self.iconColor = iconColor
         self.iconSymbol = iconSymbol
+        self.repeatInterval = repeatInterval
+        self.repeatAnchorDate = repeatAnchorDate
         self.days = DateUtility.weekdaysFromStrings(daysStrings)
         self.lastModifiedDate = Date()
+    }
+
+    var repeatInterval: RoutineRepeatInterval {
+        get {
+            RoutineRepeatInterval(rawValue: repeatIntervalRawValue) ?? .weekly
+        }
+        set {
+            repeatIntervalRawValue = newValue.rawValue
+        }
     }
     
     
@@ -181,7 +231,15 @@ class Routine: Identifiable {
     /// ```
     /// - Returns: A new `Routine` object with the same values as `self`
     func copy() -> Routine {
-        let copy = Routine(name: self.name, time: self.time, iconColor: self.iconColor, iconSymbol: self.iconSymbol, days: self.days)
+        let copy = Routine(
+            name: self.name,
+            time: self.time,
+            iconColor: self.iconColor,
+            iconSymbol: self.iconSymbol,
+            repeatInterval: self.repeatInterval,
+            repeatAnchorDate: self.repeatAnchorDate,
+            days: self.days
+        )
         return copy
     }
     
@@ -246,8 +304,38 @@ class Routine: Identifiable {
     }
     
     func isToday() -> Bool {
-        let today = DateUtility.todayWeekday()
-        return days.contains(today)
+        isScheduled(on: Date())
+    }
+
+    func isScheduled(on date: Date) -> Bool {
+        let weekday = DateUtility.weekday(for: date)
+        guard days.contains(weekday) else { return false }
+        return isRepeatIntervalActive(on: date)
+    }
+
+    func isRepeatIntervalActive(on date: Date) -> Bool {
+        let calendar = DateUtility.currentCalendar
+        let anchorDate = repeatAnchorDate
+
+        if let weekInterval = repeatInterval.weekInterval {
+            let anchorStartOfWeek = calendar.dateInterval(of: .weekOfYear, for: anchorDate)?.start
+                ?? calendar.startOfDay(for: anchorDate)
+            let currentStartOfWeek = calendar.dateInterval(of: .weekOfYear, for: date)?.start
+                ?? calendar.startOfDay(for: date)
+            let weeksDifference = calendar.dateComponents([.weekOfYear], from: anchorStartOfWeek, to: currentStartOfWeek).weekOfYear ?? 0
+            return weeksDifference % weekInterval == 0
+        }
+
+        if let monthInterval = repeatInterval.monthInterval {
+            let anchorMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: anchorDate))
+                ?? calendar.startOfDay(for: anchorDate)
+            let currentMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: date))
+                ?? calendar.startOfDay(for: date)
+            let monthsDifference = calendar.dateComponents([.month], from: anchorMonth, to: currentMonth).month ?? 0
+            return monthsDifference % monthInterval == 0
+        }
+
+        return true
     }
     
     func skipRemainingSteps() {

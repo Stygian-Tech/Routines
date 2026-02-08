@@ -85,8 +85,16 @@ class Step: Identifiable {
     }
     
     func isToday() -> Bool {
-        let today = DateUtility.todayWeekday()
-        return days.contains(today)
+        let date = Date()
+        let weekday = DateUtility.weekday(for: date)
+        guard days.contains(weekday) else { return false }
+
+        if let routine = routine {
+            guard routine.days.contains(weekday) else { return false }
+            return routine.isRepeatIntervalActive(on: date)
+        }
+
+        return true
     }
     
     /// Marks the step as modified by updating the lastModifiedDate timestamp

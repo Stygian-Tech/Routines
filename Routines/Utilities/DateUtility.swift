@@ -121,8 +121,13 @@ struct DateUtility {
     
     /// Get today's weekday
     static func todayWeekday() -> Weekday {
+        weekday(for: Date())
+    }
+
+    /// Get the weekday for a specific date
+    static func weekday(for date: Date) -> Weekday {
         let calendar = currentCalendar
-        let weekdayComponent = calendar.component(.weekday, from: Date())
+        let weekdayComponent = calendar.component(.weekday, from: date)
         return Weekday(rawValue: weekdayComponent)
     }
     
@@ -232,4 +237,3 @@ extension DateUtility {
         return weekdays.sorted()
     }
 }
-
