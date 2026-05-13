@@ -30,3 +30,7 @@ Prefer Xcode for day-to-day work. CLI examples:
 
 ## Configuration Notes
 - `buildServer.json` is present for tooling integration (e.g., SourceKit-LSP). Keep it updated if build settings change.
+
+## .agents Directory
+
+For tools that support the [.agents Protocol](https://dotagentsprotocol.com/), see the [.agents/](.agents/) directory for modular instructions, architecture memories, and skills.
