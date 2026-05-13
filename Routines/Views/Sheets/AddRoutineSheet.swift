@@ -24,6 +24,8 @@ struct AddRoutineSheet: View {
                     routine.time = tempRoutine.time
                     routine.iconSymbol = tempRoutine.iconSymbol
                     routine.iconColor = tempRoutine.iconColor
+                    routine.repeatInterval = tempRoutine.repeatInterval
+                    routine.repeatAnchorDate = tempRoutine.repeatAnchorDate
                     routine.days = tempRoutine.days
                 }
                 isPresented = false
@@ -32,5 +34,4 @@ struct AddRoutineSheet: View {
         }
     }
 }
-
 

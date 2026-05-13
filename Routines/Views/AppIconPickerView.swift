@@ -46,11 +46,12 @@ struct AppIconPickerView: View {
 
     private func select(_ option: AppIconOption) {
         manager.setIcon(to: option) { _ in
-            if manager.lastError != nil {
-                showErrorAlert = true
+            Task { @MainActor in
+                if manager.lastError != nil {
+                    showErrorAlert = true
+                }
             }
         }
     }
 }
-
 

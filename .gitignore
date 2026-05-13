@@ -2,6 +2,9 @@
 *.xcuserstate
 GoogleService-Info.plist
 
+# Cursor IDE (local)
+.cursor/
+
 # Build artifacts
 build/
 Build/

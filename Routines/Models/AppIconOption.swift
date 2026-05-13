@@ -106,7 +106,7 @@ final class AppIconManager: ObservableObject {
         return AppIconOption(displayName: fallbackName, alternateIconName: alternateIconName, previewColor: .gray, previewImageName: imageName(for: fallbackName))
     }
 
-    func setIcon(to option: AppIconOption, completion: ((Error?) -> Void)? = nil) {
+    func setIcon(to option: AppIconOption, completion: (@Sendable (Error?) -> Void)? = nil) {
         guard #available(iOS 10.3, *) else {
             lastError = "Changing app icons requires iOS 10.3+."
             completion?(NSError(domain: "AppIcon", code: 1, userInfo: [NSLocalizedDescriptionKey: lastError ?? "Unknown error"]))
@@ -131,5 +131,4 @@ final class AppIconManager: ObservableObject {
         }
     }
 }
-
 

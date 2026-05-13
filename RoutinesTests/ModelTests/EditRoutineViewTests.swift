@@ -12,12 +12,10 @@ import SwiftData
 
 @MainActor
 struct EditRoutineViewTests {
-    
+
     /// Tests that steps are displayed in correct order in edit mode
     @Test func stepsDisplayInCorrectOrder() async throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        let context = container.mainContext
+        let context = try UnitTestModelContainer.makeFreshContext()
         
         let routine = Routine(name: "Test Routine")
         context.insert(routine)
@@ -39,9 +37,7 @@ struct EditRoutineViewTests {
     
     /// Tests that step reordering updates order correctly
     @Test func stepReorderingUpdatesOrder() async throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        let context = container.mainContext
+        let context = try UnitTestModelContainer.makeFreshContext()
         
         let routine = Routine(name: "Test Routine")
         context.insert(routine)
@@ -69,9 +65,7 @@ struct EditRoutineViewTests {
     
     /// Tests that step deletion removes step and reorders remaining steps
     @Test func stepDeletionRemovesAndReorders() async throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        let context = container.mainContext
+        let context = try UnitTestModelContainer.makeFreshContext()
         
         let routine = Routine(name: "Test Routine")
         context.insert(routine)
@@ -101,9 +95,7 @@ struct EditRoutineViewTests {
     
     /// Tests that step deletion synchronizes routine days
     @Test func stepDeletionSynchronizesRoutineDays() async throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        let context = container.mainContext
+        let context = try UnitTestModelContainer.makeFreshContext()
         
         let monday = Weekday(rawValue: 2)
         let tuesday = Weekday(rawValue: 3)
@@ -136,9 +128,7 @@ struct EditRoutineViewTests {
     
     /// Tests that inline step name editing updates step name
     @Test func inlineStepNameEditingUpdatesName() async throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        let context = container.mainContext
+        let context = try UnitTestModelContainer.makeFreshContext()
         
         let routine = Routine(name: "Test Routine")
         context.insert(routine)
@@ -157,9 +147,7 @@ struct EditRoutineViewTests {
     
     /// Tests that all steps are shown in edit mode (not filtered by isToday)
     @Test func allStepsShownInEditMode() async throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        let context = container.mainContext
+        let context = try UnitTestModelContainer.makeFreshContext()
         
         let monday = Weekday(rawValue: 2)
         let friday = Weekday(rawValue: 6)

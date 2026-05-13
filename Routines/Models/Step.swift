@@ -84,9 +84,15 @@ class Step: Identifiable {
         self.lastModifiedDate = Date()
     }
     
+    /// Whether this step counts as active on the given date (routine schedule, weekday, and step days).
+    func isActive(on date: Date) -> Bool {
+        let weekday = DateUtility.weekday(for: date)
+        guard days.contains(weekday) else { return false }
+        return routine?.isScheduled(on: date) ?? true
+    }
+
     func isToday() -> Bool {
-        let today = DateUtility.todayWeekday()
-        return days.contains(today)
+        isActive(on: Date())
     }
     
     /// Marks the step as modified by updating the lastModifiedDate timestamp

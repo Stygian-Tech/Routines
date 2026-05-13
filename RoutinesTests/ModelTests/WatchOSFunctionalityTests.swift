@@ -67,17 +67,16 @@ struct WatchOSFunctionalityTests {
     /// Tests that steps can be added to a routine with correct ordering
     @Test func addingStepsToRoutine() async throws {
         let routine = Routine(name: "Test Routine")
-        routine.steps = []
         
         // Add first step
         let step1 = Step(name: "First Step", routine: routine, order: 0)
-        routine.steps?.append(step1)
+        routine.steps = [step1]
         #expect((routine.steps ?? []).count == 1)
         #expect(routine.steps?[0].order == 0)
         
         // Add second step
         let step2 = Step(name: "Second Step", routine: routine, order: 1)
-        routine.steps?.append(step2)
+        routine.steps = [step1, step2]
         #expect((routine.steps ?? []).count == 2)
         #expect(routine.steps?[1].order == 1)
         

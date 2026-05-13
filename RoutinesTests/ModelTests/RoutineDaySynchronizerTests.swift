@@ -16,9 +16,7 @@ final class RoutineDaySynchronizerTests: XCTestCase {
     var synchronizer: RoutineDaySynchronizer!
     
     override func setUpWithError() throws {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Routine.self, Step.self, configurations: config)
-        modelContext = container.mainContext
+        modelContext = try UnitTestModelContainer.makeFreshContext()
         synchronizer = RoutineDaySynchronizer(modelContext: modelContext)
     }
     
@@ -32,14 +30,13 @@ final class RoutineDaySynchronizerTests: XCTestCase {
     private func createRoutine(days: [Weekday] = DateUtility.allWeekdays()) -> Routine {
         let routine = Routine(name: "Test Routine", days: days)
         modelContext.insert(routine)
-        routine.steps = []
         return routine
     }
     
     private func createStep(in routine: Routine, days: [Weekday]) -> Step {
         let step = Step(name: "Test Step", routine: routine, order: routine.steps?.count ?? 0, days: days)
         modelContext.insert(step)
-        routine.steps?.append(step)
+        routine.steps = (routine.steps ?? []) + [step]
         return step
     }
     
@@ -405,8 +402,8 @@ final class RoutineDaySynchronizerTests: XCTestCase {
         // Directly set step days that aren't in routine (simulating a data inconsistency)
         let step = Step(name: "Test", routine: routine, order: 0, days: [monday, wednesday, friday])
         modelContext.insert(step)
-        routine.steps?.append(step)
-        
+        routine.steps = (routine.steps ?? []) + [step]
+
         synchronizer.synchronizeRoutineDays(routine)
         
         XCTAssertTrue(routine.days.contains(monday))

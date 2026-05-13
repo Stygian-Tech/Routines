@@ -4,6 +4,68 @@
 <dict>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>AppIcon-Amber</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Amber</string>
+				</array>
+			</dict>
+			<key>AppIcon-Deep</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Deep</string>
+				</array>
+			</dict>
+			<key>AppIcon-Forest</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Forest</string>
+				</array>
+			</dict>
+			<key>AppIcon-Goldenrod</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Goldenrod</string>
+				</array>
+			</dict>
+			<key>AppIcon-Jum</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Jum</string>
+				</array>
+			</dict>
+			<key>AppIcon-Red</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Red</string>
+				</array>
+			</dict>
+			<key>AppIcon-Teal</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppIcon-Teal</string>
+				</array>
+			</dict>
+		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon</string>
+			</array>
+		</dict>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

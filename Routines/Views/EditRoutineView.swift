@@ -80,6 +80,33 @@ struct EditRoutineView: View {
                 DatePicker("Time", selection: $tempRoutine.time, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.compact)
                     .accessibilityLabel(Text("Routine time"))
+                Picker("Repeat", selection: $tempRoutine.repeatInterval) {
+                    ForEach(RoutineRepeatInterval.allCases) { interval in
+                        Text(interval.displayName).tag(interval)
+                    }
+                }
+                .pickerStyle(.menu)
+                .accessibilityHint(Text("Sets how often this routine repeats"))
+                .onChange(of: tempRoutine.repeatIntervalRawValue) { oldRaw, newRaw in
+                    let oldInterval = RoutineRepeatInterval(rawValue: oldRaw) ?? .weekly
+                    let newInterval = RoutineRepeatInterval(rawValue: newRaw) ?? .weekly
+                    if newInterval.usesLongCycleStartDate && !oldInterval.usesLongCycleStartDate {
+                        tempRoutine.repeatAnchorDate = DateUtility.currentCalendar.startOfDay(for: Date())
+                    }
+                }
+                if tempRoutine.repeatInterval.usesLongCycleStartDate {
+                    DatePicker(
+                        "Start date",
+                        selection: $tempRoutine.repeatAnchorDate,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(.compact)
+                    .accessibilityLabel(Text("Routine start date"))
+                    .accessibilityHint(Text("This routine stays hidden until this calendar day"))
+                    .onChange(of: tempRoutine.repeatAnchorDate) { _, newDate in
+                        tempRoutine.repeatAnchorDate = DateUtility.currentCalendar.startOfDay(for: newDate)
+                    }
+                }
                 EditDaysView(
                     days: Binding(
                         get: { tempRoutine.days },
