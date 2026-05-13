@@ -15,7 +15,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     var notificationManager: CloudKitNotificationManager?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        // Register for remote notifications
+        guard !UnitTestRuntime.isActive else { return true }
         application.registerForRemoteNotifications()
         return true
     }

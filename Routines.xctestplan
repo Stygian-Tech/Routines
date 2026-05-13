@@ -31,7 +31,7 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:Routines.xcodeproj",
         "identifier" : "224CA0462C321EEF0096F094",
@@ -39,7 +39,7 @@
       }
     },
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:Routines.xcodeproj",
         "identifier" : "224CA0502C321EEF0096F094",

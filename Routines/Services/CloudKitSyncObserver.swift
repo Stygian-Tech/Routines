@@ -46,13 +46,16 @@ class CloudKitSyncObserver: ObservableObject {
     private let maxRetries: Int = 3
     private let baseRetryDelay: TimeInterval = 1.0
     
-    init(container: ModelContainer) {
+    /// - Parameter activatesCloudKitHooks: When `false` (unit test host), skips remote observers, timers, and lifecycle sync to avoid crashes.
+    init(container: ModelContainer, activatesCloudKitHooks: Bool = true) {
         self.container = container
         self.sourceOfTruthService = CloudKitSourceOfTruth()
         self.conflictResolver = CloudKitConflictResolver()
-        setupRemoteChangeObserver()
-        startPeriodicSync()
-        setupAppLifecycleObservers()
+        if activatesCloudKitHooks {
+            setupRemoteChangeObserver()
+            startPeriodicSync()
+            setupAppLifecycleObservers()
+        }
     }
     
     nonisolated deinit {

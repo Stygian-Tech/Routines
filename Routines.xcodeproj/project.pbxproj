@@ -111,6 +111,7 @@
 				Models/Routine.swift,
 				Models/RoutineCompletionIcon.swift,
 				Models/RoutineCompletionStatus.swift,
+				Models/RoutineRepeatInterval.swift,
 				Models/Step.swift,
 				Models/StepCompletionStatus.swift,
 				Models/Symbol.swift,

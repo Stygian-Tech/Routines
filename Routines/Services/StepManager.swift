@@ -51,12 +51,7 @@ final class StepManager: @unchecked Sendable {
         )
         
         modelContext.insert(newStep)
-        
-        // Ensure steps array is initialized
-        if routine.steps == nil {
-            routine.steps = []
-        }
-        routine.steps?.append(newStep)
+        replaceSteps(on: routine, with: (routine.steps ?? []) + [newStep])
         routine.markAsModified() // Routine changed (added step)
         
         try modelContext.save()
@@ -127,7 +122,9 @@ final class StepManager: @unchecked Sendable {
             }
             modelContext.delete(step)
         }
-        
+
+        currentSteps.sort { $0.order < $1.order }
+
         // Reorder remaining steps
         for (index, step) in currentSteps.enumerated() {
             if step.order != index {
@@ -136,7 +133,7 @@ final class StepManager: @unchecked Sendable {
             }
         }
         
-        routine.steps = currentSteps
+        replaceSteps(on: routine, with: currentSteps)
         routine.markAsModified() // Routine changed (removed steps)
         try modelContext.save()
         triggerSyncIfNeeded()
@@ -162,7 +159,7 @@ final class StepManager: @unchecked Sendable {
             }
         }
         
-        routine.steps = tempSteps
+        replaceSteps(on: routine, with: tempSteps)
         routine.markAsModified() // Routine changed (reordered steps)
         try modelContext.save()
     }
@@ -179,9 +176,14 @@ final class StepManager: @unchecked Sendable {
             }
         }
         
-        routine.steps = steps
+        replaceSteps(on: routine, with: steps)
         routine.markAsModified() // Routine changed (reordered steps)
         try modelContext.save()
+    }
+    
+    /// SwiftData can trap when assigning an empty array to an optional to-many relationship; use `nil` instead.
+    private func replaceSteps(on routine: Routine, with steps: [Step]) {
+        routine.steps = steps.isEmpty ? nil : steps
     }
     
     // MARK: - Utility Operations

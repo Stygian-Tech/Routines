@@ -308,6 +308,12 @@ class Routine: Identifiable {
     }
 
     func isScheduled(on date: Date) -> Bool {
+        let calendar = DateUtility.currentCalendar
+        if repeatInterval.usesLongCycleStartDate {
+            let dayStart = calendar.startOfDay(for: date)
+            let anchorStart = calendar.startOfDay(for: repeatAnchorDate)
+            guard dayStart >= anchorStart else { return false }
+        }
         let weekday = DateUtility.weekday(for: date)
         guard days.contains(weekday) else { return false }
         return isRepeatIntervalActive(on: date)

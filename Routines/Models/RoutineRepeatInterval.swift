@@ -22,11 +22,11 @@ enum RoutineRepeatInterval: String, CaseIterable, Codable, Identifiable {
         case .weekly:
             return "Weekly"
         case .fortnightly:
-            return "Fortnightly"
+            return "Every Other Week"
         case .monthly:
             return "Monthly"
         case .biMonthly:
-            return "Bi-Monthly (Every two months)"
+            return "Every Other Month"
         case .quarterly:
             return "Quarterly"
         case .yearly:
@@ -57,6 +57,16 @@ enum RoutineRepeatInterval: String, CaseIterable, Codable, Identifiable {
             return 12
         default:
             return nil
+        }
+    }
+
+    /// Cadences longer than one week use `repeatAnchorDate` (start of day) as the first day the routine may appear.
+    var usesLongCycleStartDate: Bool {
+        switch self {
+        case .weekly:
+            return false
+        case .fortnightly, .monthly, .biMonthly, .quarterly, .yearly:
+            return true
         }
     }
 }

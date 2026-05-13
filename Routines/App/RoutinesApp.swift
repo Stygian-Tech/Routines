@@ -24,46 +24,44 @@ struct RoutinesApp: App {
     
     init() {
         do {
-            // Configure schema with Routine and Step models
             let schema = Schema([Routine.self, Step.self])
-            
-            // Configure ModelConfiguration with CloudKit for sync
-            // Using .automatic will use the iCloud container configured in Xcode
+            let runsUnitTests = UnitTestRuntime.isActive
+
             let configuration = ModelConfiguration(
                 schema: schema,
-                isStoredInMemoryOnly: false,
-                cloudKitDatabase: .automatic
+                isStoredInMemoryOnly: runsUnitTests,
+                cloudKitDatabase: runsUnitTests ? .none : .automatic
             )
-            
+
             container = try ModelContainer(for: schema, configurations: [configuration])
-            
-            // Set up CloudKit sync observer for real-time updates
-            cloudKitSyncObserver = CloudKitSyncObserver(container: container)
-            
-            // Set up CloudKit notification manager for handling push notifications
-            cloudKitNotificationManager = CloudKitNotificationManager(syncObserver: cloudKitSyncObserver)
-            
-            // Set up CloudKit subscription manager for push notifications
-            cloudKitSubscriptionManager = CloudKitSubscriptionManager()
-            
-            // Log CloudKit configuration for debugging
-            print("iOS: ModelContainer initialized with CloudKit")
-            print("iOS: Bundle ID: \(Bundle.main.bundleIdentifier ?? "unknown")")
-            
-            // Set up CloudKit subscription for push notifications
-            let subscriptionManager = cloudKitSubscriptionManager
-            Task { @MainActor in
-                await subscriptionManager.setupSubscription()
+            if runsUnitTests {
+                UnitTestModelContainer.shared = container
             }
-            
-            // Check initial data count and perform migration if needed
+
+            cloudKitSyncObserver = CloudKitSyncObserver(
+                container: container,
+                activatesCloudKitHooks: !runsUnitTests
+            )
+            cloudKitNotificationManager = CloudKitNotificationManager(syncObserver: cloudKitSyncObserver)
+            cloudKitSubscriptionManager = CloudKitSubscriptionManager()
+
+            if runsUnitTests {
+                print("iOS: ModelContainer initialized for unit tests (in-memory, no CloudKit hooks)")
+            } else {
+                print("iOS: ModelContainer initialized with CloudKit")
+                print("iOS: Bundle ID: \(Bundle.main.bundleIdentifier ?? "unknown")")
+                let subscriptionManager = cloudKitSubscriptionManager
+                Task { @MainActor in
+                    await subscriptionManager.setupSubscription()
+                }
+            }
+
             Task { [container] in
                 let context = ModelContext(container)
                 do {
                     let routines: [Routine] = try context.fetch(FetchDescriptor<Routine>())
                     print("iOS: Routine count: \(routines.count)")
-                    
-                    // Perform lazy migration on app launch
+
                     for routine in routines {
                         routine.migrateDaysIfNeeded()
                         for step in routine.steps ?? [] {
@@ -71,8 +69,8 @@ struct RoutinesApp: App {
                         }
                     }
                     try context.save()
-                    
-                    if routines.isEmpty {
+
+                    if routines.isEmpty, !runsUnitTests {
                         print("iOS: WARNING - No routines found. Make sure data was migrated to CloudKit.")
                     }
                 } catch {
@@ -82,11 +80,13 @@ struct RoutinesApp: App {
         } catch {
             fatalError("Failed to load model container: \(error.localizedDescription)")
         }
-        
+
         if isUITestSeedEnabled {
             seedDataForUITests()
         }
-        configureTips()
+        if !UnitTestRuntime.isActive {
+            configureTips()
+        }
     }
     
     var body: some Scene {
@@ -94,12 +94,12 @@ struct RoutinesApp: App {
             AppLifecycleSyncView(syncObserver: cloudKitSyncObserver) {
                 RoutineListView()
                     .onAppear {
-                        // Set up the notification manager reference in app delegate
                         appDelegate.notificationManager = cloudKitNotificationManager
-                        promptForNotifications()
-                        // Migrate local data to CloudKit if needed
-                        Task { [container] in
-                            await Self.migrateLocalDataToCloudKit(container: container)
+                        if !UnitTestRuntime.isActive {
+                            promptForNotifications()
+                            Task { [container] in
+                                await Self.migrateLocalDataToCloudKit(container: container)
+                            }
                         }
                     }
                     .onReceive(NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)) { _ in
@@ -244,11 +244,8 @@ struct RoutinesApp: App {
                         days: localStep.days
                     )
                     newStep.status = localStep.status
-                    if newRoutine.steps == nil {
-                        newRoutine.steps = []
-                    }
-                    newRoutine.steps?.append(newStep)
                     cloudKitContext.insert(newStep)
+                    newRoutine.steps = (newRoutine.steps ?? []) + [newStep]
                 }
                 
                 cloudKitContext.insert(newRoutine)
